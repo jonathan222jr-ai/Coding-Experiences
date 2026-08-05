@@ -1,0 +1,324 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+  :root{
+    --clay:#B5592F;
+    --clay-dark:#8A3E1F;
+    --papyrus:#EAE0C6;
+    --papyrus-dim:#DED0AC;
+    --ink:#241A12;
+    --black-glaze:#171210;
+    --gold:#C9A227;
+    --line: rgba(36,26,18,0.22);
+  }
+
+  #greek-roller *{ box-sizing:border-box; }
+
+  #greek-roller{
+    background:
+      radial-gradient(ellipse at top left, rgba(197,150,80,0.10), transparent 55%),
+      var(--papyrus);
+    color:var(--ink);
+    font-family:'EB Garamond', serif;
+    padding:0;
+    border-radius:4px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset;
+  }
+
+  /* Greek key / meander border */
+  .meander{
+    height:14px;
+    background:var(--black-glaze);
+    position:relative;
+    overflow:hidden;
+  }
+  .meander svg{ display:block; height:14px; width:100%; }
+
+  .header{
+    background:var(--black-glaze);
+    color:var(--papyrus);
+    padding:34px 30px 26px;
+    text-align:center;
+    position:relative;
+  }
+  .header .eyebrow{
+    font-family:'Cinzel', serif;
+    font-size:11px;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  .header h1{
+    font-family:'Cinzel', serif;
+    font-weight:700;
+    font-size:clamp(22px, 4vw, 34px);
+    margin:0;
+    letter-spacing:0.03em;
+  }
+  .header p{
+    font-style:italic;
+    color:var(--papyrus-dim);
+    max-width:520px;
+    margin:12px auto 0;
+    font-size:15px;
+    line-height:1.5;
+  }
+
+  .roll-deck{
+    padding:26px 30px 10px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    justify-content:center;
+  }
+
+  .roll-btn{
+    font-family:'Cinzel', serif;
+    font-size:13px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    background:var(--clay);
+    color:var(--papyrus);
+    border:none;
+    padding:14px 22px;
+    border-radius:2px;
+    cursor:pointer;
+    transition:transform 0.12s ease, background 0.15s ease, box-shadow .15s ease;
+    box-shadow:0 2px 0 var(--clay-dark);
+  }
+  .roll-btn:hover{ background:#C8683B; transform:translateY(-1px); }
+  .roll-btn:active{ transform:translateY(1px); box-shadow:0 1px 0 var(--clay-dark); }
+  .roll-btn.full{
+    background:var(--ink);
+    box-shadow:0 2px 0 #0c0805;
+  }
+  .roll-btn.full:hover{ background:#332415; }
+
+  .result-stage{
+    padding:6px 30px 30px;
+    min-height:118px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .result-card{
+    width:100%;
+    max-width:520px;
+    background:var(--black-glaze);
+    color:var(--papyrus);
+    border-radius:3px;
+    padding:22px 26px;
+    text-align:center;
+    position:relative;
+    animation:reveal 0.35s ease;
+  }
+  .result-card::before, .result-card::after{
+    content:'';
+    position:absolute;
+    left:22px; right:22px;
+    height:1px;
+    background:var(--gold);
+    opacity:0.5;
+  }
+  .result-card::before{ top:10px; }
+  .result-card::after{ bottom:10px; }
+
+  .result-name{
+    font-family:'Cinzel', serif;
+    font-size:clamp(20px, 3.4vw, 28px);
+    font-weight:700;
+    letter-spacing:0.02em;
+    margin:8px 0 4px;
+  }
+  .result-tag{
+    font-size:11px;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .result-placeholder{
+    font-style:italic;
+    color:var(--ink);
+    opacity:0.55;
+    font-size:15px;
+  }
+
+  @keyframes reveal{
+    from{ opacity:0; transform:translateY(6px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .tables-toggle{
+    text-align:center;
+    padding:0 30px 8px;
+  }
+  .tables-toggle button{
+    background:none;
+    border:none;
+    font-family:'EB Garamond', serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--clay-dark);
+    text-decoration:underline;
+    cursor:pointer;
+    padding:6px;
+  }
+
+  .tables{
+    display:none;
+    padding:6px 30px 34px;
+    gap:20px;
+    grid-template-columns:repeat(3, 1fr);
+  }
+  .tables.open{ display:grid; }
+  @media (max-width:720px){ .tables{ grid-template-columns:1fr; } }
+
+  .table-col h3{
+    font-family:'Cinzel', serif;
+    font-size:13px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--clay-dark);
+    border-bottom:2px solid var(--clay);
+    padding-bottom:8px;
+    margin:0 0 8px;
+  }
+  .table-col ol{
+    list-style:none;
+    counter-reset:roll;
+    margin:0; padding:0;
+    max-height:420px;
+    overflow-y:auto;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,0.28);
+  }
+  .table-col li{
+    counter-increment:roll;
+    display:flex;
+    padding:5px 10px;
+    font-size:14px;
+    border-bottom:1px solid var(--line);
+  }
+  .table-col li:last-child{ border-bottom:none; }
+  .table-col li::before{
+    content: counter(roll);
+    font-family:'Cinzel', serif;
+    font-size:11px;
+    color:var(--clay);
+    width:26px;
+    flex-shrink:0;
+  }
+  .table-col li:nth-child(odd){ background:rgba(36,26,18,0.035); }
+
+  .footnote{
+    text-align:center;
+    font-size:12px;
+    color:var(--ink);
+    opacity:0.55;
+    padding:0 30px 26px;
+    font-style:italic;
+  }
+</style>
+
+<div id="greek-roller">
+  <div class="meander" aria-hidden="true">
+    <svg viewBox="0 0 200 14" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="key" width="20" height="14" patternUnits="userSpaceOnUse">
+          <rect width="20" height="14" fill="#171210"/>
+          <path d="M0 3 H8 V0 M8 0 V11 H17 V3 H20" stroke="#C9A227" stroke-width="1.6" fill="none"/>
+        </pattern>
+      </defs>
+      <rect width="200" height="14" fill="url(#key)"/>
+    </svg>
+  </div>
+
+  <div class="header">
+    <div class="eyebrow">Names of Hellas &mdash; A Roll Table</div>
+    <h1>The Agora Namesake Roller</h1>
+    <p>Draw a given name and an epithet the way a herald might announce a stranger in the market square. Click to roll, or scroll the full tables below for tabletop dice.</p>
+  </div>
+
+  <div class="roll-deck">
+    <button class="roll-btn" id="btn-male">Roll Man's Name</button>
+    <button class="roll-btn" id="btn-female">Roll Woman's Name</button>
+    <button class="roll-btn full" id="btn-full">Roll Full NPC</button>
+  </div>
+
+  <div class="result-stage">
+    <div class="result-card" id="result">
+      <div class="result-placeholder">Awaiting the herald's call&hellip;</div>
+    </div>
+  </div>
+
+  <div class="tables-toggle">
+    <button id="toggle-tables">Show full tables (for physical dice) &#9662;</button>
+  </div>
+
+  <div class="tables" id="tables">
+    <div class="table-col">
+      <h3>Male Names (d60)</h3>
+      <ol id="list-male"></ol>
+    </div>
+    <div class="table-col">
+      <h3>Female Names (d60)</h3>
+      <ol id="list-female"></ol>
+    </div>
+    <div class="table-col">
+      <h3>Epithets (d60)</h3>
+      <ol id="list-epithet"></ol>
+    </div>
+  </div>
+
+  <div class="footnote">60 names per gender &times; 60 epithets = 3,600 unique combinations. No epithet roll needed &mdash; a bare first name works fine for a minor NPC.</div>
+</div>
+
+<script>
+(function(){
+  const maleNames = ["Alexandros","Dimitrios","Theodoros","Nikolaos","Kastor","Leonidas","Orestes","Philippos","Stavros","Perikles","Straton","Thrasos","Achilleas","Odysseas","Iason","Herakles","Theseus","Agamemnon","Menelaos","Diomedes","Ajax","Patroklos","Hektor","Priamos","Aineas","Pausanias","Aristotelis","Sokrates","Platon","Pythagoras","Archimedes","Euripides","Sophokles","Aischylos","Homeros","Solon","Drakon","Kleon","Miltiades","Themistokles","Kimon","Konon","Lysandros","Antigonos","Ptolemaios","Seleukos","Demosthenes","Isokrates","Xenophon","Herodotos","Thoukydides","Anaxagoras","Empedokles","Zenon","Epikouros","Diogenes","Kriton","Phaidros","Timon","Kleisthenes"];
+
+  const femaleNames = ["Alexandra","Elena","Kassandra","Thalia","Ariadne","Melina","Zoe","Danae","Iris","Selene","Phoebe","Xanthe","Callisto","Nyssa","Thessaly","Penelope","Andromache","Hekabe","Klytaimnestra","Elektra","Antigone","Ismene","Medea","Chloe","Daphne","Persephone","Demetria","Athenais","Artemisia","Herakleia","Afroditi","Hestia","Eirene","Sophia","Theodora","Eudoxia","Kalliope","Euterpe","Melpomene","Terpsichore","Ourania","Klio","Polymnia","Erato","Galatea","Timandra","Ligeia","Alkyone","Ianthe","Rheanna","Gaiane","Leto","Niobe","Semele","Europa","Helene","Briseis","Chryseis","Nausikaa","Kirke"];
+
+  const epithets = ["the Wanderer","of the Vine","Ironhand","the Quiet","Stormcaller","of the Nine Isles","the Unbowed","Ashfoot","the Merchant","of Delphi","the Bold","Ravenbrow","the Exile","Goldweaver","of the Grove","the Watcher","Wolfsbane","the Younger","Starcrossed","of the Long Road","the Potter","of Corinth","Seaborn","the Laughing","Ashenveil","of the Agora","Nightrower","the Cunning","Olivebranch","of Sparta","the Lame","Bullslayer","the Devout","Saltwind","of Crete","the Restless","Bronzeshield","the Fair","of Mycenae","Owlkeeper","the Silent","Fireheart","of Thebes","the Wayfarer","Ropemaker","the Fierce","of Rhodes","Moonpale","the Reckless","Vinewreath","of Naxos","the Wise","Stonecutter","the Marked","of Ithaka","Serpenttongue","the Proud","Windwalker","of Argos","the Steadfast"];
+
+  const root = document.getElementById('greek-roller');
+  const resultEl = root.querySelector('#result');
+
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  function showResult(name, tag){
+    resultEl.innerHTML = '<div class="result-tag">' + tag + '</div><div class="result-name">' + name + '</div>';
+  }
+
+  root.querySelector('#btn-male').addEventListener('click', function(){
+    showResult(pick(maleNames), 'Man of Hellas');
+  });
+  root.querySelector('#btn-female').addEventListener('click', function(){
+    showResult(pick(femaleNames), 'Woman of Hellas');
+  });
+  root.querySelector('#btn-full').addEventListener('click', function(){
+    const isMale = Math.random() < 0.5;
+    const first = isMale ? pick(maleNames) : pick(femaleNames);
+    showResult(first + ' ' + pick(epithets), isMale ? 'Man of Hellas' : 'Woman of Hellas');
+  });
+
+  function fillList(id, arr){
+    const ol = root.querySelector(id);
+    ol.innerHTML = arr.map(function(n){ return '<li><span>' + n + '</span></li>'; }).join('');
+  }
+  fillList('#list-male', maleNames);
+  fillList('#list-female', femaleNames);
+  fillList('#list-epithet', epithets);
+
+  const toggleBtn = root.querySelector('#toggle-tables');
+  const tablesEl = root.querySelector('#tables');
+  toggleBtn.addEventListener('click', function(){
+    const open = tablesEl.classList.toggle('open');
+    toggleBtn.innerHTML = open ? 'Hide full tables &#9652;' : 'Show full tables (for physical dice) &#9662;';
+  });
+})();
+</script>

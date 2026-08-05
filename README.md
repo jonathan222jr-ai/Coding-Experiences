@@ -45,6 +45,13 @@ Python agent frameworks built on the Anthropic API.
 | [`learn-to-fly`](games/learn-to-fly) | Godot 4 penguin-launcher game with an upgrade shop, inspired by the classic *Learn to Fly*. GDScript across `Penguin`, `Main`, `Shop`, and `GameData`. |
 | [`godot-prototypes`](games/godot-prototypes) | Smaller Godot 4 movement and scene experiments that preceded the finished game. |
 
+### D&D Tools (`dnd-tools/`)
+
+| Project | Description |
+|---|---|
+| [`greek_npc_roller.html`](dnd-tools/greek_npc_roller.html) | Self-contained browser NPC generator for a Greek-myth D&D setting. |
+| [`elemental_cataclysm_generator.py`](dnd-tools/elemental_cataclysm_generator.py) | Blender script that procedurally builds an elemental 5e creature with generated shader materials. |
+
 ### Research (`research/`)
 
 | Project | Description |
