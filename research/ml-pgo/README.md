@@ -15,6 +15,7 @@ propose profile-guided optimizations.
 | `agent/helpers/parse_drgpum_csv.py` | Parses profiler CSV output |
 | `agent/helpers/benchmark_runner.py` | Builds and times benchmark programs |
 | `main.py` | Entry point |
+| `skills/enhanced-skills/` | Three authored agent skills, each a `SKILL.md` with frontmatter — `drg-profile-analyzer` (read a profile, find hotspots), `optimization-suggester` (rank concrete fixes by impact and effort), and `benchmark-validator` (confirm a speedup is real and the bottleneck actually moved). They chain in that order. |
 
 ## Setup
 
