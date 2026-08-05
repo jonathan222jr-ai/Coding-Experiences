@@ -14,7 +14,6 @@ Python agent frameworks built on the Anthropic API.
 | Project | Description |
 |---|---|
 | [`ai-agent-v2`](ai-agents/ai-agent-v2) | Multi-agent system with a dispatching classifier and specialized agents — `coder`, `debugger`, `fullstack`, `behavioral`, `js_explainer`, `reflector` — plus an `agent_builder` for composing new ones. Includes a Flask web UI. |
-| [`ai-agent-v2-2`](ai-agents/ai-agent-v2-2) | A later iteration of the same architecture. |
 | [`interview-agent`](ai-agents/interview-agent) | Interview-preparation assistant with a web UI and a voice mode, offering CLI, server, and continuous-listen entry points. |
 
 ### Web Applications (`web-apps/`)
