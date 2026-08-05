@@ -1,0 +1,29 @@
+/* General page styling */
+body {
+    background-color: #f2f4f2;   /* light green, soft tone */
+    color: black;               /* text color */
+    font-family: "Times New Roman", Times, serif; /* Roman font */
+    font-size: 12px;            /* font size */
+    text-align: center;         /* center alignment */
+    margin: 20px;               /* normal margins */
+    padding: 20px;              /* normal padding */
+}
+/* ===== Table Styling ===== */
+.styled-table {
+    width: 80%;
+    margin: 20px auto;              /* centers the table */
+    border-collapse: collapse;      /* makes single border lines */
+    border: 1px solid black;        /* thin black border for the table */
+}
+
+.styled-table th,
+.styled-table td {
+    border: 1px solid black;        /* thin black border for cells */
+    padding: 8px 12px;              /* spacing inside cells */
+    text-align: left;               /* easier to read */
+}
+
+.styled-table thead th {
+    background-color: #e6f2ff;      /* header background */
+    font-weight: bold;
+}

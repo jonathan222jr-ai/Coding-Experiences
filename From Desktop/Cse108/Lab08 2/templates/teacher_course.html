@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ course.name }} — Teacher Panel</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h2>{{ course.name }} — {{ current_user.username }}</h2>
+    <nav>
+      <a href="{{ url_for('teacher_dashboard') }}">Back</a>
+      <a href="{{ url_for('logout') }}">Sign Out</a>
+    </nav>
+  </div>
+
+  <h3>Enrolled Students</h3>
+
+  <table class="magical-table">
+    <tr>
+      <th>Student</th>
+      <th>Grade</th>
+      <th>Update</th>
+    </tr>
+
+    {% for e in enrollments %}
+    <tr>
+      <td>{{ e.student.username }}</td>
+      <td>{{ e.grade or '—' }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('teacher_course', course_id=course.id) }}">
+          {{ form.hidden_tag() }}
+          <input type="hidden" name="student_id" value="{{ e.student_id }}">
+          {{ form.grade(size=4, value=e.grade, class="grade-input") }}
+          {{ form.submit(class="magic-btn") }}
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+</body>
+</html>

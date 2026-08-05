@@ -1,0 +1,144 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXFileReference section */
+		D14F3E242E931955008B2FB8 /* testfiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = testfiles; sourceTree = "<group>"; };
+		D14F3E252E931955008B2FB8 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		D14F3E262E931955008B2FB8 /* Grade */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Grade; sourceTree = "<group>"; };
+		D14F3E3C2E93196A008B2FB8 /* jramirez431.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jramirez431.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		D14F3E1E2E931955008B2FB8 = {
+			isa = PBXGroup;
+			children = (
+				D14F3E3C2E93196A008B2FB8 /* jramirez431.cpp */,
+				D14F3E242E931955008B2FB8 /* testfiles */,
+				D14F3E252E931955008B2FB8 /* Makefile */,
+				D14F3E262E931955008B2FB8 /* Grade */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		D14F3E232E931955008B2FB8 /* Lab04-2 */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = D14F3E272E931955008B2FB8 /* Build configuration list for PBXLegacyTarget "Lab04-2" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "/Users/jonathanramirez/Downloads/Lab04-2";
+			dependencies = (
+			);
+			name = "Lab04-2";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Lab04-2";
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		D14F3E1F2E931955008B2FB8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+			};
+			buildConfigurationList = D14F3E222E931955008B2FB8 /* Build configuration list for PBXProject "Lab04-2" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D14F3E1E2E931955008B2FB8;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D14F3E232E931955008B2FB8 /* Lab04-2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		D14F3E202E931955008B2FB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		D14F3E212E931955008B2FB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		D14F3E282E931955008B2FB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "Lab04-2";
+			};
+			name = Debug;
+		};
+		D14F3E292E931955008B2FB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "Lab04-2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D14F3E222E931955008B2FB8 /* Build configuration list for PBXProject "Lab04-2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D14F3E202E931955008B2FB8 /* Debug */,
+				D14F3E212E931955008B2FB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D14F3E272E931955008B2FB8 /* Build configuration list for PBXLegacyTarget "Lab04-2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D14F3E282E931955008B2FB8 /* Debug */,
+				D14F3E292E931955008B2FB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D14F3E1F2E931955008B2FB8 /* Project object */;
+}

@@ -1,0 +1,88 @@
+{
+  "goal": "handle loading/ error states to avoid setting state after an unmoubnt",
+  "timestamp": "20260501_004346",
+  "events": [
+    {
+      "type": "status",
+      "text": "Classifying..."
+    },
+    {
+      "type": "group_start",
+      "group_id": "wave1",
+      "description": "Triage",
+      "agent_count": 2
+    },
+    {
+      "type": "agent_start",
+      "group_id": "wave1",
+      "agent": "classifier",
+      "task": "handle loading/ error states to avoid setting state after an unmoubnt"
+    },
+    {
+      "type": "agent_start",
+      "group_id": "wave1",
+      "agent": "speed_tip",
+      "task": "handle loading/ error states to avoid setting state after an unmoubnt"
+    },
+    {
+      "type": "agent_done",
+      "group_id": "wave1",
+      "agent": "speed_tip",
+      "task": "handle loading/ error states to avoid setting state after an unmoubnt",
+      "result": "**Show you prevent memory leaks by cleaning up subscriptions in useEffect return, or use a mounted ref to guard setState calls.**",
+      "duration_ms": 0,
+      "chars": 129
+    },
+    {
+      "type": "agent_done",
+      "group_id": "wave1",
+      "agent": "classifier",
+      "task": "handle loading/ error states to avoid setting state after an unmoubnt",
+      "result": "{\"type\": \"fullstack\", \"urgency\": \"normal\"}",
+      "duration_ms": 0,
+      "chars": 30
+    },
+    {
+      "type": "classified",
+      "q_type": "fullstack",
+      "difficulty": "normal",
+      "topic": "fullstack"
+    },
+    {
+      "type": "group_done",
+      "group_id": "wave1",
+      "outputs": 2
+    },
+    {
+      "type": "group_start",
+      "group_id": "wave2",
+      "description": "Fullstack Answer",
+      "agent_count": 1
+    },
+    {
+      "type": "agent_start",
+      "group_id": "wave2",
+      "agent": "fullstack",
+      "task": "handle loading/ error states to avoid setting state after an unmoubnt"
+    },
+    {
+      "type": "agent_done",
+      "group_id": "wave2",
+      "agent": "fullstack",
+      "task": "handle loading/ error states to avoid setting state after an unmoubnt",
+      "result": "ANSWER: The cleanest modern approach is using an AbortController to cancel fetch requests when the component unmounts. In the cleanup function of your useEffect, you call `abort()` which causes the fetch to reject, and you just ignore that specific error. This prevents any state updates from firing after the component is gone.\n\n```typescript\nuseEffect(() => {\n  const controller = new AbortController();\n  \n  const fetchData = async () => {\n    setLoading(true);\n    try {\n      const res = await fetch('/api/data', { signal: controller.signal });\n      const data = await res.json();\n      setData(data);\n    } catch (err) {\n      if ((err as Error).name !== 'AbortError') {\n        setError('Something went wrong');\n      }\n    } finally {\n      setLoading(false);\n    }\n  };\n\n  fetchData();\n  return () => controller.abort();\n}, []);\n```\n\nTRADEOFF: The old `isMounted` flag pattern also works but it's more boilerplate and doesn't actually cancel the network request \u2014 it just skips the state update. AbortController is better because it cancels the request entirely, saving bandwidth. If you're using React Query, it handles all of this for you automatically.",
+      "duration_ms": 5897,
+      "chars": 1165
+    },
+    {
+      "type": "group_done",
+      "group_id": "wave2",
+      "outputs": 1
+    },
+    {
+      "type": "done",
+      "total_groups": 2,
+      "total_outputs": 3
+    }
+  ]
+}

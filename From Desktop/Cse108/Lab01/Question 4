@@ -1,0 +1,53 @@
+#I created a lot of objects from the class I called SchoolSchdeule, my objects are the sections from the classesinput.txt
+class SchoolSchedue:
+    #This is a function that constructs the objects into vartiables
+    def __init__(self, dept, number, name, credits, days, start, end, avg_grade):
+        self.dept = dept
+        self.number = number
+        self.name = name
+        self.credits = credits
+        self.days = days
+        self.start = start
+        self.end = end
+        self.avg_grade = avg_grade
+    #this is a function that organizes all the objects into a print function in the format of the lab worksheet
+    def format_course(self, index):
+        return (
+            f"COURSE {index}: {self.dept}{self.number}: {self.name}\n"
+            f"Number of Credits: {self.credits}\n"
+            f"Days of Lectures: {self.days}\n"
+            f"Lecture Time: {self.start} - {self.end}\n"
+            f"Stat: on average, students get {self.avg_grade}% on this course yearly \n"
+        )
+def main():
+    # Read input file, then I strip the white space from the file
+    with open("classesInput.txt", "r") as file:
+        lines = [line.strip() for line in file.readlines()]
+    #The courses start from line 0 and everything else is data
+    num_courses = int(lines[0])
+    courses = []
+
+    # Each course has 8 lines of info
+    line_index = 1
+    for i in range(num_courses):
+        dept = lines[line_index]; line_index += 1
+        number = lines[line_index]; line_index += 1
+        name = lines[line_index]; line_index += 1
+        credits = lines[line_index]; line_index += 1
+        days = lines[line_index]; line_index += 1
+        start = lines[line_index]; line_index += 1
+        end = lines[line_index]; line_index += 1
+        avg_grade = lines[line_index]; line_index += 1
+
+        course = SchoolSchedue(dept, number, name, credits, days, start, end, avg_grade)
+        courses.append(course)
+
+    # Write to output file
+    with open("classesOutput.txt", "w") as file:
+        for i, course in enumerate(courses, start=1):
+            file.write(course.format_course(i))
+            file.write("\n")
+
+
+if __name__ == "__main__":
+    main()

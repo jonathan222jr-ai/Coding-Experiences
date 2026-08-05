@@ -1,0 +1,180 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+  <html>
+  <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+     <meta name="Author" content="Chen Ding">
+     <meta name="GENERATOR" content="Mozilla/4.7 [en]C-CCK-MCD {Sony}  (WinNT; U) [Netscape]">
+     <title>ScannerAssignment</title>
+  </head>
+  <body>
+  
+  <h3>
+  Scanner assignment</h3>
+  
+  <ul>
+  <li>
+  <a href="#Description">Description</a></li>
+  
+  <li>
+  <a href="#Example">Example</a></li>
+  
+  <li>
+  <a href="TokenLang.html">Token language</a></li>
+  
+  <li>
+  <a href="all_tests.tar">Test programs</a></li>
+  </ul>
+  
+  <h4>
+  <a NAME="Description"></a>Description</h4> In this project we
+  provide you a partially completed scanner. You need to
+  finish the scanner, which involves implementing the recognition of
+  digit, identifier, number, reserved word, symbol, string, and meta statement tokens.&nbsp; 
+  The skeleton methods in the "RegularExpressions.java" file with the comments 
+  "TODO: Implement the recognition of XXX", are where you
+  should add your code. After you complete the scanner, you must test it
+  on all the <a href="all_tests.tar">test programs</a>, and
+  fix any possible problems. 
+
+  <br><br>
+
+
+  The scanner, once done, converts an input program into tokens and rewrites the program with some
+  tokens modified.&nbsp; If the input program is a correct C program, the
+  output program should also be a correct program that has identical behavior.&nbsp;
+  The specific requirements for code generation are:
+  <ul>
+  <li>
+  The scanner should recognize all the tokens of the input program. <a href="TokenLang.html">The
+  token definitions are here.</a></li>
+  
+  <li>
+  The scanner to add string "cse141" to the beginning of every
+  &lt;identifier> token<b> </b>except the name of function "main".</li>
+  
+  <li>
+  The '#include' statements and C++ style comments 
+  are treated as special tokens.&nbsp; They are defined as &lt;meta statement> in our token language.&nbsp;
+  Your scanner should simply copy them to the generated program (each in
+  a separate line) without modification.&nbsp; Your future compiler will
+  be asked to do the same.</li>
+  
+  <li>
+  The scanner takes one arguement, which is the name of the input program,
+  and puts the generated program in a new file named with an extension "_gen".&nbsp;
+  So "foo.c" will become "foo_gen.c".</li>
+  
+  <li>
+  The output program does not need to be formatted in any way.&nbsp; The
+  scanner can write all statements in one line, except that the meta-statements
+  should be put in separate lines.</li>
+  </ul>
+  <a NAME="Example"></a>For example, the following program should be converted
+  as follows.
+  <h4>
+  example program :&nbsp; foo.c</h4>
+  &nbsp;&nbsp;&nbsp; #include &lt;stdio.h>
+  <br>&nbsp;&nbsp;&nbsp; #define read(x) scanf("%d\n", &amp;x)
+  <br>&nbsp;&nbsp;&nbsp; #define write(x) printf("%d\n", x)
+  <p>&nbsp;&nbsp; // function foo
+  <br>&nbsp;&nbsp;&nbsp; void foo() {
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int a;
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; read(a);
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; write(a);
+  <br>&nbsp;&nbsp;&nbsp; }
+  <p>&nbsp;&nbsp;&nbsp; int main() {
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; foo();
+  <br>&nbsp;&nbsp;&nbsp; }
+  <h4>
+  running your scanner:</h4>
+  % java scanner foo.c
+  <h4>
+  generated program (no formatting needed): foo_gen.c</h4>
+  &nbsp;&nbsp;&nbsp; #include &lt;stdio.h>
+  <br>&nbsp;&nbsp;&nbsp; #define read(x) scanf("%d\n", &amp;x)
+  <br>&nbsp;&nbsp;&nbsp; #define write(x) printf("%d\n", x)
+  <p>&nbsp;&nbsp; // function foo
+  <br>&nbsp;&nbsp; void cse141foo() {&nbsp; int cse141a;&nbsp; read(cse141a);&nbsp;
+  write(cse141a);&nbsp; }&nbsp; int main() { cse141foo(); }
+  <p>Your scanner will be tested by whether the generated program gives the
+  same execution result as the input program. Once again, most
+  functionalities of the scanner are already implemented in the
+  provided code, what you need is to just to complete the part for
+  recognizing different tokens. You are strongly suggested to read
+  and understand the rest of the program.  
+  <!-- <h4> -->
+  <!-- <a NAME="Recommendation"></a>Recommended implementation:</h4> -->
+  
+  <!-- <ul> -->
+  <!-- <li> -->
+  <!-- Encapsulate states and functions of tokens in token objects.</li> -->
+  
+  <!-- <li> -->
+  <!-- Encapsulate the scanning process in a scanner object that has the following -->
+  <!-- three functions:</li> -->
+  
+  <!-- <ul> -->
+  <!-- <li> -->
+  <!-- A constructor that takes in the name of the input program</li> -->
+  
+  <!-- <li> -->
+  <!-- A test function that tells whether there is more token left in the input -->
+  <!-- program</li> -->
+  
+  <!-- <li> -->
+  <!-- A access function that returns the next token</li> -->
+  <!-- </ul> -->
+  <!-- </ul> -->
+  <!-- With this interface, you can scan through and print a program as follows: -->
+  <!-- <p>&nbsp;&nbsp;&nbsp; Scanner scanner("test1.c");&nbsp; // Initialize the -->
+  <!-- scanner. -->
+  <!-- <br>&nbsp;&nbsp;&nbsp; While (scanner.HasMoreTokens()) { -->
+  <!-- <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Token t = scanner.GetNextToken();&nbsp; -->
+  <!-- <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (t.GetTokenType()==ID -->
+  <!-- &amp;&amp; t.GetTokenName()!="main") -->
+  <!-- <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+  <!-- ... ... // print token with cse141 attached -->
+  <!-- <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else -->
+  <!-- <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+  <!-- t.Print(); -->
+  <!-- <br>&nbsp;&nbsp;&nbsp; } -->
+</p>
+
+<p>
+  <strong>Note:</strong> You may <strong>not</strong> use regular expression libraries (e.g., regex) in
+    implementing your scanner.
+</p>
+
+  <h4> What to submit</h4>
+  
+  Submit a single compressed file (e.g., .zip/.tar/.rar/.gz) through the submission link on CatCourses. The file name must be (your ucm email id).zip/.tar/.rar/.gz. The
+  submission must include all code, and a clear README.txt that
+  describes how to compile and run your code, what bugs or issues
+  there are (if any), and what output the code produces. 
+
+  <h4> Hints </h4>
+  <li> If a program contains invalid inputs, your scanner just need
+  to print out a sentence at the end of your output file, indicating "The input
+  program contains errors for scanning." If your scanner print out
+  some part of the code before printing out that sentence, that is
+  okey. Your scanner is not required to pinpoint the lines or
+    characters that cause the errors.</li>
+  <li> Your scanner only need to work on the test cases (see link at
+  the top); no need to
+  support general cases beyond the test cases. For instance, only
+  "read" or "write" appear in macros in our test cases; so your
+    scanner does not need to support general macros. </li>
+  <li>There are some compiler generation tools (e.g., Flex, Bison,
+  Antlr). They are not allowed to use for this or future projects. The purpose of
+  the projects is to make students confident in turning the theory of
+  compiler construction into implementations. Using those tools will
+  not help that.</li>
+    <li> You may <strong>not</strong> use regular expression libraries (e.g., regex) in
+    implementing your scanner. </li>
+    <li> The inputs in the test cases are ASCII rather than Unicode
+      representations.</li>
+    <li> You may assume that no strings span multiple lines.</li>
+    <li> The output format could be similar to the example output
+    shown above or similar to the original program format.</li>
+  </body>
+  </html>

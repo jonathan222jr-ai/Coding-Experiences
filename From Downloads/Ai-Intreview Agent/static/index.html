@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>micro1 Co-Pilot</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07070c;--surf:#0e0e18;--panel:#13131f;--card:#18182a;
+  --border:rgba(255,255,255,0.07);--b2:rgba(255,255,255,0.13);
+  --text:#e4e4f0;--muted:#4e4e6a;
+  --green:#5dff9e;--blue:#4db8ff;--yellow:#ffd84d;--purple:#c084fc;--red:#ff6b6b;--teal:#4dd0c4;
+  --mono:'Space Mono',monospace;--sans:'Inter',sans-serif;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--sans);overflow:hidden}
+
+/* ── Layout: left history | main | right agents ── */
+.app{display:grid;grid-template-columns:220px 1fr 240px;grid-template-rows:52px 1fr;height:100vh}
+
+/* ── Top bar ── */
+.topbar{
+  grid-column:1/-1;display:flex;align-items:center;gap:16px;padding:0 18px;
+  background:var(--surf);border-bottom:1px solid var(--border);
+}
+.logo{font-family:var(--mono);font-size:13px;font-weight:700;color:#fff;letter-spacing:.05em;display:flex;align-items:center;gap:8px}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.role-tag{font-size:10px;font-family:var(--mono);color:var(--muted);padding:3px 9px;border:1px solid var(--border);border-radius:3px;letter-spacing:.06em}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.top-stat{font-size:10px;font-family:var(--mono);color:var(--muted)}
+.top-stat span{color:var(--text)}
+.evolve-btn{padding:5px 12px;background:transparent;border:1px solid var(--border);border-radius:3px;color:var(--muted);font-size:10px;font-family:var(--mono);cursor:pointer;transition:all .2s;letter-spacing:.06em}
+.evolve-btn:hover{color:var(--green);border-color:var(--green)}
+
+/* ── Left: session history ── */
+.history{background:var(--surf);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.hist-head{padding:12px 14px 8px;border-bottom:1px solid var(--border)}
+.hist-label{font-size:9px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.hist-scroll{flex:1;overflow-y:auto;padding:8px}
+.hist-scroll::-webkit-scrollbar{width:3px}
+.hist-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.hitem{padding:8px 8px;border-radius:5px;cursor:pointer;border:1px solid transparent;margin-bottom:4px;transition:all .15s}
+.hitem:hover{background:rgba(255,255,255,.03);border-color:var(--border)}
+.hitem.active{background:rgba(93,255,158,.05);border-color:rgba(93,255,158,.2)}
+.hitem-type{font-size:8px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
+.hitem-type.behavioral{color:var(--green)}.hitem-type.coding{color:var(--blue)}
+.hitem-type.js_concept{color:var(--yellow)}.hitem-type.fullstack{color:var(--teal)}
+.hitem-type.debugging{color:var(--red)}.hitem-type.motivation{color:var(--purple)}
+.hitem-type.default{color:var(--muted)}
+.hitem-q{font-size:10px;color:var(--muted);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hitem-time{font-size:9px;color:var(--muted);font-family:var(--mono);margin-top:3px}
+.hist-empty{padding:16px 8px;font-size:10px;color:var(--muted);font-family:var(--mono);line-height:1.7}
+
+/* ── Main ── */
+.main{display:flex;flex-direction:column;overflow:hidden}
+
+/* Input area */
+.input-zone{padding:14px 18px 12px;background:var(--surf);border-bottom:1px solid var(--border)}
+.input-label{font-size:9px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:7px}
+.input-row{display:flex;gap:8px;align-items:flex-start}
+.q-box{
+  flex:1;background:var(--panel);border:1px solid var(--b2);border-radius:6px;
+  padding:10px 13px;color:var(--text);font-family:var(--mono);font-size:12px;
+  outline:none;resize:none;min-height:40px;max-height:120px;transition:border-color .2s;line-height:1.55
+}
+.q-box:focus{border-color:var(--green)}
+.q-box::placeholder{color:var(--muted)}
+.go-btn{
+  padding:10px 20px;background:var(--green);color:#000;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;
+  border:none;border-radius:6px;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0
+}
+.go-btn:hover{filter:brightness(1.1)}
+.go-btn:disabled{opacity:.3;cursor:not-allowed;filter:none}
+.quick-btns{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.qb{padding:4px 10px;background:transparent;border:1px solid var(--border);border-radius:3px;color:var(--muted);font-size:9px;font-family:var(--mono);cursor:pointer;transition:all .15s;letter-spacing:.04em}
+.qb:hover{color:var(--text);border-color:var(--b2)}
+
+/* Answer area */
+.answer-zone{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.answer-zone::-webkit-scrollbar{width:4px}
+.answer-zone::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* Speed tip banner */
+.speed-banner{
+  display:flex;align-items:center;gap:10px;padding:9px 14px;
+  background:rgba(255,216,77,.06);border:1px solid rgba(255,216,77,.25);border-radius:6px;
+  font-family:var(--mono);font-size:11px;color:var(--yellow);
+  animation:fadein .25s ease-out
+}
+.speed-icon{font-size:14px;flex-shrink:0}
+
+/* Main answer card */
+.answer-card{
+  border:1px solid var(--border);border-radius:8px;background:var(--surf);
+  overflow:hidden;animation:fadein .3s ease-out
+}
+@keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.card-header{
+  display:flex;align-items:center;gap:10px;padding:10px 14px;
+  background:rgba(255,255,255,.02);border-bottom:1px solid var(--border)
+}
+.card-type-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.card-type-label{font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.card-ms{font-family:var(--mono);font-size:9px;color:var(--muted);margin-left:auto}
+.card-copy{
+  padding:3px 9px;background:transparent;border:1px solid var(--border);border-radius:3px;
+  color:var(--muted);font-size:9px;font-family:var(--mono);cursor:pointer;transition:all .2s
+}
+.card-copy:hover{color:var(--green);border-color:var(--green)}
+.card-body{padding:14px;font-size:12px;line-height:1.75;color:var(--text);white-space:pre-wrap;font-family:var(--mono)}
+
+/* Loading card */
+.loading-card{
+  border:1px solid var(--border);border-radius:8px;background:var(--surf);
+  padding:18px 14px;display:flex;align-items:center;gap:12px;
+  font-family:var(--mono);font-size:11px;color:var(--muted);
+  animation:fadein .2s ease-out
+}
+.spin{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Empty state */
+.empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;opacity:.3}
+.empty-glyph{font-size:40px;filter:grayscale(1)}
+.empty-txt{font-family:var(--mono);font-size:10px;text-align:center;color:var(--muted);line-height:1.9}
+
+/* ── Right: agent status + transcript ── */
+.rpanel{background:var(--surf);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.rtabs{display:flex;border-bottom:1px solid var(--border)}
+.rtab{flex:1;padding:10px 6px;font-size:9px;text-align:center;text-transform:uppercase;letter-spacing:.1em;font-family:var(--mono);color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.rtab.active{color:var(--text);border-bottom-color:var(--green)}
+.rcon{flex:1;overflow-y:auto;padding:12px;display:none}
+.rcon.active{display:block}
+.rcon::-webkit-scrollbar{width:3px}
+.rcon::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* Agent status list */
+.ag-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:5px;border:1px solid transparent;font-size:10px;font-family:var(--mono);margin-bottom:4px;transition:all .2s;position:relative}
+.ag-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;border-radius:2px;background:var(--c)}
+.ag-item.idle{border-color:var(--border);background:rgba(255,255,255,.01)}
+.ag-item.running{border-color:var(--c);background:color-mix(in srgb,var(--c) 6%,transparent);animation:glow 1.2s ease-in-out infinite}
+.ag-item.done{border-color:rgba(255,255,255,.06);background:rgba(255,255,255,.02)}
+.ag-item.error{border-color:var(--red);background:rgba(255,107,107,.05)}
+@keyframes glow{0%,100%{box-shadow:none}50%{box-shadow:0 0 8px color-mix(in srgb,var(--c) 20%,transparent)}}
+.ag-dot{width:5px;height:5px;border-radius:50%;background:var(--c);flex-shrink:0}
+.ag-item.idle .ag-dot{opacity:.2}
+.ag-item.running .ag-dot{animation:blink .6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
+.ag-name{flex:1;color:var(--text)}
+.ag-item.idle .ag-name{color:var(--muted)}
+.ag-tag{font-size:8px;color:var(--muted)}
+.ag-item.running .ag-tag{color:var(--c)}
+.ag-item.done .ag-tag{color:var(--green)}
+
+/* Transcript panel */
+.tx-empty{font-size:10px;color:var(--muted);font-family:var(--mono);line-height:1.7}
+.tx-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.tx-title{font-size:10px;font-family:var(--mono);color:var(--text)}
+.tx-save{padding:3px 9px;background:transparent;border:1px solid var(--border);border-radius:3px;color:var(--muted);font-size:9px;font-family:var(--mono);cursor:pointer;transition:all .2s}
+.tx-save:hover{color:var(--green);border-color:var(--green)}
+.tx-body{font-family:var(--mono);font-size:10px;line-height:1.7;color:var(--text);white-space:pre-wrap;background:rgba(0,0,0,.3);padding:10px;border-radius:4px;max-height:calc(100vh - 180px);overflow-y:auto}
+
+/* Focus mode overlay hint */
+.focus-hint{position:fixed;bottom:16px;right:260px;font-size:9px;font-family:var(--mono);color:var(--muted);opacity:.5;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="logo"><div class="logo-dot"></div>CO-PILOT</div>
+  <div class="role-tag">micro1 · SWE New Grad · Zara</div>
+  <div class="topbar-right">
+    <div class="top-stat">Qs answered: <span id="q-count">0</span></div>
+    <button class="evolve-btn" onclick="triggerEvolve()">⟳ EVOLVE</button>
+  </div>
+</div>
+
+<!-- Left: history -->
+<div class="history">
+  <div class="hist-head"><div class="hist-label">Session Log</div></div>
+  <div class="hist-scroll" id="hist-scroll">
+    <div class="hist-empty">Questions you paste will be logged here for quick reference.</div>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+  <div class="input-zone">
+    <div class="input-label">Paste the AI interviewer's question →</div>
+    <div class="input-row">
+      <textarea class="q-box" id="q-box" rows="1"
+        placeholder="e.g. 'Can you walk me through how closures work in JavaScript?'"></textarea>
+      <button class="go-btn" id="go-btn" onclick="ask()">GET ANSWER</button>
+    </div>
+    <div class="quick-btns">
+      <button class="qb" onclick="setQ('Tell me about yourself and why you want this role.')">Tell me about yourself</button>
+      <button class="qb" onclick="setQ('What is the difference between null and undefined in JavaScript?')">null vs undefined</button>
+      <button class="qb" onclick="setQ('How does event delegation work in JavaScript?')">Event delegation</button>
+      <button class="qb" onclick="setQ('Explain the difference between useEffect and useLayoutEffect in React.')">useEffect vs useLayoutEffect</button>
+      <button class="qb" onclick="setQ('Given an array, find the two numbers that sum to a target value.')">Two Sum</button>
+      <button class="qb" onclick="setQ('Why do you want to work at micro1?')">Why micro1?</button>
+      <button class="qb" onclick="setQ('Tell me about a time you had to debug a difficult problem.')">Debugging story</button>
+    </div>
+  </div>
+
+  <div class="answer-zone" id="answer-zone">
+    <div class="empty" id="empty-state">
+      <div class="empty-glyph">⬡</div>
+      <div class="empty-txt">Paste the question the AI interviewer just asked.<br>Your co-pilot answers in seconds.<br><br>Haiku → instant tip<br>Sonnet → full answer</div>
+    </div>
+  </div>
+</div>
+
+<!-- Right panel -->
+<div class="rpanel">
+  <div class="rtabs">
+    <div class="rtab active" onclick="rTab('agents')">Agents</div>
+    <div class="rtab" onclick="rTab('transcript')">Transcript</div>
+  </div>
+  <div class="rcon active" id="rtab-agents">
+    <div id="agent-list"></div>
+  </div>
+  <div class="rcon" id="rtab-transcript">
+    <div class="tx-empty" id="tx-empty">Full session transcript will appear here.</div>
+    <div id="tx-viewer" style="display:none">
+      <div class="tx-header">
+        <div class="tx-title" id="tx-title">Session</div>
+        <button class="tx-save" onclick="saveTranscript()">↓ SAVE</button>
+      </div>
+      <div class="tx-body" id="tx-body"></div>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="focus-hint">Enter → submit · Shift+Enter → newline</div>
+
+<script>
+// ── Agent registry ──────────────────────────────────────────────────────────
+const AGENTS = {
+  classifier:   {label:'Classifier',    color:'#c084fc', tag:'HAIKU'},
+  speed_tip:    {label:'Speed Tip',     color:'#ffd84d', tag:'HAIKU'},
+  behavioral:   {label:'Behavioral',    color:'#aed581', tag:'SONNET'},
+  coder:        {label:'Code Solution', color:'#4db8ff', tag:'SONNET'},
+  js_explainer: {label:'JS/TS Concept', color:'#4dd0c4', tag:'SONNET'},
+  fullstack:    {label:'Fullstack',     color:'#5dff9e', tag:'SONNET'},
+  debugger:     {label:'Debugger',      color:'#ff8a65', tag:'SONNET'},
+  motivation:   {label:'Why micro1',    color:'#c084fc', tag:'SONNET'},
+};
+
+const TYPE_COLORS = {
+  behavioral:'#aed581', coding:'#4db8ff', js_concept:'#ffd84d',
+  fullstack:'#5dff9e', debugging:'#ff8a65', motivation:'#c084fc', default:'#888'
+};
+
+// ── State ───────────────────────────────────────────────────────────────────
+let sessions = [];   // [{id,question,type,timestamp,speedTip,answer,ms}]
+let currentSession = null;
+let running = false;
+let qCount = 0;
+
+// ── Init ────────────────────────────────────────────────────────────────────
+function initAgents() {
+  const el = document.getElementById('agent-list');
+  el.innerHTML = '';
+  for (const [name, meta] of Object.entries(AGENTS)) {
+    const div = document.createElement('div');
+    div.className = 'ag-item idle';
+    div.id = `ag-${name}`;
+    div.style.setProperty('--c', meta.color);
+    div.innerHTML = `<div class="ag-dot"></div><div class="ag-name">${meta.label}</div><div class="ag-tag" id="agt-${name}">${meta.tag}</div>`;
+    el.appendChild(div);
+  }
+}
+
+function setAgent(name, state, tag) {
+  const el = document.getElementById(`ag-${name}`);
+  const tg = document.getElementById(`agt-${name}`);
+  if (!el) return;
+  el.className = `ag-item ${state}`;
+  el.style.setProperty('--c', AGENTS[name]?.color || '#888');
+  if (tg && tag) tg.textContent = tag;
+}
+
+// ── Ask ─────────────────────────────────────────────────────────────────────
+function ask() {
+  const q = document.getElementById('q-box').value.trim();
+  if (!q || running) return;
+
+  running = true;
+  qCount++;
+  document.getElementById('go-btn').disabled = true;
+  document.getElementById('q-count').textContent = qCount;
+
+  // Reset answer zone
+  const az = document.getElementById('answer-zone');
+  az.innerHTML = '';
+
+  // Reset agents
+  Object.keys(AGENTS).forEach(n => setAgent(n, 'idle', AGENTS[n].tag));
+
+  // New session
+  const now = new Date();
+  currentSession = {
+    id: Date.now(), question: q, type: 'default',
+    timestamp: now.toLocaleTimeString(), fulltime: now.toLocaleString(),
+    speedTip: '', answer: '', ms: 0, agentName: ''
+  };
+
+  // Loading card
+  const loader = document.createElement('div');
+  loader.className = 'loading-card';
+  loader.id = 'loader';
+  loader.innerHTML = `<div class="spin"></div><span>Classifying &amp; generating answer...</span>`;
+  az.appendChild(loader);
+
+  const es = new EventSource(`/api/run?goal=${encodeURIComponent(q)}`);
+  es.onmessage = e => handleEvent(JSON.parse(e.data), q, es);
+  es.onerror = () => { running = false; document.getElementById('go-btn').disabled = false; es.close(); };
+}
+
+function handleEvent(ev, q, es) {
+  switch (ev.type) {
+    case 'agent_start':
+      setAgent(ev.agent, 'running', '...');
+      break;
+
+    case 'agent_done':
+      setAgent(ev.agent, 'done', `${ev.duration_ms}ms`);
+      if (ev.agent === 'speed_tip') {
+        currentSession.speedTip = ev.result;
+        showSpeedTip(ev.result);
+      } else if (ev.agent === 'classifier') {
+        try {
+          const c = JSON.parse(ev.result);
+          currentSession.type = c.type || 'default';
+        } catch(e) {}
+      } else {
+        // Primary answer agent
+        currentSession.answer = ev.result;
+        currentSession.ms = ev.duration_ms;
+        currentSession.agentName = ev.agent;
+      }
+      break;
+
+    case 'agent_error':
+      setAgent(ev.agent, 'error', 'ERR');
+      break;
+
+    case 'classified':
+      currentSession.type = ev.q_type;
+      break;
+
+    case 'transcript_ready':
+      currentSession.transcript = ev.text;
+      break;
+
+    case 'done':
+      running = false;
+      document.getElementById('go-btn').disabled = false;
+      es.close();
+      // Remove loader
+      const loader = document.getElementById('loader');
+      if (loader) loader.remove();
+      // Show main answer
+      if (currentSession.answer) showAnswer(currentSession);
+      // Save session
+      sessions.unshift(currentSession);
+      renderHistory();
+      updateTranscript();
+      break;
+  }
+}
+
+// ── UI builders ─────────────────────────────────────────────────────────────
+function showSpeedTip(tip) {
+  const az = document.getElementById('answer-zone');
+  // Remove any existing speed banner
+  document.getElementById('speed-banner')?.remove();
+  const div = document.createElement('div');
+  div.className = 'speed-banner';
+  div.id = 'speed-banner';
+  div.innerHTML = `<span class="speed-icon">⚡</span><span>${esc(tip)}</span>`;
+  az.insertBefore(div, az.firstChild);
+}
+
+function showAnswer(session) {
+  const az = document.getElementById('answer-zone');
+  // Remove loader if still there
+  document.getElementById('loader')?.remove();
+
+  const meta = AGENTS[session.agentName] || {color:'#5dff9e', label:'Answer'};
+  const card = document.createElement('div');
+  card.className = 'answer-card';
+  card.innerHTML = `
+    <div class="card-header">
+      <div class="card-type-dot" style="background:${meta.color}"></div>
+      <div class="card-type-label" style="color:${meta.color}">${meta.label}</div>
+      <div class="card-ms">${session.ms}ms</div>
+      <button class="card-copy" onclick="copyAnswer(this)">COPY</button>
+    </div>
+    <div class="card-body" id="ans-${session.id}">${esc(session.answer)}</div>`;
+  az.appendChild(card);
+  card.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function copyAnswer(btn) {
+  const body = btn.closest('.answer-card').querySelector('.card-body');
+  navigator.clipboard.writeText(body.textContent);
+  btn.textContent = 'COPIED';
+  setTimeout(() => btn.textContent = 'COPY', 1500);
+}
+
+// ── History ──────────────────────────────────────────────────────────────────
+function renderHistory() {
+  const el = document.getElementById('hist-scroll');
+  if (!sessions.length) return;
+  el.innerHTML = sessions.map((s, i) => `
+    <div class="hitem${i===0?' active':''}" onclick="loadSession(${i})">
+      <div class="hitem-type ${s.type}">${s.type.replace(/_/g,' ')}</div>
+      <div class="hitem-q">${esc(s.question)}</div>
+      <div class="hitem-time">${s.timestamp}</div>
+    </div>`).join('');
+}
+
+function loadSession(i) {
+  const s = sessions[i];
+  currentSession = s;
+  document.querySelectorAll('.hitem').forEach((el,j) => el.classList.toggle('active', j===i));
+  const az = document.getElementById('answer-zone');
+  az.innerHTML = '';
+  if (s.speedTip) showSpeedTip(s.speedTip);
+  if (s.answer) showAnswer(s);
+}
+
+// ── Transcript ───────────────────────────────────────────────────────────────
+function updateTranscript() {
+  const lines = ['═'.repeat(52), 'micro1 Co-Pilot — Session Transcript', '═'.repeat(52), ''];
+  for (const s of [...sessions].reverse()) {
+    lines.push(`── ${s.fulltime} ──`);
+    lines.push(`TYPE: ${s.type}`);
+    lines.push(`Q: ${s.question}`);
+    if (s.speedTip) lines.push(`TIP: ${s.speedTip}`);
+    lines.push(`ANSWER:`);
+    lines.push(s.answer);
+    lines.push('');
+  }
+  lines.push('═'.repeat(52));
+  const text = lines.join('\n');
+
+  document.getElementById('tx-empty').style.display = 'none';
+  const viewer = document.getElementById('tx-viewer');
+  viewer.style.display = 'block';
+  document.getElementById('tx-title').textContent = `${sessions.length} question${sessions.length!==1?'s':''}`;
+  document.getElementById('tx-body').textContent = text;
+  // Store for saving
+  viewer._text = text;
+}
+
+function saveTranscript() {
+  const text = document.getElementById('tx-viewer')._text || '';
+  const blob = new Blob([text], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `micro1_interview_${Date.now()}.txt`;
+  a.click();
+}
+
+// ── Tabs ─────────────────────────────────────────────────────────────────────
+function rTab(name) {
+  document.querySelectorAll('.rtab').forEach((t,i) => t.classList.toggle('active', ['agents','transcript'][i]===name));
+  document.querySelectorAll('.rcon').forEach(c => c.classList.remove('active'));
+  document.getElementById(`rtab-${name}`).classList.add('active');
+}
+
+async function triggerEvolve() {
+  await fetch('/api/improve', {method:'POST'});
+}
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function setQ(t) {
+  const b = document.getElementById('q-box');
+  b.value = t; b.style.height='auto'; b.style.height=Math.min(b.scrollHeight,120)+'px';
+}
+document.getElementById('q-box').addEventListener('input', function() {
+  this.style.height='auto'; this.style.height=Math.min(this.scrollHeight,120)+'px';
+});
+document.getElementById('q-box').addEventListener('keydown', e => {
+  if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); ask(); }
+});
+
+initAgents();
+</script>
+</body>
+</html>

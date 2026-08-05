@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login — Hogwarts Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+  <h2>Hogwarts Portal Login</h2>
+
+  <form method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+    {{ form.hidden_tag() }}
+
+    <div>
+      <label for="username">{{ form.username.label }}</label>
+      {{ form.username(class_="input-field") }}
+    </div>
+
+    <div>
+      <label for="password">{{ form.password.label }}</label>
+      {{ form.password(class_="input-field") }}
+    </div>
+
+    <input type="submit" value="Login">
+  </form>
+
+  <div class="notice">
+    <p><strong>Admin login:</strong> admin / admin</p>
+    <p><strong>Students/Teachers:</strong> password = "password"</p>
+  </div>
+</div>
+
+</body>
+</html>

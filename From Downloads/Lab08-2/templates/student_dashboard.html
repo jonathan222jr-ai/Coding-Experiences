@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard — Hogwarts Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h2>Welcome, {{ current_user.username }}!</h2>
+    <nav>
+      <a href="{{ url_for('logout') }}">Sign Out</a>
+    </nav>
+  </div>
+
+  <h3>Your Courses</h3>
+  <div class="notice">
+    Your enrolled courses are shown below. Click "Sign Up" to join a class if space is available.
+  </div>
+
+  <div class="course-grid">
+    {% for course in courses %}
+      <div class="course-card">
+        <h4>{{ course.name }}</h4>
+        <p><strong>Instructor:</strong> {{ course.teacher.username }}</p>
+        <p><strong>Time:</strong> {{ course.time }}</p>
+        <p><strong>Capacity:</strong> {{ course_counts[course.id] }}/{{ course.capacity }}</p>
+
+        {% set enrolled = course in enrolled %}
+        {% if enrolled %}
+          {% set enrollment = current_user.enrollments | selectattr("course_id", "equalto", course.id) | first %}
+          <p class="enrolled"><strong>Enrolled</strong> {% if enrollment.grade is not none %}— Grade: {{ enrollment.grade }}{% endif %}</p>
+        {% else %}
+          {% if course_counts[course.id] >= course.capacity %}
+            <p class="full"><strong>Full</strong></p>
+          {% else %}
+            <form method="POST" action="{{ url_for('signup_course', course_id=course.id) }}">
+              <input type="submit" value="Sign Up">
+            </form>
+          {% endif %}
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+</body>
+</html>

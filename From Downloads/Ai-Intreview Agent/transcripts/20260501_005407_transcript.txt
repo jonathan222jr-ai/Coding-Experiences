@@ -1,0 +1,65 @@
+========================================================================
+SWARM — PARALLEL AI AGENT TRANSCRIPT
+========================================================================
+Timestamp : 20260501_005407
+Duration  : 8.81s
+Agents run: 3
+
+GOAL / PROMPT
+------------------------------------------------------------------------
+where should I check front data flow for API ghosts and why?
+
+
+────────────────────────────────────────────────────────────────────────
+WAVE wave1 — Triage  (2 agents in parallel)
+────────────────────────────────────────────────────────────────────────
+
+▸ AGENT: CLASSIFIER  (0ms)
+  Task: where should I check front data flow for API ghosts and why?
+
+  {"type": "fullstack", "urgency": "normal"}
+
+
+▸ AGENT: SPEED TIP  (0ms)
+  Task: where should I check front data flow for API ghosts and why?
+
+  **Check the network tab in DevTools first—it shows actual API requests/responses and instantly reveals if calls are firing when they shouldn't.**
+
+
+────────────────────────────────────────────────────────────────────────
+WAVE wave2 — Fullstack Answer  (1 agents in parallel)
+────────────────────────────────────────────────────────────────────────
+
+▸ AGENT: FULLSTACK  (7043ms)
+  Task: where should I check front data flow for API ghosts and why?
+
+  # API Ghosts — Where to Check Data Flow
+  
+  **"API ghosts" = stale/orphaned data that looks like it's there but isn't actually being used or updated correctly.**
+  
+  ---
+  
+  ANSWER: Check your **network tab first**, then trace backwards — component state → custom hook/fetch call → actual network request. Most ghosts live in cached state that never re-fetches, or components that unmounted but left dangling promises updating state anyway.
+  
+  CODE:
+  ```typescript
+  useEffect(() => {
+    let cancelled = false;
+    
+    async function fetchData() {
+      const res = await fetch('/api/users');
+      const data = await res.json();
+      
+      if (!cancelled) setState(data); // ghost prevention
+    }
+    
+    fetchData();
+    return () => { cancelled = true; }; // cleanup!
+  }, []);
+  ```
+  
+  TRADEOFF: React Query / SWR handles this automatically with built-in cache invalidation and deduplication — but if you're debugging an *existing* ghost, you need to manually check if stale `useEffect` deps or missing cleanup functions are keeping old data alive. Sometimes the ghost is just a missing dependency array `[]` causing infinite refetches that *look* like fresh data but are actually just noise.
+
+========================================================================
+END OF TRANSCRIPT
+========================================================================

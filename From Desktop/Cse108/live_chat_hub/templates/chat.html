@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Café Chat</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.0/socket.io.js"></script>
+
+  <style>
+    body {
+      font-family: "Georgia", serif;
+      background-color: #f5efe6;
+    }
+
+    .chat-container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: #fff8f0;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(90, 60, 40, 0.2);
+      border: 1px solid #e6d3c2;
+    }
+
+    h2 {
+      text-align: center;
+      color: #6f4e37;
+      margin-bottom: 20px;
+    }
+
+    #chat {
+      background: #fffdf9;
+      border: 1px solid #d2b48c;
+      border-radius: 12px;
+      padding: 15px;
+      height: 280px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+    }
+
+    #chat p {
+      margin: 6px 0;
+      color: #5a3e2b;
+    }
+
+    .system {
+      color: #8c6a55;
+      font-style: italic;
+    }
+
+    .message {
+      color: #4a2f1c;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #d2b48c;
+      background-color: #fffdf9;
+      font-size: 0.95rem;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #b08968;
+      box-shadow: 0 0 0 2px rgba(176, 137, 104, 0.25);
+    }
+
+    button {
+      padding: 10px 16px;
+      background-color: #b08968;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #9c6f4f;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="chat-container">
+    <h2>☕ Café Chat</h2>
+
+    <div id="chat"></div>
+
+    <div class="chat-input">
+      <input id="message" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='chat.js') }}"></script>
+
+</body>
+</html>

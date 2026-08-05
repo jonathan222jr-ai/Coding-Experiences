@@ -1,0 +1,57 @@
+========================================================================
+SWARM — PARALLEL AI AGENT TRANSCRIPT
+========================================================================
+Timestamp : 20260501_004744
+Duration  : 8.42s
+Agents run: 3
+
+GOAL / PROMPT
+------------------------------------------------------------------------
+running three promises sequentialy with await versus concurrently with promise.all
+
+
+────────────────────────────────────────────────────────────────────────
+WAVE wave1 — Triage  (2 agents in parallel)
+────────────────────────────────────────────────────────────────────────
+
+▸ AGENT: SPEED TIP  (0ms)
+  Task: running three promises sequentialy with await versus concurrently with promise.a
+
+  Show you understand tradeoffs: use await sequentially when tasks depend on each other, Promise.all for independent tasks that need parallelization.
+
+
+▸ AGENT: CLASSIFIER  (0ms)
+  Task: running three promises sequentialy with await versus concurrently with promise.a
+
+  {"type": "fullstack", "urgency": "normal"}
+
+
+────────────────────────────────────────────────────────────────────────
+WAVE wave2 — Fullstack Answer  (1 agents in parallel)
+────────────────────────────────────────────────────────────────────────
+
+▸ AGENT: FULLSTACK  (5355ms)
+  Task: running three promises sequentialy with await versus concurrently with promise.a
+
+  ANSWER: Sequential await runs each promise one after another — the second waits for the first to finish. Promise.all fires them all at once and waits for all to resolve, which is way faster when the operations are independent (like fetching user data, posts, and comments at the same time).
+  
+  CODE:
+  ```typescript
+  // Sequential - slow, ~3 seconds total
+  const user = await fetchUser(id);
+  const posts = await fetchPosts(id);
+  const comments = await fetchComments(id);
+  
+  // Concurrent - fast, ~1 second total
+  const [user, posts, comments] = await Promise.all([
+    fetchUser(id),
+    fetchPosts(id),
+    fetchComments(id),
+  ]);
+  ```
+  
+  TRADEOFF: Promise.all is all-or-nothing — if one promise rejects, the whole thing fails even if the others succeed. In that case I'd use `Promise.allSettled` to get results from all of them regardless, then handle failures individually. Sequential makes sense when operations actually depend on each other, like when you need the user ID from the first call to make the second call.
+
+========================================================================
+END OF TRANSCRIPT
+========================================================================

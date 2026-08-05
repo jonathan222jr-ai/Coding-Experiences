@@ -1,0 +1,78 @@
+import json     
+import os       
+
+BEHOLDTHEFILE = "grades.txt"     
+
+def load_grades():
+    if os.path.exists(BEHOLDTHEFILE):            
+        with open(BEHOLDTHEFILE, "r") as f:      
+            try:
+                return json.load(f)         
+            except json.JSONDecodeError:    
+                return {}                   
+    return {}                              
+
+def save_grades(grades):
+    with open(BEHOLDTHEFILE, "w") as f:
+        json.dump(grades, f, indent=4)      
+
+def add_student(grades):
+    name = input("Enter student full name: ")
+    grade = float(input("Enter student grade: "))   
+    grades[name] = grade                            
+    print(f"{name} added with grade {grade}")
+
+def get_grade(grades):
+    name = input("Enter student full name to lookup: ")
+    if name in grades:                              
+        print(f"{name}'s grade is {grades[name]}")
+    else:
+        print("Student not found.")
+def edit_grade(grades):
+    name = input("Enter student full name to edit: ")
+    if name in grades:
+        grade = float(input(f"Enter new grade for {name}: "))
+        grades[name] = grade                        
+        print(f"{name}'s grade updated to {grade}")
+    else:
+        print("Student not found.")
+
+def delete_student(grades):
+    name = input("Enter student full name to delete: ")
+    if name in grades:
+        del grades[name]                          
+        print(f"{name} removed from records.")
+    else:
+        print("Student not found.")
+def main():
+    grades = load_grades()                         
+    while True:
+        print("\n--- Grades Menu ---")
+        print("1. Add student")
+        print("2. Lookup grade")
+        print("3. Edit grade")
+        print("4. Delete student")
+        print("5. Show all students")
+        print("6. Save and Exit")
+        choice = input("Enter choice: ")
+
+        if choice == "1":
+            add_student(grades)
+        elif choice == "2":
+            get_grade(grades)
+        elif choice == "3":
+            edit_grade(grades)
+        elif choice == "4":
+            delete_student(grades)
+        elif choice == "5":
+            for name, grade in grades.items():          
+                print(f"{name}: {grade}")
+        elif choice == "6":
+            save_grades(grades)                         
+            print("Grades saved. Exiting program.")
+            break
+        else:
+            print("Invalid choice, try again.")
+
+if __name__ == "__main__":
+    main()

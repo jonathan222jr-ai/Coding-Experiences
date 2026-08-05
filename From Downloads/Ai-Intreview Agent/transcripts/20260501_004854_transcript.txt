@@ -1,0 +1,81 @@
+========================================================================
+SWARM — PARALLEL AI AGENT TRANSCRIPT
+========================================================================
+Timestamp : 20260501_004854
+Duration  : 9.16s
+Agents run: 3
+
+GOAL / PROMPT
+------------------------------------------------------------------------
+what happens of one promise rejects, and handle collect all results if some fail
+
+
+────────────────────────────────────────────────────────────────────────
+WAVE wave1 — Triage  (2 agents in parallel)
+────────────────────────────────────────────────────────────────────────
+
+▸ AGENT: SPEED TIP  (0ms)
+  Task: what happens of one promise rejects, and handle collect all results if some fail
+
+  **Tip:** Show you know `Promise.allSettled()` handles rejections gracefully, then explain why it's better than `Promise.all()` for this scenario.
+  
+  ---
+  
+  **Answer:**
+  
+  With `Promise.all()`, if any promise rejects, the whole thing fails immediately—you lose results from pending promises. Use `Promise.allSettled()` instead; it waits for all promises to settle (resolve or reject) and returns an array of objects with `{status, value}` or `{status, reason}`.
+  
+  ```javascript
+  const results = await Promise.allSettled([
+    fetchUser(),
+    fetchPosts(),
+    fetchComments()
+  ]);
+  
+  results.forEach(r => {
+    if (r.status === 'fulfilled') console.log(r.value);
+    else console.log('Failed:', r.reason);
+  });
+  ```
+  
+  This way you capture partial success—critical for real apps where one API failing shouldn't trash the entire page load.
+
+
+▸ AGENT: CLASSIFIER  (0ms)
+  Task: what happens of one promise rejects, and handle collect all results if some fail
+
+  {"type": "fullstack", "urgency": "normal"}
+
+
+────────────────────────────────────────────────────────────────────────
+WAVE wave2 — Fullstack Answer  (1 agents in parallel)
+────────────────────────────────────────────────────────────────────────
+
+▸ AGENT: FULLSTACK  (6419ms)
+  Task: what happens of one promise rejects, and handle collect all results if some fail
+
+  ANSWER: If one promise rejects in `Promise.all`, the whole thing fails fast — you lose all the other results even if they succeeded. Use `Promise.allSettled` instead, which waits for everything and gives you each result with a status of `"fulfilled"` or `"rejected"`.
+  
+  ```typescript
+  const results = await Promise.allSettled([
+    fetchUser(1),
+    fetchUser(2),
+    fetchUser(999), // this one fails
+  ]);
+  
+  results.forEach((result) => {
+    if (result.status === "fulfilled") {
+      console.log("got user:", result.value);
+    } else {
+      console.error("failed:", result.reason);
+    }
+  });
+  ```
+  
+  I actually hit this in a project where I was fetching data from multiple endpoints in parallel — `Promise.all` would silently kill the whole page if one API was down. Switching to `allSettled` meant I could still render the working parts and just show an error for the failed ones.
+  
+  TRADEOFF: `Promise.allSettled` always resolves, so you have to manually check each status — slightly more boilerplate. If you genuinely need *all or nothing* (like a transaction), `Promise.all` with a try/catch is the right call.
+
+========================================================================
+END OF TRANSCRIPT
+========================================================================

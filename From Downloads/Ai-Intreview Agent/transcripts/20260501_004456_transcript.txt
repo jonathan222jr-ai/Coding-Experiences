@@ -1,0 +1,55 @@
+========================================================================
+SWARM — PARALLEL AI AGENT TRANSCRIPT
+========================================================================
+Timestamp : 20260501_004456
+Duration  : 189.57s
+Agents run: 3
+
+GOAL / PROMPT
+------------------------------------------------------------------------
+hey things to sanitize for get items
+
+
+────────────────────────────────────────────────────────────────────────
+WAVE wave1 — Triage  (2 agents in parallel)
+────────────────────────────────────────────────────────────────────────
+
+▸ AGENT: SPEED TIP  (0ms)
+  Task: hey things to sanitize for get items
+
+  **Tip:** Explain XSS prevention first—sanitize user input/query params before using in queries or DOM, then mention SQL injection and output encoding.
+
+
+▸ AGENT: CLASSIFIER  (0ms)
+  Task: hey things to sanitize for get items
+
+  {"type": "fullstack", "urgency": "normal"}
+
+
+────────────────────────────────────────────────────────────────────────
+WAVE wave2 — Fullstack Answer  (1 agents in parallel)
+────────────────────────────────────────────────────────────────────────
+
+▸ AGENT: FULLSTACK  (186072ms)
+  Task: hey things to sanitize for get items
+
+  ANSWER: For GET requests fetching items, you mainly want to sanitize and validate query parameters — things like pagination values, filter strings, and sort fields. Make sure you're validating types, clamping numeric ranges, and whitelisting allowed sort/filter fields so users can't inject arbitrary field names.
+  
+  ```typescript
+  app.get('/items', (req, res) => {
+    const page = Math.max(1, parseInt(req.query.page as string) || 1);
+    const limit = Math.min(100, parseInt(req.query.limit as string) || 20);
+    const allowedSortFields = ['name', 'createdAt', 'price'];
+    const sortBy = allowedSortFields.includes(req.query.sortBy as string)
+      ? req.query.sortBy
+      : 'createdAt';
+  
+    // safe to use in DB query now
+  });
+  ```
+  
+  TRADEOFF: Some people skip sanitization on GETs thinking "it's just a read" — but a bad `sortBy` field injected into a raw SQL `ORDER BY` clause can still cause SQL injection. Using an ORM like Prisma or parameterized queries helps, but whitelisting is still a good extra layer.
+
+========================================================================
+END OF TRANSCRIPT
+========================================================================

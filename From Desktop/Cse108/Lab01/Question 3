@@ -1,0 +1,18 @@
+import string
+from collections import Counter
+#I create a code that asks for the word then I lowercase the word using lower() it so I can find it easier incase of punctuaution sensitivity
+word = input("Hey bro, give me a word please?: ").lower()
+#Then it opens file and begins to read the entire file
+with open("PythonSummary.txt", "r") as file:
+    read = file.read()
+#Then read he entire file while lowercasing the file so it matches the punctuation from the input code
+text = read.lower()
+#Using the string import I am looping through every punctuaution and replacing it with an empty string
+for p in string.punctuation:
+    text = text.replace(p, "")
+#Split into words indivdually
+words = text.split()
+#This calls a count code from the libary, counting how many times 'words' ran
+word_counts = Counter(words)
+#Ask the user for a word to check and how many times it counted
+print(f"The word '{word}' occurs {word_counts[word]} times. ")

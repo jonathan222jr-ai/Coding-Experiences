@@ -1,0 +1,121 @@
+/* src/taskpane/taskpane.css */
+
+.view.hidden { display: none; }
+
+.result-shell {
+  position: relative;
+  min-height: 100vh;
+  background: #ffffff;
+  overflow: hidden;
+  padding: 24px 16px;
+}
+
+/* angled blue corners */
+.corner {
+  position: absolute;
+  width: 55%;
+  height: 30%;
+  background: #2ea7ff;
+  transform: skew(-18deg) rotate(-8deg);
+  opacity: 0.95;
+}
+.corner-top {
+  top: -8%;
+  left: -28%;
+}
+.corner-bottom {
+  bottom: -10%;
+  right: -28%;
+  transform: skew(-18deg) rotate(172deg);
+}
+
+.result-card {
+  position: relative;
+  max-width: 340px;
+  margin: 0 auto;
+  padding: 28px 18px 18px;
+  text-align: center;
+}
+
+.risk-badge {
+  width: 180px;
+  height: 180px;
+  margin: 12px auto 18px;
+  border-radius: 999px;
+  background: #e85b5b;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.risk-percent {
+  font-size: 52px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.risk-label {
+  margin-top: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.reason-title {
+  margin: 10px 0 10px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #2c2c2c;
+}
+
+.reason-list {
+  text-align: left;
+  margin: 0 auto 16px;
+  padding-left: 18px;
+  max-width: 280px;
+  color: #2c2c2c;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.btn {
+  border: none;
+  padding: 12px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn.primary {
+  background: #2ea7ff;
+  color: #fff;
+}
+
+.btn.danger {
+  background: #64aefc;
+  color: #0b2440;
+  width: 160px;
+}
+
+.btn.link {
+  background: transparent;
+  color: #2ea7ff;
+  margin-top: 10px;
+}
+
+.muted {
+  margin-top: 10px;
+  color: #666;
+  font-size: 13px;
+}
+
+.disclaimer {
+  margin-top: 16px;
+  font-size: 11px;
+  color: #555;
+  opacity: 0.9;
+}

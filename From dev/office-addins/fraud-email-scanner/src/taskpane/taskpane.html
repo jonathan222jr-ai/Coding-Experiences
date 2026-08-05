@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sweep</title>
+
+    <!-- Office JavaScript API -->
+    <script
+      type="text/javascript"
+      src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"
+    ></script>
+
+    <!-- Fluent / Fabric -->
+    <link
+      rel="stylesheet"
+      href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"
+    />
+
+    <!-- Your styles -->
+    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body class="ms-font-m ms-Fabric sweep-body">
+    <!-- Microsoft sample sideload message -->
+    <section id="sideload-msg" class="ms-welcome__main">
+      <h2 class="ms-font-xl">
+        Please sideload your add-in to see the app body.
+      </h2>
+    </section>
+
+    <!-- Main app body -->
+    <main id="app-body" style="display: none">
+      <!-- VIEW 1: Pre-scan -->
+      <section id="view-home" class="view">
+        <div class="sweep-shell">
+          <div class="result-card">
+            <h2 class="sweep-title">Sweep</h2>
+
+            <button id="scan-btn" class="btn primary" type="button">
+              Scan Email
+            </button>
+
+            <div id="scan-status" class="muted"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: Post-scan results -->
+      <section id="view-result" class="view hidden">
+        <div class="result-shell">
+          <div class="corner corner-top"></div>
+          <div class="corner corner-bottom"></div>
+
+          <div class="result-card">
+            <div class="risk-badge" aria-label="Fraud Risk">
+              <div class="risk-percent" id="risk-percent">0%</div>
+              <div class="risk-label">Fraud<br />Risk</div>
+            </div>
+
+            <h3 class="reason-title">Reasoning</h3>
+            <ul id="reason-list" class="reason-list">
+              <li>No scan has been run yet.</li>
+            </ul>
+
+            <button id="junk-btn" class="btn danger" type="button">
+              SEND TO JUNK
+            </button>
+
+            <p class="disclaimer">
+              *AI was used to scan this email and it might not be fully accurate
+            </p>
+
+            <button id="back-btn" class="btn link" type="button">
+              Back
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

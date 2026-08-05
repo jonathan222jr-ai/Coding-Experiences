@@ -1,0 +1,21 @@
+#I created this line to input numbers for my code, using the strip function to remove whitespace(tabs, spaces,...etc)
+user_input = input("Do me a favor big dog and put some numbers for me please: ").strip()
+#Here I turn the numbers into values to add together
+numbers = user_input.split()
+#Here I check if the user put enough numbers for me to add together
+if len(numbers) < 2:
+    print("Error: You must enter at least two numbers.")
+#Here I create a count
+else:
+    valid = True
+    total = 0
+    #Here I create a loop based on the length of the inputed numbers, the float option is there to make sure the numbers can still be added even if the user input decimals
+    for num in numbers:
+        try:
+            total += float(num)  # try converting
+        except ValueError:
+            print(f"Error: '{num}' was not turbo tastic bro.")
+            valid = False
+            break
+    if valid:
+        print("Sum:", total)

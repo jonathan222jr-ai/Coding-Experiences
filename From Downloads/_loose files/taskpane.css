@@ -1,0 +1,291 @@
+/* Base */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.sweep-body {
+  height: 100%;
+  font-family: "Segoe UI", SegoeUI, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+}
+
+/* Blue background shell */
+.sweep-shell {
+  min-height: 100%;
+  background: #2ea7ff; /* close to your screenshot blue */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* White card with angled blue corners */
+.sweep-card {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  min-height: 560px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  padding: 28px 18px 90px; 
+  box-sizing: border-box;
+}
+
+/* Top-left blue wedge */
+.sweep-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 170px solid #2ea7ff;
+  border-right: 170px solid transparent;
+}
+
+/* Bottom-right blue wedge */
+.sweep-card::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-bottom: 170px solid #2ea7ff;
+  border-left: 170px solid transparent;
+}
+
+/* Title */
+.sweep-title {
+  position: relative; /* keeps it above the corner wedges */
+  margin: 0;
+  font-size: 34px;
+  font-weight: 400;
+  color: #111;
+  letter-spacing: 0.2px;
+}
+
+/* Scan area */
+.scan-area {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Big circular button */
+.scan-btn {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+  border: none;
+  background: #55b6ff;
+  cursor: pointer;
+
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scan-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.22);
+}
+
+.scan-btn__text {
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 1.05;
+  text-align: center;
+}
+
+/* Chart that replaces the button after scan */
+.scan-chart {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scan-chart__pie {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: conic-gradient(#22c55e 0% 80%, #ef4444 80% 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.22);
+  border: 2px solid #222;
+}
+
+.scan-chart__center {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scan-chart__percent {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1;
+}
+
+.scan-chart__label {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+/* Hidden utility */
+.hidden {
+  display: none !important;
+}
+
+/* Risk card */
+.risk-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 250px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+.risk-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.risk-card__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+  text-transform: uppercase;
+}
+
+.risk-card__badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.risk-meter {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.risk-meter__fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #84cc16);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+.risk-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 13px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.risk-row:last-child {
+  border-bottom: none;
+}
+
+.risk-row__label {
+  color: #6b7280;
+}
+
+.risk-row__value {
+  color: #111827;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Action buttons under scan result */
+.scan-actions {
+  position: relative;
+  z-index: 1;
+  margin-top: -8px;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.scan-action-btn {
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.scan-action-btn:hover {
+  transform: translateY(-1px);
+}
+
+.scan-action-btn.junk {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.scan-action-btn.rescan {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+/* Stats bottom */
+.sweep-stats {
+  position: absolute;
+  left: 18px;
+  bottom: 10px;   /* moved lower */
+  z-index: 2;     /* ensures it sits above wedges */
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: left;
+}

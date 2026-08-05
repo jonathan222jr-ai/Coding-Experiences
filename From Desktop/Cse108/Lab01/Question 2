@@ -1,0 +1,18 @@
+#Here I created 2 lines of codes for inputing both the sentence (string) and the amount of times it repeats(integer)
+user_input = input("What sentense shall I write: ")
+while True:
+    user_input2 = input("How many timess: ")
+    #Here I converted the User_input2 from string to integer
+    try:
+        num_repeats = int(user_input2)
+        break
+    except ValueError:
+        print("Nah gang we gotta put numbers here!")
+    #Using the with function to open the file by finding it or creating CompletedPunishment.txt I use the "w" write mode to delete and rewrite that same file to keep testing the code and complete as a file
+with open("CompletedPunishment.txt", "w") as file:
+#This is a basic loop function which repeats itself in the range of what User_input2 is
+    for i in range(num_repeats):
+        #This just writes inside the file what user_input is and "\n" ends the line and starts a new one
+        file.write(user_input + "\n")
+    #This is to show the code ran and how many times I told it to repeat
+print(f"Your punishment has been written to CompletedPunishment.txt ({num_repeats} times).")

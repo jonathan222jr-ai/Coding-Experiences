@@ -1,0 +1,10 @@
+anthropic
+python-dotenv
+flask
+flask-cors
+click
+# Voice / mic features (optional — install for `python3 main.py listen`)
+sounddevice
+soundfile
+openai-whisper
+numpy

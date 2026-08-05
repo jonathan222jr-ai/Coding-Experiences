@@ -1,0 +1,718 @@
+<!-- AI TRAINING TRACKER — web-slinger themed, gym-coach voiced.
+     Self-contained. Persists via window.storage with graceful in-memory fallback. -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#0C0E24;         /* night-city navy */
+    --ink-2:#12163A;       /* panel */
+    --ink-3:#1B2050;       /* raised */
+    --line:#2A3170;        /* web thread */
+    --red:#E7213A;         /* action red */
+    --red-deep:#B0122A;
+    --blue:#3B6BD6;        /* web blue */
+    --blue-soft:#6E93EE;
+    --web:#EAF0FF;         /* cool near-white */
+    --muted:#8B93C4;
+    --pow:#FFD23F;         /* comic yellow */
+    --good:#37D67A;
+    --display:'Anton','Impact','Haettenschweiler','Arial Narrow',sans-serif;
+    --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --radius:14px;
+    --shadow:0 18px 40px -18px rgba(0,0,0,.7);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:var(--body);
+    color:var(--web);
+    background:
+      radial-gradient(1100px 700px at 85% -10%, rgba(59,107,214,.20), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(231,33,58,.16), transparent 55%),
+      var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+    padding:22px 16px 60px;
+  }
+  .wrap{max-width:940px;margin:0 auto;position:relative}
+
+  /* faint web crosshatch behind everything */
+  .web-bg{position:fixed;inset:0;pointer-events:none;opacity:.10;z-index:0}
+  .web-bg svg{width:100%;height:100%}
+  .wrap>*{position:relative;z-index:1}
+
+  a{color:var(--blue-soft)}
+  button{font-family:var(--body);cursor:pointer}
+  :focus-visible{outline:3px solid var(--pow);outline-offset:2px;border-radius:6px}
+
+  /* ---------- header ---------- */
+  header.top{
+    display:flex;align-items:flex-end;justify-content:space-between;
+    gap:16px;flex-wrap:wrap;margin-bottom:20px;
+  }
+  .brand h1{
+    font-family:var(--display);
+    font-size:clamp(38px,7.5vw,72px);
+    line-height:.9;margin:0;letter-spacing:.5px;
+    color:var(--web);
+    text-transform:uppercase;
+  }
+  .brand h1 .b{color:var(--red)}
+  .brand h1 .c{color:var(--blue-soft)}
+  .brand p{
+    margin:8px 0 0;color:var(--muted);
+    font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:12px;
+  }
+  .streak{
+    background:var(--ink-2);border:2px solid var(--line);border-radius:12px;
+    padding:10px 14px;text-align:center;min-width:96px;
+  }
+  .streak .n{font-family:var(--display);font-size:34px;line-height:1;color:var(--pow)}
+  .streak .l{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+  /* ---------- hero ---------- */
+  .hero{
+    display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:center;
+    background:linear-gradient(180deg,var(--ink-2),var(--ink-3));
+    border:2px solid var(--line);border-radius:var(--radius);
+    padding:24px;box-shadow:var(--shadow);margin-bottom:16px;
+  }
+  .meter{position:relative;width:200px;height:200px;margin:0 auto}
+  .meter svg{width:200px;height:200px;transform:rotate(-90deg)}
+  .meter .center{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+  }
+  .meter .center .big{font-family:var(--display);font-size:52px;line-height:.85;color:var(--web)}
+  .meter .center .of{color:var(--muted);font-weight:700;font-size:13px;letter-spacing:.1em;margin-top:2px}
+  .meter .center .pct{color:var(--red);font-weight:800;font-size:13px;margin-top:6px;letter-spacing:.08em}
+
+  .coach{align-self:stretch;display:flex;flex-direction:column;gap:14px}
+  .bubble{
+    position:relative;background:var(--web);color:#141414;
+    border-radius:16px;padding:16px 18px;font-weight:600;font-size:16px;
+    box-shadow:0 10px 26px -14px rgba(0,0,0,.8);
+  }
+  .bubble::after{
+    content:"";position:absolute;left:34px;bottom:-13px;
+    border:8px solid transparent;border-top-color:var(--web);border-bottom:0;
+  }
+  .bubble .who{
+    display:block;font-family:var(--display);letter-spacing:.06em;
+    text-transform:uppercase;color:var(--red-deep);font-size:13px;margin-bottom:4px;
+  }
+  .coach-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+  .btn{
+    border:none;border-radius:11px;padding:12px 18px;font-weight:800;
+    letter-spacing:.03em;font-size:14px;transition:transform .06s ease,filter .15s ease;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-red{background:var(--red);color:#fff}
+  .btn-red:hover{filter:brightness(1.08)}
+  .btn-ghost{background:transparent;color:var(--web);border:2px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--blue-soft)}
+  .btn-blue{background:var(--blue);color:#fff}
+  .btn-blue:hover{filter:brightness(1.08)}
+
+  /* ---------- weekly ---------- */
+  .card{
+    background:var(--ink-2);border:2px solid var(--line);border-radius:var(--radius);
+    padding:20px;margin-bottom:16px;
+  }
+  .card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .card-head h2{
+    font-family:var(--display);text-transform:uppercase;letter-spacing:.04em;
+    font-size:22px;margin:0;color:var(--web);
+  }
+  .card-head h2 .dot{color:var(--red)}
+  .target-set{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:600}
+  .target-set input{
+    width:64px;background:var(--ink);border:2px solid var(--line);color:var(--web);
+    border-radius:8px;padding:6px 8px;font-family:var(--body);font-weight:700;text-align:center;
+  }
+  .weeks{display:flex;gap:10px;align-items:flex-end;overflow-x:auto;padding-bottom:6px}
+  .wk{flex:0 0 auto;width:52px;display:flex;flex-direction:column;align-items:center;gap:6px}
+  .wk .bar-track{width:34px;height:120px;background:var(--ink);border-radius:8px;position:relative;overflow:hidden;border:1px solid var(--line)}
+  .wk .bar-fill{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,var(--blue-soft),var(--blue));transition:height .5s cubic-bezier(.2,.8,.2,1)}
+  .wk.done .bar-fill{background:linear-gradient(180deg,#5be08f,var(--good))}
+  .wk.current .bar-track{border-color:var(--red);box-shadow:0 0 0 2px rgba(231,33,58,.35)}
+  .wk .hrs{font-weight:800;font-size:13px}
+  .wk .lbl{font-size:10px;color:var(--muted);letter-spacing:.03em}
+  .weeks-empty{color:var(--muted);font-size:14px;padding:18px 0}
+
+  /* ---------- stat grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .panel{
+    background:var(--ink-2);border:2px solid var(--line);border-radius:var(--radius);
+    padding:18px;display:flex;flex-direction:column;min-height:0;
+  }
+  .panel-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .badge{
+    width:44px;height:44px;border-radius:11px;display:grid;place-items:center;
+    background:var(--ink-3);border:2px solid var(--line);flex:0 0 auto;
+  }
+  .badge svg{width:22px;height:22px}
+  .panel h3{margin:0;font-family:var(--display);text-transform:uppercase;letter-spacing:.04em;font-size:17px;line-height:1}
+  .panel .count{margin-left:auto;font-family:var(--display);font-size:30px;line-height:1;color:var(--web)}
+  .panel .count small{font-size:14px;color:var(--muted)}
+
+  .items{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:8px;max-height:210px;overflow:auto}
+  .item{
+    display:flex;align-items:flex-start;gap:10px;background:var(--ink);border:1px solid var(--line);
+    border-radius:10px;padding:9px 10px;font-size:14px;
+  }
+  .item .check{
+    appearance:none;width:20px;height:20px;flex:0 0 auto;margin-top:1px;border-radius:6px;
+    border:2px solid var(--line);background:var(--ink-3);cursor:pointer;position:relative;
+  }
+  .item .check:checked{background:var(--red);border-color:var(--red)}
+  .item .check:checked::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:900}
+  .item .txt{flex:1;min-width:0}
+  .item.done .title{text-decoration:line-through;color:var(--muted)}
+  .item .title{font-weight:600;word-break:break-word}
+  .item .sub{color:var(--muted);font-size:12px;margin-top:2px;word-break:break-word}
+  .item .sub a{color:var(--blue-soft)}
+  .item .kill{background:none;border:none;color:var(--muted);font-size:18px;line-height:1;padding:0 2px;flex:0 0 auto}
+  .item .kill:hover{color:var(--red)}
+  .item .pill{font-size:11px;font-weight:800;padding:2px 8px;border-radius:20px;background:var(--ink-3);border:1px solid var(--line);color:var(--web);flex:0 0 auto}
+
+  .empty{color:var(--muted);font-size:13px;font-style:italic;padding:8px 2px 14px}
+
+  .add-row{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
+  .add-row input{
+    flex:1;min-width:0;background:var(--ink);border:2px solid var(--line);color:var(--web);
+    border-radius:9px;padding:9px 11px;font-family:var(--body);font-size:14px;
+  }
+  .add-row input::placeholder{color:#5b64a0}
+  .add-row input:focus{border-color:var(--blue-soft);outline:none}
+  .add-row .btn-add{background:var(--blue);color:#fff;border:none;border-radius:9px;padding:0 15px;font-weight:900;font-size:20px;line-height:1}
+  .add-row .btn-add:hover{filter:brightness(1.1)}
+
+  .panel .avg{margin-top:6px;font-size:12px;color:var(--muted);font-weight:600}
+
+  footer{margin-top:26px;text-align:center;color:var(--muted);font-size:12px}
+  footer button{background:none;border:none;color:var(--muted);text-decoration:underline;font-size:12px}
+  footer button:hover{color:var(--red)}
+
+  /* ---------- modal ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(4,5,18,.72);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}
+  .scrim.open{display:flex}
+  .modal{background:var(--ink-2);border:2px solid var(--line);border-radius:16px;padding:22px;width:100%;max-width:380px;box-shadow:var(--shadow)}
+  .modal h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.04em;font-size:22px;margin:0 0 4px}
+  .modal p{margin:0 0 16px;color:var(--muted);font-size:13px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .field input{width:100%;background:var(--ink);border:2px solid var(--line);color:var(--web);border-radius:9px;padding:11px;font-family:var(--body);font-size:15px}
+  .field input:focus{border-color:var(--blue-soft);outline:none}
+  .modal-actions{display:flex;gap:10px;margin-top:6px}
+  .modal-actions .btn{flex:1}
+
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--red);color:#fff;font-weight:800;padding:13px 20px;border-radius:12px;
+    box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:all .3s ease;z-index:60;
+    max-width:90vw;text-align:center;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media (max-width:720px){
+    .hero{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;animation:none !important}
+  }
+</style>
+
+<div class="web-bg" aria-hidden="true">
+  <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice">
+    <g stroke="#8fb0ff" stroke-width="1" fill="none">
+      <line x1="0" y1="0" x2="800" y2="600"/><line x1="800" y1="0" x2="0" y2="600"/>
+      <line x1="400" y1="0" x2="400" y2="600"/><line x1="0" y1="300" x2="800" y2="300"/>
+      <line x1="0" y1="0" x2="800" y2="200"/><line x1="0" y1="600" x2="800" y2="400"/>
+      <line x1="0" y1="0" x2="200" y2="600"/><line x1="800" y1="0" x2="600" y2="600"/>
+      <polygon points="400,60 560,180 500,380 300,380 240,180"/>
+      <polygon points="400,140 490,230 455,340 345,340 310,230"/>
+      <polygon points="400,220 435,270 420,320 380,320 365,270"/>
+    </g>
+  </svg>
+</div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>AI <span class="b">TRAINING</span> <span class="c">TRACKER</span></h1>
+      <p>Friendly neighborhood AI engineer — in training</p>
+    </div>
+    <div class="streak" title="Consecutive days with a logged session">
+      <div class="n" id="streakN">0</div>
+      <div class="l">Day streak</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="meter">
+      <svg viewBox="0 0 200 200">
+        <!-- web threads behind the meter -->
+        <g stroke="#2A3170" stroke-width="1" fill="none" transform="rotate(90 100 100)">
+          <circle cx="100" cy="100" r="58"/><circle cx="100" cy="100" r="40"/>
+          <line x1="100" y1="14" x2="100" y2="186"/><line x1="14" y1="100" x2="186" y2="100"/>
+          <line x1="39" y1="39" x2="161" y2="161"/><line x1="161" y1="39" x2="39" y2="161"/>
+        </g>
+        <circle cx="100" cy="100" r="84" fill="none" stroke="#1B2050" stroke-width="14"/>
+        <circle id="ring" cx="100" cy="100" r="84" fill="none" stroke="var(--red)"
+                stroke-width="14" stroke-linecap="round"
+                stroke-dasharray="527.79" stroke-dashoffset="527.79"/>
+      </svg>
+      <div class="center">
+        <div class="big" id="hoursN">0</div>
+        <div class="of">/ 120 HRS</div>
+        <div class="pct" id="pct">0% THERE</div>
+      </div>
+    </div>
+
+    <div class="coach">
+      <div class="bubble">
+        <span class="who">Coach</span>
+        <span id="coachLine">Suit up, rookie. 120 hours between you and the next tier. First rep starts now — log a session.</span>
+      </div>
+      <div class="coach-actions">
+        <button class="btn btn-red" id="logBtn">＋ Log a session</button>
+        <button class="btn btn-ghost" id="pepBtn">New pep talk</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEEKLY -->
+  <section class="card">
+    <div class="card-head">
+      <h2>Weekly <span class="dot">tracker</span></h2>
+      <div class="target-set">
+        <label for="wkTarget">Weekly goal</label>
+        <input id="wkTarget" type="number" min="1" max="60" value="10"> hrs
+      </div>
+    </div>
+    <div class="weeks" id="weeks"></div>
+  </section>
+
+  <!-- STAT GRID -->
+  <section class="grid" id="grid"></section>
+
+  <footer>
+    Every rep is logged locally on this device. &nbsp;·&nbsp;
+    <button id="resetBtn">Reset training</button>
+  </footer>
+</div>
+
+<!-- session modal -->
+<div class="scrim" id="scrim">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <h3 id="mTitle">Log a session</h3>
+    <p>Clock the reps. Even 20 minutes counts.</p>
+    <div class="field">
+      <label for="mDate">Date</label>
+      <input id="mDate" type="date">
+    </div>
+    <div class="field">
+      <label for="mHours">Hours studied</label>
+      <input id="mHours" type="number" min="0.25" step="0.25" placeholder="e.g. 1.5">
+    </div>
+    <div class="field">
+      <label for="mNote">What did you work on? (optional)</label>
+      <input id="mNote" type="text" placeholder="e.g. built a RAG demo with Claude">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="mCancel">Cancel</button>
+      <button class="btn btn-red" id="mSave">Log it</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+  var KEY = "ai-training-tracker-v1";
+  var GOAL = 120;
+
+  function blank(){
+    return {
+      sessions: [],                         // {date:'YYYY-MM-DD', hours:Number, note:String}
+      weeklyTarget: 10,
+      skills:   [],                         // {t, done}
+      projects: [],                         // {t, done}
+      articles: [],                         // {t, url, done}
+      terms:    [],                         // {t (term), d (definition)}
+      scores:   []                          // {t (name), s (score), m (max)}
+    };
+  }
+  var state = blank();
+
+  /* ---------- persistence (window.storage, else session-only) ---------- */
+  function persist(){
+    try{ if(window.storage) window.storage.set(KEY, JSON.stringify(state), false); }catch(e){}
+  }
+  function loadThen(cb){
+    if(!window.storage){ cb(); return; }
+    Promise.resolve(window.storage.get(KEY, false)).then(function(res){
+      if(res && res.value){
+        try{ state = Object.assign(blank(), JSON.parse(res.value)); }catch(e){}
+      }
+      cb();
+    }).catch(function(){ cb(); });   // missing key throws — that's fine, fresh start
+  }
+  function commit(){ persist(); render(); }
+
+  /* ---------- helpers ---------- */
+  function totalHours(){ return state.sessions.reduce(function(s,x){return s+(+x.hours||0);},0); }
+  function round1(n){ return Math.round(n*10)/10; }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+  function todayStr(){
+    var d=new Date(), m=String(d.getMonth()+1).padStart(2,"0"), day=String(d.getDate()).padStart(2,"0");
+    return d.getFullYear()+"-"+m+"-"+day;
+  }
+  // ISO week key + human label
+  function weekInfo(dateStr){
+    var d=new Date(dateStr+"T00:00:00");
+    var t=new Date(d); t.setHours(0,0,0,0);
+    t.setDate(t.getDate()+3-((t.getDay()+6)%7));           // nearest Thursday
+    var week1=new Date(t.getFullYear(),0,4);
+    var wk=1+Math.round(((t-week1)/86400000-3+((week1.getDay()+6)%7))/7);
+    return { key:t.getFullYear()+"-W"+String(wk).padStart(2,"0"), wk:wk };
+  }
+  function currentWeekKey(){ return weekInfo(todayStr()).key; }
+
+  function streak(){
+    if(!state.sessions.length) return 0;
+    var days={}; state.sessions.forEach(function(s){ if(s.date) days[s.date]=true; });
+    var keys=Object.keys(days).sort();
+    var cur=new Date(todayStr()+"T00:00:00");
+    // allow streak to count if last session was today OR yesterday
+    function ds(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+    if(!days[ds(cur)]){ cur.setDate(cur.getDate()-1); if(!days[ds(cur)]) return 0; }
+    var count=0;
+    while(days[ds(cur)]){ count++; cur.setDate(cur.getDate()-1); }
+    return count;
+  }
+
+  /* ---------- coach lines ---------- */
+  var LINES = {
+    zero: [
+      "Suit up, rookie. 120 hours between you and the next tier. First rep starts now.",
+      "Empty log, huh? Everybody starts at zero. Champs just don't stay there. Log your first hour.",
+      "You're an engineer — you already know the drill. Ship reps, not excuses. Let's go."
+    ],
+    low: [   // <25%
+      "Web's warming up. Momentum beats motivation — show up again today.",
+      "Nice, you're on the board. Now stack a session on top of it. Consistency is the whole game.",
+      "Small hours compound, slinger. Keep swinging."
+    ],
+    quarter: [ // 25–50
+      "Quarter of the way up the tower. This is where the weak let go. Not you.",
+      "You're building real habits now. Protect the streak like it's the city.",
+      "25% down. Don't coast — coasting only goes one direction, and it ain't up."
+    ],
+    half: [  // 50–75
+      "Halfway. Legs burning? Good. That's growth you're feeling.",
+      "60 hours in the tank. You're not learning AI anymore — you're becoming dangerous with it.",
+      "Past the midpoint. Recheck your projects list; evidence beats vibes."
+    ],
+    high: [  // 75–99
+      "Home stretch, I can see the finish from here. Push.",
+      "This close to 120. Don't celebrate at the 90-yard line. Finish the rep.",
+      "You've done the hard part — showing up. Now close it out like a pro."
+    ],
+    done: [  // 100
+      "120 hours. You didn't just show up — you leveled up. Friendly neighborhood AI engineer, certified.",
+      "Goal cleared. Now go set a bigger one — champs don't retire, they re-rack.",
+      "That's a full tank of mastery. Take the win, then chase the next tier."
+    ]
+  };
+  var NUDGE = [
+    "No session logged today — even 20 minutes keeps the streak alive.",
+    "Two things build engineers: reps and reflection. Add a project to prove what you learned.",
+    "Learned a new AI term today? Bank it. Vocabulary is leverage.",
+    "Read something sharp? Log the article so future-you can find it."
+  ];
+  function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+  function tierLines(){
+    var p=totalHours()/GOAL;
+    if(p<=0) return LINES.zero;
+    if(p>=1) return LINES.done;
+    if(p<.25) return LINES.low;
+    if(p<.5)  return LINES.quarter;
+    if(p<.75) return LINES.half;
+    return LINES.high;
+  }
+  function newCoachLine(){
+    // if nothing logged today and there's a streak worth protecting, sometimes nudge
+    var loggedToday = state.sessions.some(function(s){return s.date===todayStr();});
+    var pool = tierLines().slice();
+    if(!loggedToday && totalHours()>0 && Math.random()<0.5) pool = NUDGE;
+    document.getElementById("coachLine").textContent = pick(pool);
+  }
+
+  /* ---------- toast ---------- */
+  var toastEl=document.getElementById("toast"), toastT;
+  function toast(msg){
+    toastEl.textContent=msg; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT=setTimeout(function(){toastEl.classList.remove("show");},2200);
+  }
+
+  /* ---------- panel definitions ---------- */
+  var ICONS = {
+    skills:'<path d="M12 2l2.4 6.9H21l-5.5 4 2.1 7L12 15.8 6.4 19.9l2.1-7L3 8.9h6.6z" fill="var(--pow)"/>',
+    projects:'<path d="M4 7h16v12H4z" fill="none" stroke="var(--blue-soft)" stroke-width="2"/><path d="M9 7V5h6v2" fill="none" stroke="var(--blue-soft)" stroke-width="2"/>',
+    articles:'<path d="M6 4h9l3 3v13H6z" fill="none" stroke="var(--good)" stroke-width="2"/><path d="M9 11h6M9 15h6" stroke="var(--good)" stroke-width="2"/>',
+    terms:'<path d="M5 4h14v16l-7-3-7 3z" fill="none" stroke="var(--red)" stroke-width="2"/>',
+    scores:'<path d="M4 20V9M10 20V4M16 20v-7M22 20H2" fill="none" stroke="var(--pow)" stroke-width="2" stroke-linecap="round"/>'
+  };
+
+  function render(){
+    var hrs = round1(totalHours());
+    var pct = Math.min(1, hrs/GOAL);
+
+    // meter
+    var C = 527.79;
+    document.getElementById("ring").setAttribute("stroke-dashoffset", (C*(1-pct)).toFixed(2));
+    document.getElementById("hoursN").textContent = (hrs % 1 === 0)? hrs : hrs.toFixed(1);
+    document.getElementById("pct").textContent = Math.round(pct*100) + "% THERE";
+    document.getElementById("streakN").textContent = streak();
+    document.getElementById("wkTarget").value = state.weeklyTarget;
+
+    renderWeeks();
+    renderGrid();
+  }
+
+  function renderWeeks(){
+    var box=document.getElementById("weeks");
+    var map={};
+    state.sessions.forEach(function(s){
+      if(!s.date) return;
+      var info=weekInfo(s.date);
+      if(!map[info.key]) map[info.key]={hrs:0, wk:info.wk};
+      map[info.key].hrs += (+s.hours||0);
+    });
+    // ensure current week shows even if empty
+    var cur=currentWeekKey();
+    if(!map[cur]) map[cur]={hrs:0, wk:weekInfo(todayStr()).wk};
+
+    var keys=Object.keys(map).sort();
+    if(keys.length && !(keys.length===1 && map[cur].hrs===0)){
+      keys=keys.slice(-10);
+    }
+    if(!state.sessions.length){
+      box.innerHTML='<div class="weeks-empty">No weeks logged yet — your first session draws the first bar.</div>';
+      return;
+    }
+    var target=+state.weeklyTarget||10;
+    var maxH=Math.max(target, keys.reduce(function(m,k){return Math.max(m,map[k].hrs);},0));
+    box.innerHTML = keys.map(function(k){
+      var h=round1(map[k].hrs);
+      var pct=Math.max(h>0?6:0, Math.round((h/maxH)*100));
+      var cls="wk"+(k===cur?" current":"")+(h>=target?" done":"");
+      return '<div class="'+cls+'">'
+        + '<div class="hrs">'+(h%1===0?h:h.toFixed(1))+'</div>'
+        + '<div class="bar-track"><div class="bar-fill" style="height:'+pct+'%"></div></div>'
+        + '<div class="lbl">W'+map[k].wk+(k===cur?' •':'')+'</div>'
+        + '</div>';
+    }).join("");
+  }
+
+  /* ---------- generic list panel builder ---------- */
+  function panelShell(id, title, icon, countHtml, listHtml, addHtml, extra){
+    return '<div class="panel" data-panel="'+id+'">'
+      + '<div class="panel-top">'
+        + '<div class="badge"><svg viewBox="0 0 24 24">'+icon+'</svg></div>'
+        + '<h3>'+title+'</h3>'
+        + '<div class="count">'+countHtml+'</div>'
+      + '</div>'
+      + listHtml
+      + (extra||'')
+      + addHtml
+      + '</div>';
+  }
+
+  function checklistPanel(id, title, list){
+    var done=list.filter(function(x){return x.done;}).length;
+    var count=done+'<small>/'+list.length+'</small>';
+    var items = list.length? '<ul class="items">'+list.map(function(x,i){
+      return '<li class="item'+(x.done?' done':'')+'">'
+        + '<input class="check" type="checkbox" data-act="toggle" data-id="'+id+'" data-i="'+i+'" '+(x.done?'checked':'')+' aria-label="Mark done">'
+        + '<div class="txt"><div class="title">'+esc(x.t)+'</div></div>'
+        + '<button class="kill" data-act="del" data-id="'+id+'" data-i="'+i+'" aria-label="Remove">×</button>'
+        + '</li>';
+    }).join("")+'</ul>' : '<div class="empty">Nothing logged yet.</div>';
+    var addl = { skills:"Add a skill you're learning…", projects:"Add a project you built…" }[id];
+    var add='<div class="add-row"><input data-add="'+id+'" placeholder="'+addl+'" '
+      + 'onkeydown="if(event.key===\'Enter\')this.nextElementSibling.click()">'
+      + '<button class="btn-add" data-act="add" data-id="'+id+'" aria-label="Add">＋</button></div>';
+    return panelShell(id, title, ICONS[id], count, items, add);
+  }
+
+  function articlesPanel(){
+    var list=state.articles;
+    var done=list.filter(function(x){return x.done;}).length;
+    var count=done+'<small>/'+list.length+'</small>';
+    var items=list.length? '<ul class="items">'+list.map(function(x,i){
+      var sub = x.url? '<div class="sub"><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.url)+'</a></div>':'';
+      return '<li class="item'+(x.done?' done':'')+'">'
+        + '<input class="check" type="checkbox" data-act="toggle" data-id="articles" data-i="'+i+'" '+(x.done?'checked':'')+' aria-label="Mark read">'
+        + '<div class="txt"><div class="title">'+esc(x.t)+'</div>'+sub+'</div>'
+        + '<button class="kill" data-act="del" data-id="articles" data-i="'+i+'" aria-label="Remove">×</button>'
+        + '</li>';
+    }).join("")+'</ul>' : '<div class="empty">No articles yet — log what you read.</div>';
+    var add='<div class="add-row">'
+      + '<input data-add="articles-t" placeholder="Article title…" style="flex:1 1 100%">'
+      + '<input data-add="articles-u" placeholder="URL (optional)">'
+      + '<button class="btn-add" data-act="add" data-id="articles" aria-label="Add">＋</button></div>';
+    return panelShell("articles","Articles researched",ICONS.articles,count,items,add);
+  }
+
+  function termsPanel(){
+    var list=state.terms;
+    var count=list.length+'';
+    var items=list.length? '<ul class="items">'+list.map(function(x,i){
+      return '<li class="item">'
+        + '<div class="txt"><div class="title">'+esc(x.t)+'</div>'
+        + (x.d?'<div class="sub">'+esc(x.d)+'</div>':'')+'</div>'
+        + '<button class="kill" data-act="del" data-id="terms" data-i="'+i+'" aria-label="Remove">×</button>'
+        + '</li>';
+    }).join("")+'</ul>' : '<div class="empty">Bank the jargon — RAG, embeddings, tokens, agents…</div>';
+    var add='<div class="add-row">'
+      + '<input data-add="terms-t" placeholder="Term…" style="flex:1 1 100%">'
+      + '<input data-add="terms-d" placeholder="Definition in your own words…">'
+      + '<button class="btn-add" data-act="add" data-id="terms" aria-label="Add">＋</button></div>';
+    return panelShell("terms","AI terms learned",ICONS.terms,count,items,add);
+  }
+
+  function scoresPanel(){
+    var list=state.scores;
+    var avg = list.length? Math.round(list.reduce(function(s,x){return s+(x.m>0?(x.s/x.m):0);},0)/list.length*100) : null;
+    var count=list.length+'';
+    var items=list.length? '<ul class="items">'+list.map(function(x,i){
+      var p = x.m>0? Math.round((x.s/x.m)*100):0;
+      return '<li class="item">'
+        + '<div class="txt"><div class="title">'+esc(x.t)+'</div></div>'
+        + '<span class="pill">'+x.s+'/'+x.m+' · '+p+'%</span>'
+        + '<button class="kill" data-act="del" data-id="scores" data-i="'+i+'" aria-label="Remove">×</button>'
+        + '</li>';
+    }).join("")+'</ul>' : '<div class="empty">Quiz yourself and log the result.</div>';
+    var extra = avg!=null? '<div class="avg">Average score: '+avg+'%</div>' : '';
+    var add='<div class="add-row">'
+      + '<input data-add="scores-t" placeholder="Test / quiz name…" style="flex:1 1 100%">'
+      + '<input data-add="scores-s" type="number" placeholder="Score" style="max-width:90px">'
+      + '<input data-add="scores-m" type="number" placeholder="Out of" style="max-width:90px">'
+      + '<button class="btn-add" data-act="add" data-id="scores" aria-label="Add">＋</button></div>';
+    return panelShell("scores","Test scores",ICONS.scores,count,items,add,extra);
+  }
+
+  function renderGrid(){
+    var g=document.getElementById("grid");
+    g.innerHTML =
+      checklistPanel("skills","Skills learned",state.skills)
+      + checklistPanel("projects","Projects made",state.projects)
+      + articlesPanel()
+      + termsPanel()
+      + scoresPanel();
+  }
+
+  /* ---------- event delegation ---------- */
+  function val(sel){ var el=document.querySelector('[data-add="'+sel+'"]'); return el?el.value.trim():""; }
+  function clear(){ ["articles-t","articles-u","terms-t","terms-d","scores-t","scores-s","scores-m"].forEach(function(s){
+    var el=document.querySelector('[data-add="'+s+'"]'); if(el) el.value="";});}
+
+  document.getElementById("grid").addEventListener("click", function(e){
+    var b=e.target.closest("[data-act]"); if(!b) return;
+    var act=b.getAttribute("data-act"), id=b.getAttribute("data-id"), i=+b.getAttribute("data-i");
+
+    if(act==="toggle"){ state[id][i].done=!state[id][i].done; commit(); return; }
+    if(act==="del"){ state[id].splice(i,1); commit(); return; }
+
+    if(act==="add"){
+      if(id==="skills"||id==="projects"){
+        var t=val(id); if(!t) return;
+        state[id].push({t:t, done:false});
+        var inp=document.querySelector('[data-add="'+id+'"]'); if(inp) inp.value="";
+        toast(id==="skills"?"Skill logged. Now go use it.":"Project on the board — that's evidence.");
+      } else if(id==="articles"){
+        var at=val("articles-t"); if(!at) return;
+        state.articles.push({t:at, url:val("articles-u"), done:false}); clear();
+        toast("Article filed.");
+      } else if(id==="terms"){
+        var tt=val("terms-t"); if(!tt) return;
+        state.terms.push({t:tt, d:val("terms-d")}); clear();
+        toast("Vocabulary is leverage. Banked.");
+      } else if(id==="scores"){
+        var st=val("scores-t"), ss=parseFloat(val("scores-s")), sm=parseFloat(val("scores-m"));
+        if(!st || isNaN(ss) || isNaN(sm) || sm<=0) { toast("Need a name, a score, and a max."); return; }
+        state.scores.push({t:st, s:ss, m:sm}); clear();
+        toast("Score logged. Beat it next time.");
+      }
+      commit();
+    }
+  });
+  // Enter-to-add for the single-input skill/project rows is wired inline; also wire multi-field Enter:
+  document.getElementById("grid").addEventListener("keydown", function(e){
+    if(e.key!=="Enter") return;
+    var inp=e.target.closest("[data-add]"); if(!inp) return;
+    var panel=e.target.closest("[data-panel]"); if(!panel) return;
+    var addBtn=panel.querySelector('[data-act="add"]'); if(addBtn) addBtn.click();
+  });
+
+  document.getElementById("wkTarget").addEventListener("change", function(){
+    var v=Math.max(1,Math.min(60, parseInt(this.value,10)||10));
+    state.weeklyTarget=v; this.value=v; commit();
+  });
+
+  /* ---------- session modal ---------- */
+  var scrim=document.getElementById("scrim");
+  function openModal(){
+    document.getElementById("mDate").value=todayStr();
+    document.getElementById("mHours").value="";
+    document.getElementById("mNote").value="";
+    scrim.classList.add("open");
+    setTimeout(function(){document.getElementById("mHours").focus();},50);
+  }
+  function closeModal(){ scrim.classList.remove("open"); }
+  document.getElementById("logBtn").addEventListener("click", openModal);
+  document.getElementById("mCancel").addEventListener("click", closeModal);
+  scrim.addEventListener("click", function(e){ if(e.target===scrim) closeModal(); });
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeModal(); });
+
+  document.getElementById("mSave").addEventListener("click", function(){
+    var date=document.getElementById("mDate").value || todayStr();
+    var hours=parseFloat(document.getElementById("mHours").value);
+    var note=document.getElementById("mNote").value.trim();
+    if(isNaN(hours) || hours<=0){ toast("Put a number in the hours field."); return; }
+    state.sessions.push({date:date, hours:hours, note:note});
+    closeModal();
+    persist();
+    render();
+    newCoachLine();
+    var left=Math.max(0, round1(GOAL-totalHours()));
+    toast(left>0 ? (round1(hours)+" hrs logged. "+left+" to go.") : "120 CLEARED. Take the win.");
+  });
+  document.getElementById("mHours").addEventListener("keydown",function(e){ if(e.key==="Enter") document.getElementById("mSave").click(); });
+  document.getElementById("mNote").addEventListener("keydown",function(e){ if(e.key==="Enter") document.getElementById("mSave").click(); });
+
+  document.getElementById("pepBtn").addEventListener("click", newCoachLine);
+
+  document.getElementById("resetBtn").addEventListener("click", function(){
+    if(!confirm("Wipe all training data and start from zero? This can't be undone.")) return;
+    state=blank(); persist(); render(); newCoachLine(); toast("Fresh start. First rep's the hardest.");
+  });
+
+  /* ---------- boot ---------- */
+  loadThen(function(){ render(); newCoachLine(); });
+})();
+</script>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Available Courses — Hogwarts Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h2>Available Courses</h2>
+    <nav>
+      <a href="{{ url_for('student_dashboard') }}">Back to My Courses</a> |
+      <a href="{{ url_for('logout') }}">Sign Out</a>
+    </nav>
+  </div>
+
+  {% if courses %}
+  <div class="course-grid">
+    {% for course in courses %}
+      <div class="course-card">
+        <h4>{{ course.name }}</h4>
+        <p><strong>Instructor:</strong> {{ course.teacher.username if course.teacher else "TBA" }}</p>
+        <p><strong>Time:</strong> {{ course.time }}</p>
+        <p><strong>Capacity:</strong> {{ course.capacity - course.enrollments|length }} spots left</p>
+
+        {% if course.enrollments|length < course.capacity %}
+          <form method="POST" action="{{ url_for('signup_course', course_id=course.id) }}">
+            <button type="submit">Add</button>
+          </form>
+        {% else %}
+          <p class="full">Full</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% else %}
+    <p>No available courses at this time.</p>
+  {% endif %}
+</div>
+
+</body>
+</html>

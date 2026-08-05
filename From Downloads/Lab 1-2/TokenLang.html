@@ -1,0 +1,39 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+  <html>
+  <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+     <meta name="Author" content="Chen Ding">
+     <meta name="GENERATOR" content="Mozilla/4.7 [en]C-CCK-MCD {Sony}  (WinNT; U) [Netscape]">
+     <title>Token Lang</title>
+  </head>
+  <body>
+  
+  <h3>
+  Token language</h3>
+  The tokens include <b>&lt;identifier>, &lt;number>, &lt;reserved word>,
+  &lt;symbol>, &lt;string>, and &lt;meta statement></b>.&nbsp; They are defined
+  as regular expressions as follows.
+  <p>&lt;letter> --> a | b | ... | y | z | A | B | ... | Z | <b>underscore</b>
+  <br><b>&lt;identifier> </b>--> &lt;letter> (&lt;letter> | &lt;digit>)*
+  <p>&lt;digit> --> 0 | 1 | ... | 9
+  <br><b>&lt;number> </b>--> &lt;digit>+
+  <p><b>&lt;reserved word></b> --> <b>int</b>&nbsp; | <b>void </b>| <b>if</b>
+  | <b>while</b> | <b>return</b> | <b>read</b> | <b>write</b> |<b> print
+  | continue | break </b>| <b>binary</b> | <b>decimal</b>
+  <p><b>&lt;symbol> </b>--> <b>left_parenthesis</b> | <b>right_parenthesis</b>
+  | <b>left_brace</b> | <b>right_brace</b> | <b>left_bracket </b>| <b>right_bracket
+  </b>|
+  <b>comma</b>
+  | <b>semicolon</b> | <b>plus_sign</b> | <b>minus_sign</b> | <b>star_sign</b>
+  | <b>forward_slash</b> | <b>==</b> | <b>!=</b> | <b>></b> | <b>>=</b> |
+  &lt;
+  | &lt;= | <b>equal_sign</b> | <b>double_and_sign</b> | <b>double_or_sign</b>
+  <br>(The symbols are: <b>( ) { } [ ] , ; + - * / == != > >= &lt; &lt;=
+  = &amp;&amp; ||)</b>
+  <p><b>&lt;string></b> --> any string between (and including) the closest
+  pair of quotation marks.
+  <br>&lt;<b>meta statement> </b>--> any string begins with '#' or '//' and
+  ends with the end of line ('\n').
+  <br>&nbsp;
+  </body>
+  </html>

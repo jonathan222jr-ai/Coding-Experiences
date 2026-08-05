@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sweep</title>
+
+    <!-- Office JavaScript API -->
+    <script
+      type="text/javascript"
+      src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"
+    ></script>
+
+    <!-- Keep if you already use it elsewhere -->
+    <link
+      rel="stylesheet"
+      href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"
+    />
+
+    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body class="sweep-body">
+    <div class="sweep-shell">
+      <main class="sweep-card" role="main">
+        <h1 class="sweep-title">Sweep.</h1>
+
+        <div class="scan-area" id="scan-area">
+          <button id="scan-email" class="scan-btn" type="button">
+            <span class="scan-btn__text">Scan<br />Email</span>
+          </button>
+
+          <div class="scan-chart hidden" id="scan-chart">
+            <div class="scan-chart__pie" id="scan-chart-pie">
+              <div class="scan-chart__center">
+                <span class="scan-chart__percent" id="scan-safe-percent">80%</span>
+                <span class="scan-chart__label">Safe</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="risk-card" id="risk-card">
+          <div class="risk-card__header">
+            <span class="risk-card__title">Scan Result</span>
+            <span class="risk-card__badge" id="risk-badge">LOW</span>
+          </div>
+
+          <div class="risk-meter">
+            <div class="risk-meter__fill" id="risk-meter-fill"></div>
+          </div>
+
+          <div class="risk-row">
+            <span class="risk-row__label">Risk Score</span>
+            <span class="risk-row__value" id="risk-score">0</span>
+          </div>
+
+          <div class="risk-row">
+            <span class="risk-row__label">Flags</span>
+            <span class="risk-row__value" id="risk-flags">None</span>
+          </div>
+
+          <div class="risk-row">
+            <span class="risk-row__label">Links Found</span>
+            <span class="risk-row__value" id="risk-links">0</span>
+          </div>
+
+          <div class="risk-row">
+            <span class="risk-row__label">Suspicious Sender</span>
+            <span class="risk-row__value" id="risk-sender">No</span>
+          </div>
+
+          <div class="risk-row">
+            <span class="risk-row__label">Credential Request</span>
+            <span class="risk-row__value" id="risk-credential">No</span>
+          </div>
+
+          <div class="risk-row">
+            <span class="risk-row__label">Suspicious Attachment</span>
+            <span class="risk-row__value" id="risk-attachment">No</span>
+          </div>
+        </div>
+
+        <div class="scan-actions hidden" id="scan-actions">
+          <button id="rescan-btn" class="scan-action-btn rescan" type="button">
+            Scan Again
+          </button>
+        </div>
+
+        <div class="sweep-stats" aria-label="Scan statistics">
+          <div id="emails-scanned">0 emails scanned</div>
+          <div id="fraud-detected">0 fraud detected</div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

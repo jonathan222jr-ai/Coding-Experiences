@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 05 - Private Grades API</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Grades Management System</h1>
+
+  <section id="get-grade-section">
+    <h2>Get Student Grade</h2>
+    <input id="studentName" type="text" placeholder="Enter student name">
+    <button id="getGradeBtn">Get Grade</button>
+    <p id="gradeResult"></p>
+  </section>
+
+  <section id="all-grades-section">
+    <h2>All Students and Grades</h2>
+    <button id="getAllBtn">Show All</button>
+    <table id="gradesTable">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section id="add-grade-section">
+    <h2>Add New Student</h2>
+    <input id="newName" type="text" placeholder="Student name">
+    <input id="newGrade" type="number" step="0.1" placeholder="Grade">
+    <button id="addBtn">Add</button>
+  </section>
+
+  <section id="edit-grade-section">
+    <h2>Edit Student Grade</h2>
+    <input id="editName" type="text" placeholder="Student name">
+    <input id="editGrade" type="number" step="0.1" placeholder="New grade">
+    <button id="editBtn">Update</button>
+  </section>
+
+  <section id="delete-grade-section">
+    <h2>Delete Student</h2>
+    <input id="deleteName" type="text" placeholder="Student name">
+    <button id="deleteBtn">Delete</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

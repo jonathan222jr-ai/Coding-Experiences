@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard — Hogwarts Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h2>Welcome, {{ current_user.username }}!</h2>
+    <nav>
+      <a href="{{ url_for('logout') }}">Sign Out</a>
+    </nav>
+  </div>
+
+  <h3>Your Enrolled Courses</h3>
+  <a href="{{ url_for('available_courses') }}" class="button small-button">See Available Courses</a>
+
+  {% if enrolled %}
+  <div class="course-grid">
+    {% for course in enrolled %}
+      <div class="course-card">
+        <h4>{{ course.name }}</h4>
+        <p><strong>Instructor:</strong> {{ course.teacher.username if course.teacher else "TBA" }}</p>
+        <p><strong>Time:</strong> {{ course.time }}</p>
+        <p><strong>Capacity:</strong> {{ course_counts[course.id] }}/{{ course.capacity }}</p>
+
+        {% set enrollment = current_user.enrollments | selectattr("course_id", "equalto", course.id) | first %}
+        {% if enrollment.grade is not none %}
+          <p class="grade"><strong>Grade:</strong> {{ enrollment.grade }}</p>
+        {% endif %}
+
+        <!-- Drop button -->
+        <form method="POST" action="{{ url_for('drop_course', course_id=course.id) }}">
+          <input type="submit" value="Drop" class="drop-button">
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+  {% else %}
+    <p>You are not enrolled in any courses yet.</p>
+  {% endif %}
+</div>
+
+</body>
+</html>

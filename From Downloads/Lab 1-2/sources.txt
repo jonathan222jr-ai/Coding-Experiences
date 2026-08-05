@@ -1,0 +1,6 @@
+./A_partially_completed_scanner/RegularExpressions.java
+./A_partially_completed_scanner/Scan.java
+./A_partially_completed_scanner/Pair.java
+./A_partially_completed_scanner/Scanner.java
+./A_partially_completed_scanner/Token.java
+./A_partially_completed_scanner/TokenNames.java

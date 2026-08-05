@@ -1,0 +1,173 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXFileReference section */
+		D1FC28722E930FE400CD88E6 /* testfiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = testfiles; sourceTree = "<group>"; };
+		D1FC28732E930FE400CD88E6 /* .DS_Store */ = {isa = PBXFileReference; lastKnownFileType = file; path = .DS_Store; sourceTree = "<group>"; };
+		D1FC28742E930FE400CD88E6 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		D1FC28752E930FE400CD88E6 /* Grade */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Grade; sourceTree = "<group>"; };
+		D1FC288F2E93101500CD88E6 /* Lab04-1.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Lab04-1.xcodeproj"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		D1FC286C2E930FE400CD88E6 = {
+			isa = PBXGroup;
+			children = (
+				D1FC28902E93101500CD88E6 /* Lab04-1 */,
+				D1FC28722E930FE400CD88E6 /* testfiles */,
+				D1FC28732E930FE400CD88E6 /* .DS_Store */,
+				D1FC28742E930FE400CD88E6 /* Makefile */,
+				D1FC28752E930FE400CD88E6 /* Grade */,
+			);
+			sourceTree = "<group>";
+		};
+		D1FC288E2E93101500CD88E6 /* testfiles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = testfiles;
+			sourceTree = "<group>";
+		};
+		D1FC28902E93101500CD88E6 /* Lab04-1 */ = {
+			isa = PBXGroup;
+			children = (
+				D1FC288E2E93101500CD88E6 /* testfiles */,
+				D1FC288F2E93101500CD88E6 /* Lab04-1.xcodeproj */,
+			);
+			name = "Lab04-1";
+			sourceTree = "<group>";
+		};
+		D1FC28912E93101500CD88E6 /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		D1FC28712E930FE400CD88E6 /* Lab04-1 */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = D1FC28762E930FE400CD88E6 /* Build configuration list for PBXLegacyTarget "Lab04-1" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "/Users/jonathanramirez/Downloads/Lab04-1";
+			dependencies = (
+			);
+			name = "Lab04-1";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Lab04-1";
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		D1FC286D2E930FE400CD88E6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+			};
+			buildConfigurationList = D1FC28702E930FE400CD88E6 /* Build configuration list for PBXProject "Lab04-1" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D1FC286C2E930FE400CD88E6;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D1FC28912E93101500CD88E6 /* Products */;
+					ProjectRef = D1FC288F2E93101500CD88E6 /* Lab04-1.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				D1FC28712E930FE400CD88E6 /* Lab04-1 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		D1FC286E2E930FE400CD88E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		D1FC286F2E930FE400CD88E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		D1FC28772E930FE400CD88E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "Lab04-1";
+			};
+			name = Debug;
+		};
+		D1FC28782E930FE400CD88E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "Lab04-1";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D1FC28702E930FE400CD88E6 /* Build configuration list for PBXProject "Lab04-1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1FC286E2E930FE400CD88E6 /* Debug */,
+				D1FC286F2E930FE400CD88E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D1FC28762E930FE400CD88E6 /* Build configuration list for PBXLegacyTarget "Lab04-1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1FC28772E930FE400CD88E6 /* Debug */,
+				D1FC28782E930FE400CD88E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D1FC286D2E930FE400CD88E6 /* Project object */;
+}

@@ -1,0 +1,369 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.sheet { padding: 1rem 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+.card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.badge { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 99px; }
+.badge-purple { background: #EEEDFE; color: #3C3489; }
+.badge-teal { background: #E1F5EE; color: #085041; }
+.badge-blue { background: #E6F1FB; color: #0C447C; }
+.badge-amber { background: #FAEEDA; color: #633806; }
+.badge-coral { background: #FAECE7; color: #712B13; }
+.badge-green { background: #EAF3DE; color: #27500A; }
+.badge-pink { background: #FBEAF0; color: #72243E; }
+.badge-gray { background: #F1EFE8; color: #444441; }
+.card-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.item { margin-bottom: 10px; }
+.item:last-child { margin-bottom: 0; }
+.label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.04em; }
+code, .code-block { font-family: var(--font-mono); font-size: 12px; background: var(--color-background-secondary); color: var(--color-text-primary); border-radius: 4px; }
+.code-block { display: block; padding: 8px 10px; line-height: 1.6; white-space: pre; overflow-x: auto; border: 0.5px solid var(--color-border-tertiary); }
+.inline-code { padding: 1px 4px; }
+.note { font-size: 12px; color: var(--color-text-secondary); margin-top: 4px; line-height: 1.5; }
+.divider { height: 0.5px; background: var(--color-border-tertiary); margin: 8px 0; }
+.section-title { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); margin: 8px 0 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+</style>
+
+<div class="sheet">
+  <div class="grid">
+
+    <!-- VARIABLES -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-purple">Variables</span><span class="card-title">Declaring &amp; typing</span></div>
+      <div class="item">
+        <div class="label">Dynamic (flexible)</div>
+        <code class="code-block">var health = 100
+var name = "Hero"
+var alive = true</code>
+      </div>
+      <div class="item">
+        <div class="label">Static (type-safe)</div>
+        <code class="code-block">var damage: int = 15
+var speed: float = 3.5
+var label: String = "Hi"</code>
+      </div>
+      <div class="item">
+        <div class="label">Inferred static (walrus-style)</div>
+        <code class="code-block">var damage := 15</code>
+        <div class="note">Godot infers <code class="inline-code">int</code> — type is still static</div>
+      </div>
+      <div class="item">
+        <div class="label">Constant</div>
+        <code class="code-block">const GRAVITY = -9.81</code>
+      </div>
+      <div class="item">
+        <div class="label">Inspector-editable</div>
+        <code class="code-block">@export var speed: float = 5.0</code>
+      </div>
+      <div class="divider"></div>
+      <div class="section-title">Core data types</div>
+      <div class="note"><code class="inline-code">bool</code> — true / false &nbsp;|&nbsp; <code class="inline-code">int</code> — whole numbers &nbsp;|&nbsp; <code class="inline-code">float</code> — decimals &nbsp;|&nbsp; <code class="inline-code">String</code> — text &nbsp;|&nbsp; <code class="inline-code">Vector2</code> / <code class="inline-code">Vector3</code> — coordinates</div>
+    </div>
+
+    <!-- CASTING -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-gray">Casting &amp; Math</span><span class="card-title">Type conversion &amp; operators</span></div>
+      <div class="item">
+        <div class="label">Convert types</div>
+        <code class="code-block">str(42)       # → "42"
+int(3.9)      # → 3  (truncates!)
+float(5)      # → 5.0</code>
+      </div>
+      <div class="item">
+        <div class="label">Arithmetic shortcuts</div>
+        <code class="code-block">health += 20   # add
+health -= 10   # subtract
+health *= 2    # multiply
+health /= 4    # divide</code>
+      </div>
+      <div class="item">
+        <div class="label">Random numbers</div>
+        <code class="code-block">randf()              # 0.0 – 1.0
+randf_range(0, 1)    # float in range
+randi_range(140,210) # int in range</code>
+      </div>
+    </div>
+
+    <!-- IF STATEMENTS -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-coral">Conditions</span><span class="card-title">If / elif / else</span></div>
+      <div class="item">
+        <code class="code-block">if health <= 0:
+    print("You died!")
+elif health < 50:
+    print("Injured")
+else:
+    print("Healthy")</code>
+      </div>
+      <div class="item">
+        <div class="label">Comparison operators</div>
+        <code class="code-block">==   # equal
+!=   # not equal
+>  <  >=  <=</code>
+      </div>
+      <div class="item">
+        <div class="label">Combining conditions</div>
+        <code class="code-block">if alive and health > 0:
+if dead or health == 0:</code>
+      </div>
+    </div>
+
+    <!-- MATCH -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-coral">Match</span><span class="card-title">Switch-style branching</span></div>
+      <div class="item">
+        <code class="code-block">match unit_alignment:
+    Alignment.ALLY:
+        print("Hello, friend!")
+    Alignment.NEUTRAL:
+        print("I come in peace!")
+    Alignment.ENEMY:
+        print("Taste my wrath!")
+    _:
+        print("Who art thou?")</code>
+        <div class="note"><code class="inline-code">_:</code> is the default / fallback case</div>
+      </div>
+    </div>
+
+    <!-- FUNCTIONS -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-blue">Functions</span><span class="card-title">Define &amp; call</span></div>
+      <div class="item">
+        <div class="label">Basic</div>
+        <code class="code-block">func jump():
+    print("JUMP!")</code>
+      </div>
+      <div class="item">
+        <div class="label">With parameters &amp; return</div>
+        <code class="code-block">func add(num1: int, num2: int) -> int:
+    return num1 + num2
+
+var result = add(3, 5)  # → 8</code>
+      </div>
+      <div class="divider"></div>
+      <div class="section-title">Built-in Godot functions</div>
+      <code class="code-block">func _ready():       # runs on start
+func _input(event):  # runs on input
+func _process(delta):# runs every frame</code>
+      <div class="note">Underscore prefix = called by engine, not by you</div>
+    </div>
+
+    <!-- ARRAYS -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-teal">Arrays</span><span class="card-title">Lists of elements</span></div>
+      <div class="item">
+        <code class="code-block">var items = ["Potion", "Feather"]
+var typed: Array[String] = ["Sword"]
+
+items[0]           # "Potion" (index 0)
+items[1] = "Sock"  # change element
+items.append("Shield")  # add to end
+items.remove_at(0)      # remove at index</code>
+      </div>
+      <div class="item">
+        <div class="label">Loop through array</div>
+        <code class="code-block">for item in items:
+    print(item)</code>
+      </div>
+    </div>
+
+    <!-- DICTIONARIES -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-teal">Dictionaries</span><span class="card-title">Key → value pairs</span></div>
+      <div class="item">
+        <code class="code-block">var players = {
+    "Crook": 1,
+    "Villain": 35,
+    "Boss": 100,
+}
+
+players["Villain"]       # → 35
+players["Villain"] = 50  # update
+players["Dwayne"] = 999  # add new</code>
+      </div>
+      <div class="item">
+        <div class="label">Loop through dictionary</div>
+        <code class="code-block">for username in players:
+    print(username, players[username])</code>
+      </div>
+      <div class="note">Looping gives you keys — use the key to get the value</div>
+    </div>
+
+    <!-- LOOPS -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-green">Loops</span><span class="card-title">For &amp; while</span></div>
+      <div class="item">
+        <div class="label">For loop (N times)</div>
+        <code class="code-block">for n in 8:      # n = 0, 1 … 7
+    print(n)</code>
+      </div>
+      <div class="item">
+        <div class="label">While loop</div>
+        <code class="code-block">while glass < 0.5:
+    glass += randf_range(0.01, 0.2)</code>
+        <div class="note">Be careful — forgetting to advance the condition = infinite loop crash</div>
+      </div>
+      <div class="item">
+        <div class="label">Loop control</div>
+        <code class="code-block">break     # exit loop immediately
+continue  # skip to next iteration</code>
+      </div>
+    </div>
+
+    <!-- ENUMS -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-amber">Enums</span><span class="card-title">Named state tags</span></div>
+      <div class="item">
+        <code class="code-block">enum Alignment { ALLY, NEUTRAL, ENEMY }
+
+var unit_alignment = Alignment.ALLY
+
+if unit_alignment == Alignment.ENEMY:
+    print("Not welcome!")</code>
+        <div class="note">Safer than strings — Godot errors on typos. Pairs perfectly with <code class="inline-code">match</code>.</div>
+      </div>
+      <div class="item">
+        <div class="label">Inspector-editable enum</div>
+        <code class="code-block">@export var alignment: Alignment</code>
+      </div>
+    </div>
+
+    <!-- SIGNALS -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-pink">Signals</span><span class="card-title">Node-to-node events</span></div>
+      <div class="item">
+        <div class="label">Define a signal</div>
+        <code class="code-block">signal leveled_up(message)</code>
+      </div>
+      <div class="item">
+        <div class="label">Emit it</div>
+        <code class="code-block">leveled_up.emit("GZ!")</code>
+      </div>
+      <div class="item">
+        <div class="label">Connect via code</div>
+        <code class="code-block">leveled_up.connect(_on_leveled_up)</code>
+      </div>
+      <div class="item">
+        <div class="label">Receiver function</div>
+        <code class="code-block">func _on_leveled_up(message):
+    print(message)</code>
+      </div>
+      <div class="note">Rule of thumb: <strong>call down, signal up</strong> — parents call children directly; children signal upward</div>
+    </div>
+
+    <!-- NODES -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-blue">Nodes</span><span class="card-title">Referencing &amp; modifying</span></div>
+      <div class="item">
+        <div class="label">Drag-to-create a reference</div>
+        <code class="code-block">$Label.text = "Hello!"
+$Label.modulate = Color.GREEN</code>
+      </div>
+      <div class="item">
+        <div class="label">Store as @onready variable</div>
+        <code class="code-block">@onready var label = $Label</code>
+        <div class="note"><code class="inline-code">@onready</code> waits until children exist — avoids null errors</div>
+      </div>
+      <div class="item">
+        <div class="label">Export a node reference</div>
+        <code class="code-block">@export var my_node: Node</code>
+        <div class="note">Assign any node via the inspector — survives renames</div>
+      </div>
+    </div>
+
+    <!-- GET/SET -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-amber">Get / Set</span><span class="card-title">Intercept variable changes</span></div>
+      <div class="item">
+        <div class="label">Setter — clamp health to 0–100</div>
+        <code class="code-block">var health = 100:
+    set(value):
+        health = clamp(value, 0, 100)
+        health_changed.emit(health)</code>
+      </div>
+      <div class="item">
+        <div class="label">Getter — convert value on read</div>
+        <code class="code-block">var chance = 0.2
+var chance_pct: int:
+    get:
+        return int(chance * 100)
+    set(value):
+        chance = float(value) / 100</code>
+      </div>
+    </div>
+
+    <!-- CLASSES -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-purple">Classes</span><span class="card-title">Blueprints &amp; instances</span></div>
+      <div class="item">
+        <div class="label">Define a class</div>
+        <code class="code-block">class_name Character
+
+@export var profession: String
+@export var health: int
+
+func die():
+    health = 0
+    print(profession, " died.")</code>
+      </div>
+      <div class="item">
+        <div class="label">Use it from another script</div>
+        <code class="code-block">@export var target: Character
+
+func _ready():
+    target.die()</code>
+      </div>
+      <div class="item">
+        <div class="label">Inner class</div>
+        <code class="code-block">class Equipment:
+    var armor = 10
+    var weight = 5
+
+var chest = Equipment.new()</code>
+      </div>
+    </div>
+
+    <!-- INPUT -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-coral">Input</span><span class="card-title">Responding to player actions</span></div>
+      <div class="item">
+        <div class="label">Set up in Project → Input Map first, then:</div>
+        <code class="code-block">func _input(event):
+    if event.is_action_pressed("jump"):
+        jump()
+    if event.is_action_released("jump"):
+        land()</code>
+      </div>
+    </div>
+
+    <!-- COMMENTS + SYNTAX -->
+    <div class="card">
+      <div class="card-header"><span class="badge badge-gray">Syntax tips</span><span class="card-title">Comments &amp; structure</span></div>
+      <div class="item">
+        <div class="label">Comments</div>
+        <code class="code-block"># This is a comment
+var x = 5  # inline comment
+#var x = 5 # commented-out code</code>
+      </div>
+      <div class="item">
+        <div class="label">Indentation is required</div>
+        <code class="code-block">func my_func():
+    print("indented with a tab")
+    # no semicolons needed</code>
+      </div>
+      <div class="item">
+        <div class="label">Scope</div>
+        <div class="note">Variables declared at the top of a script are accessible everywhere. Variables declared inside a function only exist inside that function.</div>
+      </div>
+      <div class="item">
+        <div class="label">Empty function placeholder</div>
+        <code class="code-block">func not_ready_yet():
+    pass</code>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,66 @@
+========================================================================
+SWARM — PARALLEL AI AGENT TRANSCRIPT
+========================================================================
+Timestamp : 20260501_004346
+Duration  : 8.48s
+Agents run: 3
+
+GOAL / PROMPT
+------------------------------------------------------------------------
+handle loading/ error states to avoid setting state after an unmoubnt
+
+
+────────────────────────────────────────────────────────────────────────
+WAVE wave1 — Triage  (2 agents in parallel)
+────────────────────────────────────────────────────────────────────────
+
+▸ AGENT: SPEED TIP  (0ms)
+  Task: handle loading/ error states to avoid setting state after an unmoubnt
+
+  **Show you prevent memory leaks by cleaning up subscriptions in useEffect return, or use a mounted ref to guard setState calls.**
+
+
+▸ AGENT: CLASSIFIER  (0ms)
+  Task: handle loading/ error states to avoid setting state after an unmoubnt
+
+  {"type": "fullstack", "urgency": "normal"}
+
+
+────────────────────────────────────────────────────────────────────────
+WAVE wave2 — Fullstack Answer  (1 agents in parallel)
+────────────────────────────────────────────────────────────────────────
+
+▸ AGENT: FULLSTACK  (5897ms)
+  Task: handle loading/ error states to avoid setting state after an unmoubnt
+
+  ANSWER: The cleanest modern approach is using an AbortController to cancel fetch requests when the component unmounts. In the cleanup function of your useEffect, you call `abort()` which causes the fetch to reject, and you just ignore that specific error. This prevents any state updates from firing after the component is gone.
+  
+  ```typescript
+  useEffect(() => {
+    const controller = new AbortController();
+    
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch('/api/data', { signal: controller.signal });
+        const data = await res.json();
+        setData(data);
+      } catch (err) {
+        if ((err as Error).name !== 'AbortError') {
+          setError('Something went wrong');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchData();
+    return () => controller.abort();
+  }, []);
+  ```
+  
+  TRADEOFF: The old `isMounted` flag pattern also works but it's more boilerplate and doesn't actually cancel the network request — it just skips the state update. AbortController is better because it cancels the request entirely, saving bandwidth. If you're using React Query, it handles all of this for you automatically.
+
+========================================================================
+END OF TRANSCRIPT
+========================================================================

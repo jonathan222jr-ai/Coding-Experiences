@@ -1,0 +1,118 @@
+<style>
+  body {
+    background-color: #f5efe6;
+    font-family: "Georgia", serif;
+  }
+
+  .cafe-card {
+    background: #fff8f0;
+    width: 360px;
+    margin: 80px auto;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(90, 60, 40, 0.2);
+    border: 1px solid #e6d3c2;
+  }
+
+  h2 {
+    text-align: center;
+    color: #6f4e37;
+    margin-bottom: 20px;
+  }
+
+  label {
+    color: #5a3e2b;
+    font-size: 0.95rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #d2b48c;
+    background-color: #fffdf9;
+    font-size: 0.95rem;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #b08968;
+    box-shadow: 0 0 0 2px rgba(176, 137, 104, 0.25);
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #b08968;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  button:hover {
+    background-color: #9c6f4f;
+  }
+
+  .flash-messages {
+    margin-bottom: 15px;
+    color: #8b0000;
+    font-size: 0.9rem;
+  }
+
+  .register-link {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #5a3e2b;
+  }
+
+  .register-link a {
+    color: #b08968;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .register-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="cafe-card">
+  <h2>☕ Welcome Back</h2>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flash-messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST">
+    <label>
+      Username
+      <input name="username" placeholder="Enter username" required>
+    </label>
+
+    <br><br>
+
+    <label>
+      Password
+      <input name="password" type="password" placeholder="Enter password" required>
+    </label>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <div class="register-link">
+    Don’t have an account?
+    <a href="/register">Register here</a>
+  </div>
+</div>

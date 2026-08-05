@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hogwarts Admin Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h2>Hogwarts Admin Dashboard — {{ current_user.username }}</h2>
+    <nav>
+      <a href="/admin/">Flask-Admin</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+  </div>
+
+  <div class="card">
+    <h3>Manage Users</h3>
+    <p>Create, edit, or delete students, teachers, and admin accounts.</p>
+    <a href="/admin/">Go to Users</a>
+  </div>
+
+  <div class="card">
+    <h3>Manage Courses</h3>
+    <p>Add or update Hogwarts classes, assign teachers, and set capacities.</p>
+    <a href="/admin/">Go to Courses</a>
+  </div>
+
+  <div class="card">
+    <h3>Manage Enrollments</h3>
+    <p>Enroll or remove students from classes, track grades, and more.</p>
+    <a href="/admin/">Go to Enrollments</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+.calculator {
+  background: #f3f3f3;
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+  width: 280px;
+  margin: 0 auto;
+}
+
+#expression {
+  height: 25px;
+  font-size: 16px;
+  text-align: right;
+  margin-bottom: 5px;
+  color: #b10a0a;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+.MuiButton-root {
+  height: 60px;
+  font-size: 20px;
+  border-radius: 8px;
+}
+
+/* Matching your old colors */
+.number {
+  background: rgb(122, 11, 128) !important;
+  color: white !important;
+}
+.operator {
+  background: rgb(163, 232, 244) !important;
+}
+.equals {
+  background: rgb(204, 166, 166) !important;
+}
+.decimal {
+  background: rgb(122, 11, 128) !important;
+  color: white !important;
+}
+#clear {
+  background: rgb(227, 207, 169);
+}
