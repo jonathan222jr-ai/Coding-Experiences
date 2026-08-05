@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jonathan Ramirez — Software Engineer</title>
+<meta name="description" content="Computer Science &amp; Engineering graduate building multi-agent AI systems, LLM tooling, and full-stack applications. Selected work, experience, and code." />
+<meta name="author" content="Jonathan Ramirez" />
+<meta name="color-scheme" content="light dark" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Jonathan Ramirez — Software Engineer" />
+<meta property="og:description" content="Multi-agent AI systems, LLM tooling, and full-stack applications. Selected work, experience, and code." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%230E7A85'/><text x='32' y='45' font-family='monospace' font-size='34' font-weight='700' fill='%23fff' text-anchor='middle'>JR</text></svg>" />
+<style>
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: #EDEFF2; }
+  @media (prefers-color-scheme: dark) { body { background: #12161D; } }
+</style>
+</head>
+<body>
+<style>
+  :root {
+    --paper:      #EDEFF2;
+    --surface:    #FFFFFF;
+    --surface-2:  #E4E8EC;
+    --ink:        #12161D;
+    --ink-soft:   #444E5A;
+    --ink-faint:  #6C7784;
+    --rule:       #CBD3DA;
+    --accent:     #0E7A85;
+    --accent-ink: #0B5F68;
+    --on-accent:  #FFFFFF;
+    --brass:      #9A6B22;
+    --shadow:     0 1px 2px rgba(18,22,29,.06), 0 8px 24px -12px rgba(18,22,29,.18);
+
+    --mono: ui-monospace, "Cascadia Mono", "SF Mono", "Consolas", "Roboto Mono", monospace;
+    --sans: ui-sans-serif, system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+    --measure: 68ch;
+    --step--1: clamp(.78rem, .76rem + .12vw, .84rem);
+    --step-0:  clamp(1rem, .97rem + .16vw, 1.08rem);
+    --step-1:  clamp(1.2rem, 1.13rem + .34vw, 1.4rem);
+    --step-2:  clamp(1.5rem, 1.36rem + .68vw, 1.95rem);
+    --step-3:  clamp(2.1rem, 1.72rem + 1.86vw, 3.4rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:      #12161D;
+      --surface:    #1A2029;
+      --surface-2:  #232B36;
+      --ink:        #E8ECF0;
+      --ink-soft:   #AEB9C4;
+      --ink-faint:  #7C8894;
+      --rule:       #2E3844;
+      --accent:     #45C3D1;
+      --accent-ink: #7FD9E3;
+      --on-accent:  #0E141A;
+      --brass:      #D8A455;
+      --shadow:     0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#12161D; --surface:#1A2029; --surface-2:#232B36;
+    --ink:#E8ECF0; --ink-soft:#AEB9C4; --ink-faint:#7C8894; --rule:#2E3844;
+    --accent:#45C3D1; --accent-ink:#7FD9E3; --on-accent:#0E141A; --brass:#D8A455;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7);
+  }
+  :root[data-theme="light"] {
+    --paper:#EDEFF2; --surface:#FFFFFF; --surface-2:#E4E8EC;
+    --ink:#12161D; --ink-soft:#444E5A; --ink-faint:#6C7784; --rule:#CBD3DA;
+    --accent:#0E7A85; --accent-ink:#0B5F68; --on-accent:#FFFFFF; --brass:#9A6B22;
+    --shadow:0 1px 2px rgba(18,22,29,.06), 0 8px 24px -12px rgba(18,22,29,.18);
+  }
+
+  .pf { background: var(--paper); color: var(--ink);
+        font-family: var(--sans); font-size: var(--step-0); line-height: 1.6;
+        -webkit-font-smoothing: antialiased; }
+  .pf *, .pf *::before, .pf *::after { box-sizing: border-box; }
+  .pf a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: .18em; }
+  .pf a:hover { color: var(--accent); }
+  .pf a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { width: min(100% - 2.5rem, 62rem); margin-inline: auto; }
+
+  /* ---- masthead ---- */
+  .top { padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 5vw, 3.5rem); }
+  .eyebrow { font-family: var(--mono); font-size: var(--step--1);
+             letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); }
+  .name { font-size: var(--step-3); line-height: 1.02; letter-spacing: -.025em;
+          font-weight: 680; margin: .5rem 0 0; text-wrap: balance; }
+  .lede { font-size: var(--step-1); color: var(--ink-soft); max-width: var(--measure);
+          margin: 1.1rem 0 0; text-wrap: pretty; }
+  .lede b { color: var(--ink); font-weight: 620; }
+
+  .links { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.8rem; }
+  .pf a.btn { font-family: var(--mono); font-size: var(--step--1); letter-spacing: .04em;
+         display: inline-flex; align-items: center; gap: .5rem;
+         padding: .6rem .95rem; border: 1px solid var(--rule); border-radius: 3px;
+         background: var(--surface); color: var(--ink); text-decoration: none;
+         transition: border-color .15s, color .15s, transform .15s; }
+  .pf a.btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .pf a.btn--go { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .pf a.btn--go:hover { color: var(--on-accent); filter: brightness(1.08); }
+
+  /* ---- at a glance ---- */
+  .glance { display: grid; gap: 1px; background: var(--rule);
+            border: 1px solid var(--rule); border-radius: 4px; overflow: hidden;
+            grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); margin-top: 2.6rem; }
+  .glance div { background: var(--surface); padding: .95rem 1.1rem; }
+  .glance dt { font-family: var(--mono); font-size: .7rem; letter-spacing: .14em;
+               text-transform: uppercase; color: var(--ink-faint); margin: 0; }
+  .glance dd { margin: .38rem 0 0; font-size: var(--step--1); color: var(--ink); line-height: 1.4; }
+
+  /* ---- sections ---- */
+  .sec { padding: clamp(2.5rem, 6vw, 4.25rem) 0 0; }
+  .sec__head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.6rem; }
+  .sec__head::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+  .sec h2 { font-size: var(--step--1); font-family: var(--mono); font-weight: 600;
+            letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); margin: 0; }
+
+  /* ---- work ---- */
+  .work { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); }
+  .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 4px;
+          padding: 1.4rem 1.5rem 1.3rem; display: flex; flex-direction: column; gap: .75rem;
+          box-shadow: var(--shadow); transition: border-color .18s, transform .18s; }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card__kind { font-family: var(--mono); font-size: .7rem; letter-spacing: .13em;
+                text-transform: uppercase; color: var(--brass); }
+  .card h3 { margin: 0; font-size: var(--step-1); letter-spacing: -.015em; line-height: 1.2;
+             text-wrap: balance; }
+  .card h3 a { color: inherit; text-decoration: none; }
+  .card h3 a:hover { color: var(--accent); }
+  .card p { margin: 0; color: var(--ink-soft); font-size: var(--step--1); line-height: 1.62; }
+  .card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .42rem; }
+  .card li { font-size: var(--step--1); color: var(--ink-soft); padding-left: 1rem; position: relative;
+             line-height: 1.55; }
+  .card li::before { content: "▸"; position: absolute; left: 0; color: var(--accent); font-size: .7em; top: .35em; }
+  .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: auto; padding-top: .35rem; }
+  .chip { font-family: var(--mono); font-size: .68rem; letter-spacing: .04em;
+          padding: .22rem .5rem; border-radius: 2px; background: var(--surface-2);
+          color: var(--ink-soft); white-space: nowrap; }
+
+  /* ---- experience ---- */
+  .roles { display: grid; gap: 1.6rem; }
+  .role { display: grid; grid-template-columns: 11rem 1fr; gap: 1.5rem; align-items: start; }
+  @media (max-width: 44rem) { .role { grid-template-columns: 1fr; gap: .5rem; } }
+  .role__when { font-family: var(--mono); font-size: var(--step--1); color: var(--ink-faint);
+                font-variant-numeric: tabular-nums; padding-top: .2rem; }
+  .role h3 { margin: 0 0 .15rem; font-size: var(--step-0); letter-spacing: -.01em; }
+  .role .where { color: var(--accent-ink); font-size: var(--step--1); font-weight: 500; }
+  .role ul { margin: .6rem 0 0; padding: 0; list-style: none; display: grid; gap: .4rem;
+             max-width: var(--measure); }
+  .role li { font-size: var(--step--1); color: var(--ink-soft); padding-left: 1rem;
+             position: relative; line-height: 1.58; }
+  .role li::before { content: "—"; position: absolute; left: 0; color: var(--ink-faint); }
+
+  /* ---- skills ---- */
+  .skills { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+            border-radius: 4px; overflow: hidden; }
+  .skills > div { background: var(--surface); padding: 1rem 1.2rem;
+                  display: grid; grid-template-columns: 9.5rem 1fr; gap: 1.2rem; align-items: baseline; }
+  @media (max-width: 40rem) { .skills > div { grid-template-columns: 1fr; gap: .45rem; } }
+  .skills dt { font-family: var(--mono); font-size: .7rem; letter-spacing: .13em;
+               text-transform: uppercase; color: var(--ink-faint); margin: 0; }
+  .skills dd { margin: 0; font-size: var(--step--1); color: var(--ink-soft); line-height: 1.7; }
+  .skills dd span { color: var(--ink); }
+
+  /* ---- close ---- */
+  .close { margin: clamp(3rem, 7vw, 5rem) 0 0; padding: clamp(2rem, 5vw, 3rem) 0;
+           border-top: 1px solid var(--rule); }
+  .close h2 { font-size: var(--step-2); margin: 0 0 .6rem; letter-spacing: -.02em; text-wrap: balance; }
+  .close p { margin: 0; color: var(--ink-soft); max-width: var(--measure); }
+  .foot { font-family: var(--mono); font-size: .72rem; color: var(--ink-faint);
+          padding: 2rem 0 3rem; letter-spacing: .04em; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pf *, .pf *::before, .pf *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<div class="pf">
+  <div class="wrap">
+
+    <header class="top">
+      <p class="eyebrow">Los Angeles, CA · Open to software engineering roles</p>
+      <h1 class="name">Jonathan Ramirez</h1>
+      <p class="lede">
+        Computer Science &amp; Engineering graduate who builds <b>multi-agent AI systems</b>
+        and the practical tooling around them — a phishing scanner that ships inside Outlook,
+        a nine-agent engine that keeps a fictional world internally consistent, and an agent
+        that reads GPU profiles to suggest optimizations.
+      </p>
+
+      <nav class="links">
+        <a class="btn btn--go" href="https://github.com/jonathan222jr-ai/Coding-Experiences">View the code →</a>
+        <a class="btn" href="mailto:jonathan222.jr@gmail.com">jonathan222.jr@gmail.com</a>
+        <a class="btn" href="https://linkedin.com/in/jonathan-ramirez-55a1723a5">LinkedIn</a>
+      </nav>
+
+      <dl class="glance">
+        <div><dt>Focus</dt><dd>AI agents · LLM integration</dd></div>
+        <div><dt>Also</dt><dd>Full-stack · GPU &amp; parallel · Compilers</dd></div>
+        <div><dt>Degree</dt><dd>B.S. CSE, UC Merced</dd></div>
+        <div><dt>Currently</dt><dd>GPU profiling research, UC Merced CSE</dd></div>
+      </dl>
+    </header>
+
+    <section class="sec">
+      <div class="sec__head"><h2>Selected work</h2></div>
+      <div class="work">
+
+        <article class="card">
+          <span class="card__kind">Internship · Capstone</span>
+          <h3><a href="https://github.com/jonathan222jr-ai/Coding-Experiences/tree/main/office-addins/fraud-email-scanner">Fraud Email Scanner</a></h3>
+          <p>An Outlook add-in that reads the open message and flags phishing, built for
+             small organizations without enterprise anti-phishing budgets.</p>
+          <ul>
+            <li>Two-stage pipeline: a fast heuristic pass triages every message, then flagged
+                mail goes to LLM-based contextual analysis</li>
+            <li>Layered so a new detection is a rule change, not a rewrite — extraction,
+                rule evaluation, and scoring are separate modules</li>
+            <li>Reimplemented as a tested Python engine to validate the same rules independently</li>
+          </ul>
+          <div class="chips"><span class="chip">TypeScript</span><span class="chip">Office.js</span><span class="chip">Docker</span><span class="chip">Cloudflare</span><span class="chip">LLM</span></div>
+        </article>
+
+        <article class="card">
+          <span class="card__kind">Personal · Multi-agent</span>
+          <h3><a href="https://github.com/jonathan222jr-ai/Coding-Experiences/tree/main/ai-agents/chronicler-dnd-agent">Chronicler</a></h3>
+          <p>A campaign intelligence system for tabletop games. A prompt becomes a whole world;
+             session notes ripple outward through every character, faction, and plot thread.</p>
+          <ul>
+            <li>Nine cooperating agents over shared SQLite world state — world building,
+                note ingestion, NPCs, lore, maps, plots, factions, and rules</li>
+            <li>A dedicated contradiction agent catches conflicts <em>before</em> they're
+                committed, so the world stays internally consistent as it grows</li>
+            <li>Routes each job to the model that suits it across Claude, GPT-4o, and Gemini</li>
+          </ul>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Claude API</span><span class="chip">Flask</span><span class="chip">SQLite</span></div>
+        </article>
+
+        <article class="card">
+          <span class="card__kind">Research · CSE 195</span>
+          <h3><a href="https://github.com/jonathan222jr-ai/Coding-Experiences/tree/main/research/ml-pgo">ML-Guided Profile Optimization</a></h3>
+          <p>Undergraduate research into whether an LLM agent can read GPU memory profiles
+             and propose optimizations a human would.</p>
+          <ul>
+            <li>Parses DrGPUM profiler output, identifies kernel hotspots, and ranks concrete
+                fixes by impact against effort</li>
+            <li>Three chained agent skills — analyze the profile, suggest the fix, then verify
+                the speedup is real and the bottleneck actually moved</li>
+            <li>Persistent memory across runs plus token accounting to keep experiments cheap</li>
+          </ul>
+          <div class="chips"><span class="chip">Python</span><span class="chip">CUDA</span><span class="chip">PyTorch</span><span class="chip">HPCToolkit</span></div>
+        </article>
+
+        <article class="card">
+          <span class="card__kind">Full-stack · Final project</span>
+          <h3><a href="https://github.com/jonathan222jr-ai/Coding-Experiences/tree/main/web-apps/blackjack-multiplayer">Multiplayer Blackjack</a></h3>
+          <p>Real-time multiplayer card game where several players share one synchronized table.</p>
+          <ul>
+            <li>REST handles accounts and the game lifecycle; turn-by-turn play runs over
+                Socket.IO so every client sees the same table as it changes</li>
+            <li>Registration, login, and a shared lobby backed by SQLAlchemy</li>
+            <li>Front end written in plain JavaScript — no framework</li>
+          </ul>
+          <div class="chips"><span class="chip">FastAPI</span><span class="chip">Socket.IO</span><span class="chip">SQLAlchemy</span><span class="chip">JavaScript</span></div>
+        </article>
+
+        <article class="card">
+          <span class="card__kind">Personal · Agent tooling</span>
+          <h3><a href="https://github.com/jonathan222jr-ai/Coding-Experiences/tree/main/ai-agents/eng-agent-qa">Engineering Agent</a></h3>
+          <p>A system that turns a plain-English goal into a reviewed, running project.</p>
+          <ul>
+            <li>Quality gates are automatic: every generation step is followed by a review
+                agent, then a debugger agent that fixes what the review flags</li>
+            <li>Packages the finished run into a runnable zip, plus a written report</li>
+            <li>Stack-specific agents over a shared base, with a self-improvement loop</li>
+          </ul>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Claude API</span><span class="chip">Gemini</span><span class="chip">Flask</span></div>
+        </article>
+
+        <article class="card">
+          <span class="card__kind">Systems · Coursework</span>
+          <h3><a href="https://github.com/jonathan222jr-ai/Coding-Experiences/tree/main/coursework/compilers">Compilers &amp; Parallel Computing</a></h3>
+          <p>The lower-level half of the portfolio — how languages get executed and how work
+             gets spread across cores and GPUs.</p>
+          <ul>
+            <li>A full front end for the <em>gee</em> language: parser, AST, an intermediate
+                representation, a lowering pass, and an interpreter</li>
+            <li>Scanners and LL(1) parsers in C++ from explicit grammars</li>
+            <li>Ten parallel-computing labs across OpenMP, Pthreads, MPI, and CUDA</li>
+          </ul>
+          <div class="chips"><span class="chip">C++</span><span class="chip">C</span><span class="chip">Python</span><span class="chip">MPI</span><span class="chip">CUDA</span></div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head"><h2>Experience</h2></div>
+      <div class="roles">
+
+        <article class="role">
+          <p class="role__when">Summer 2026 —<br>Present</p>
+          <div>
+            <h3>Undergraduate Researcher</h3>
+            <p class="where">UC Merced — CSE Department</p>
+            <ul>
+              <li>GPU performance research using DrGPUM and HPCToolkit on Ubuntu 22.04 with CUDA 12.x</li>
+              <li>Profiling PyTorch workloads on a shared HPC cluster</li>
+              <li>Built the profiling toolchain from source, working through GCC linker errors
+                  and Spack/CMake dependency conflicts to get it running</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="role">
+          <p class="role__when">Jan 2026 —<br>May 2026</p>
+          <div>
+            <h3>Software Engineer Intern</h3>
+            <p class="where">Sweep Energy — Remote</p>
+            <ul>
+              <li>Built an AI-powered Outlook plugin detecting phishing and fraudulent email,
+                  targeting AI-generated attacks that get past traditional spam filters</li>
+              <li>Designed the two-stage scan: lightweight heuristic triage, then LLM deep
+                  analysis only on flagged messages</li>
+              <li>Delivered results inline in Outlook as a combined safety score with actionable
+                  flags, so users never leave their inbox to act on it</li>
+              <li>TypeScript, Docker, Microsoft 365 integrations, Cloudflare; applied prompt
+                  engineering and NLP techniques for reliable LLM output</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="role">
+          <p class="role__when">2021 — 2026</p>
+          <div>
+            <h3>Concurrent employment through college</h3>
+            <p class="where">Campus dining, food service, and construction</p>
+            <ul>
+              <li>Held paid work continuously while carrying 12–16 credit hours a semester,
+                  including campus dining services across two academic years</li>
+              <li>Picked up a legacy POS system independently inside a week, ahead of schedule</li>
+              <li>Full-time summer drywall work, 6 AM to 5 PM, in demanding conditions</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head"><h2>Skills</h2></div>
+      <dl class="skills">
+        <div><dt>Languages</dt><dd><span>Python · TypeScript · JavaScript · C++ · C</span> · C# · Java · HTML · CSS</dd></div>
+        <div><dt>AI &amp; ML</dt><dd><span>Claude API · LLM integration · Prompt engineering · AI agent architecture</span> · PyTorch · NLP</dd></div>
+        <div><dt>Web</dt><dd><span>FastAPI · Flask · Socket.IO · SQLAlchemy</span> · React · Node.js · REST APIs</dd></div>
+        <div><dt>Systems</dt><dd><span>CUDA · MPI · OpenMP · Pthreads</span> · GPU memory profiling (DrGPUM, HPCToolkit) · Compiler design</dd></div>
+        <div><dt>Tools</dt><dd><span>Docker · Git &amp; GitHub · Linux/Ubuntu</span> · Cloudflare · Microsoft 365 / Outlook Add-in SDK · Unity · Godot</dd></div>
+      </dl>
+    </section>
+
+    <section class="sec">
+      <div class="sec__head"><h2>Education</h2></div>
+      <article class="role">
+        <p class="role__when">May 2026</p>
+        <div>
+          <h3>B.S. Computer Science &amp; Engineering</h3>
+          <p class="where">University of California, Merced</p>
+          <ul>
+            <li>Coursework: Data Structures, Algorithm Design &amp; Analysis, Compiler
+                Construction, Parallel Computing, Deep Learning, Full-Stack Web Development,
+                Software Engineering, Computer Organization, Numerical Methods,
+                Probability &amp; Statistics, Linear Algebra &amp; Differential Equations</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <section class="close">
+      <h2>Let's talk.</h2>
+      <p>
+        I'm looking for software engineering roles where I can keep building agent systems
+        and the tooling around them. The fastest way to judge my work is to read it —
+        every project above is in
+        <a href="https://github.com/jonathan222jr-ai/Coding-Experiences">the repository</a>,
+        with a README explaining what it does and why it's built that way.
+      </p>
+      <nav class="links">
+        <a class="btn btn--go" href="mailto:jonathan222.jr@gmail.com">Email me →</a>
+        <a class="btn" href="https://linkedin.com/in/jonathan-ramirez-55a1723a5">LinkedIn</a>
+        <a class="btn" href="https://github.com/jonathan222jr-ai/Coding-Experiences">GitHub</a>
+      </nav>
+    </section>
+
+    <p class="foot">Jonathan Ramirez · Los Angeles, CA</p>
+
+  </div>
+</div>
+</body>
+</html>
