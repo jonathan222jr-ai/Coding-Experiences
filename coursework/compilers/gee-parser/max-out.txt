@@ -1,0 +1,11 @@
+3 	m =  a;
+4 	if b > a:;
+5 	@m = b + 1;
+6 	~r = m;
+= m a
+if > b a
+= m + b 1
+else
+endif
+= r m
+

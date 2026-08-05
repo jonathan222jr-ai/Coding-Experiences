@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Engineering Agent System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<!-- Marked.js for markdown rendering -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+<style>
+  /* ── Reset & tokens ──────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0d1117;
+    --bg2:       #161b22;
+    --bg3:       #21262d;
+    --bg4:       #2d333b;
+    --border:    #30363d;
+    --border2:   #484f58;
+    --text:      #e6edf3;
+    --text2:     #8b949e;
+    --text3:     #6e7681;
+    --accent:    #2f81f7;
+    --accent2:   #58a6ff;
+    --green:     #3fb950;
+    --red:       #f85149;
+    --yellow:    #d29922;
+    --purple:    #8b5cf6;
+    --orange:    #e67e22;
+    --radius:    8px;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --sidebar-w: 280px;
+    --header-h:  56px;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── Layout ─────────────────────────────────────────────────── */
+  #header {
+    height: var(--header-h);
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 12px;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+
+  #header .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 15px; font-weight: 700;
+    color: var(--text);
+  }
+
+  #header .logo-icon {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--accent), var(--purple));
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  #header .spacer { flex: 1; }
+
+  #header .stats-pills {
+    display: flex; gap: 8px;
+  }
+
+  .stat-pill {
+    font-size: 11px; font-family: var(--font-mono);
+    color: var(--text2);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 4px 10px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .stat-pill .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green);
+  }
+
+  #app {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── Sidebar ─────────────────────────────────────────────────── */
+  #sidebar {
+    width: var(--sidebar-w);
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  #sidebar-header {
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #sidebar-header span {
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text2);
+  }
+
+  #new-session-btn {
+    background: var(--accent);
+    border: none; border-radius: 6px;
+    color: #fff; font-size: 12px; font-weight: 600;
+    padding: 5px 10px; cursor: pointer;
+    transition: background .15s;
+  }
+  #new-session-btn:hover { background: var(--accent2); }
+
+  #session-list {
+    flex: 1; overflow-y: auto;
+    padding: 8px;
+  }
+
+  .session-item {
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin-bottom: 4px;
+    transition: background .12s, border-color .12s;
+  }
+  .session-item:hover { background: var(--bg3); }
+  .session-item.active {
+    background: var(--bg3);
+    border-color: var(--accent);
+  }
+  .session-item .s-title {
+    font-size: 13px; font-weight: 500; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .session-item .s-meta {
+    font-size: 11px; color: var(--text3); margin-top: 3px;
+    font-family: var(--font-mono);
+  }
+
+  #sidebar-footer {
+    padding: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px; border-radius: var(--radius);
+    background: none; border: none;
+    color: var(--text2); font-size: 13px; font-family: var(--font-sans);
+    cursor: pointer; width: 100%; text-align: left;
+    transition: background .12s, color .12s;
+  }
+  .nav-btn:hover, .nav-btn.active { background: var(--bg3); color: var(--text); }
+  .nav-btn .icon { font-size: 15px; }
+
+  /* ── Main area ──────────────────────────────────────────────── */
+  #main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── Prompt bar ─────────────────────────────────────────────── */
+  #prompt-bar {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    flex-shrink: 0;
+  }
+
+  #prompt-form {
+    display: flex; gap: 10px; align-items: flex-end;
+  }
+
+  #prompt-input {
+    flex: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    padding: 10px 14px;
+    resize: none;
+    min-height: 44px;
+    max-height: 140px;
+    outline: none;
+    transition: border-color .15s;
+    line-height: 1.5;
+  }
+  #prompt-input:focus { border-color: var(--accent); }
+  #prompt-input::placeholder { color: var(--text3); }
+
+  #run-btn {
+    background: var(--accent);
+    border: none; border-radius: var(--radius);
+    color: #fff; font-size: 13px; font-weight: 600;
+    padding: 10px 18px; cursor: pointer;
+    display: flex; align-items: center; gap: 7px;
+    white-space: nowrap; height: 44px;
+    transition: background .15s;
+    flex-shrink: 0;
+  }
+  #run-btn:hover:not(:disabled) { background: var(--accent2); }
+  #run-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  #run-btn .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+    display: none;
+  }
+  #run-btn.running .spinner { display: block; }
+  #run-btn.running .btn-text { display: none; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Content panels ─────────────────────────────────────────── */
+  #content {
+    flex: 1; overflow: hidden;
+    display: flex;
+    gap: 0;
+  }
+
+  /* Left panel: run log */
+  #run-panel {
+    flex: 1; display: flex; flex-direction: column; overflow: hidden;
+    border-right: 1px solid var(--border);
+  }
+
+  #run-log {
+    flex: 1; overflow-y: auto;
+    padding: 16px 20px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  /* Right panel: report / history */
+  #right-panel {
+    width: 420px; flex-shrink: 0;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+
+  #right-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+    gap: 0;
+    flex-shrink: 0;
+    background: var(--bg2);
+  }
+
+  .rtab {
+    padding: 10px 14px;
+    font-size: 13px; font-weight: 500;
+    color: var(--text2);
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: color .12s, border-color .12s;
+    user-select: none;
+  }
+  .rtab:hover { color: var(--text); }
+  .rtab.active { color: var(--accent2); border-bottom-color: var(--accent2); }
+
+  #right-content {
+    flex: 1; overflow-y: auto;
+    padding: 16px;
+  }
+
+  /* ── Event cards ─────────────────────────────────────────────── */
+  .event-card {
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    overflow: hidden;
+    animation: fadeSlideIn .2s ease;
+  }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .event-card .card-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    font-size: 13px; font-weight: 500;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg3);
+  }
+  .event-card .card-header:hover { background: var(--bg4); }
+
+  .event-card .agent-badge {
+    font-family: var(--font-mono);
+    font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: .04em;
+  }
+
+  .agent-code_gen    { background: rgba(47,129,247,.15); color: #58a6ff; border: 1px solid rgba(47,129,247,.3); }
+  .agent-code_review { background: rgba(63,185,80,.15);  color: #3fb950; border: 1px solid rgba(63,185,80,.3); }
+  .agent-debugger    { background: rgba(248,81,73,.15);  color: #f85149; border: 1px solid rgba(248,81,73,.3); }
+  .agent-researcher  { background: rgba(210,153,34,.15); color: #d29922; border: 1px solid rgba(210,153,34,.3); }
+  .agent-optimizer   { background: rgba(139,92,246,.15); color: #8b5cf6; border: 1px solid rgba(139,92,246,.3); }
+  .agent-documenter  { background: rgba(230,126,34,.15); color: #e67e22; border: 1px solid rgba(230,126,34,.3); }
+  .agent-requirements{ background: rgba(63,185,80,.15);  color: #56d364; border: 1px solid rgba(63,185,80,.3); }
+
+  .status-icon { font-size: 16px; }
+  .card-title { flex: 1; }
+  .card-duration { font-family: var(--font-mono); font-size: 11px; color: var(--text3); }
+  .collapse-arrow { color: var(--text3); font-size: 11px; transition: transform .15s; }
+  .collapsed .collapse-arrow { transform: rotate(-90deg); }
+
+  .event-card .card-body {
+    padding: 14px;
+    font-size: 13px; line-height: 1.6;
+    color: var(--text2);
+  }
+  .event-card.collapsed .card-body { display: none; }
+
+  /* Task field */
+  .task-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .06em; color: var(--text3); margin-bottom: 4px;
+  }
+  .task-text {
+    color: var(--text); font-size: 13px; margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  /* Markdown output rendering */
+  .md-output { color: var(--text); }
+  .md-output h1,.md-output h2,.md-output h3 {
+    color: var(--text); margin: 16px 0 8px;
+    font-size: 14px; font-weight: 600;
+  }
+  .md-output h1 { font-size: 16px; }
+  .md-output p { margin-bottom: 8px; }
+  .md-output ul,.md-output ol { padding-left: 20px; margin-bottom: 8px; }
+  .md-output li { margin-bottom: 4px; }
+  .md-output code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 5px;
+    color: #ff7b72;
+  }
+  .md-output pre {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px;
+    overflow-x: auto;
+    margin: 8px 0;
+  }
+  .md-output pre code {
+    background: none; border: none; padding: 0;
+    color: var(--text); font-size: 12px;
+  }
+  .md-output table {
+    border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 12px;
+  }
+  .md-output th { background: var(--bg3); color: var(--text); }
+  .md-output th,.md-output td {
+    border: 1px solid var(--border); padding: 6px 10px; text-align: left;
+  }
+  .md-output blockquote {
+    border-left: 3px solid var(--accent); padding-left: 12px;
+    color: var(--text2); margin: 8px 0;
+  }
+  .md-output a { color: var(--accent2); text-decoration: none; }
+  .md-output a:hover { text-decoration: underline; }
+  .md-output strong { color: var(--text); font-weight: 600; }
+
+  /* Status/info cards */
+  .info-card {
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text2);
+    background: var(--bg2);
+    display: flex; align-items: center; gap: 10px;
+    animation: fadeSlideIn .2s ease;
+  }
+  .info-card.plan { border-color: rgba(47,129,247,.3); background: rgba(47,129,247,.05); }
+  .info-card.reasoning { border-color: rgba(139,92,246,.3); background: rgba(139,92,246,.05); }
+  .info-card.done { border-color: rgba(63,185,80,.3); background: rgba(63,185,80,.05); color: var(--green); }
+  .info-card.error { border-color: rgba(248,81,73,.3); background: rgba(248,81,73,.05); color: var(--red); }
+
+  .plan-steps { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .plan-step { display: flex; align-items: center; gap: 8px; }
+  .plan-step-num {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--bg3); border: 1px solid var(--border);
+    font-size: 11px; font-family: var(--font-mono); font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Processing indicator */
+  .processing {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--text2); font-size: 13px;
+    animation: fadeSlideIn .2s ease;
+  }
+  .processing .dots span {
+    display: inline-block;
+    animation: blink 1.2s ease infinite;
+  }
+  .processing .dots span:nth-child(2) { animation-delay: .2s; }
+  .processing .dots span:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%,80%,100% { opacity: .2; } 40% { opacity: 1; } }
+
+  /* ── Report / History panel ─────────────────────────────────── */
+  .report-md { font-size: 13px; }
+  .report-md h1 { font-size: 18px; color: var(--text); margin-bottom: 12px; }
+
+  .history-item {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    cursor: pointer;
+    background: var(--bg2);
+    transition: border-color .12s, background .12s;
+  }
+  .history-item:hover { border-color: var(--accent); background: var(--bg3); }
+  .history-item .h-prompt {
+    font-size: 13px; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 4px;
+  }
+  .history-item .h-meta {
+    font-size: 11px; color: var(--text3); font-family: var(--font-mono);
+    display: flex; gap: 10px;
+  }
+  .badge-status {
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    padding: 1px 6px; border-radius: 3px;
+  }
+  .badge-status.completed { background: rgba(63,185,80,.15); color: var(--green); }
+  .badge-status.running   { background: rgba(47,129,247,.15); color: var(--accent2); }
+  .badge-status.error     { background: rgba(248,81,73,.15);  color: var(--red); }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center; padding: 60px 20px; color: var(--text3);
+  }
+  .empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; }
+  .empty-state h3 { color: var(--text2); margin-bottom: 8px; font-size: 16px; }
+  .empty-state p { font-size: 13px; line-height: 1.6; max-width: 280px; margin: 0 auto; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+  /* Step running pulse */
+  .step-running .card-header {
+    animation: pulse-border 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse-border {
+    0%,100% { border-color: var(--border); }
+    50% { border-color: var(--accent); }
+  }
+
+  /* Quick action chips */
+  #quick-actions {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px;
+  }
+  .quick-chip {
+    font-size: 11px; padding: 4px 10px;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 100px; cursor: pointer; color: var(--text2);
+    transition: background .12s, color .12s, border-color .12s;
+    white-space: nowrap;
+  }
+  .quick-chip:hover {
+    background: var(--bg4); color: var(--text); border-color: var(--border2);
+  }
+
+  /* Report download btn */
+  .report-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: var(--radius);
+    background: var(--bg3); border: 1px solid var(--border);
+    color: var(--text2); font-size: 12px; cursor: pointer;
+    text-decoration: none; margin-bottom: 12px;
+    transition: background .12s, color .12s;
+  }
+  .report-btn:hover { background: var(--bg4); color: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header id="header">
+  <div class="logo">
+    <div class="logo-icon">🤖</div>
+    <span>EngAgent</span>
+  </div>
+  <div class="spacer"></div>
+  <div class="stats-pills" id="header-stats">
+    <div class="stat-pill"><span class="dot"></span><span id="stat-sessions">0 sessions</span></div>
+    <div class="stat-pill">📋 <span id="stat-prompts">0 prompts</span></div>
+    <div class="stat-pill">✅ <span id="stat-rate">—</span></div>
+  </div>
+</header>
+
+<div id="app">
+
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <div id="sidebar-header">
+      <span>Sessions</span>
+      <button id="new-session-btn" onclick="newSession()">+ New</button>
+    </div>
+    <div id="session-list">
+      <div class="empty-state" style="padding:30px 12px;">
+        <div style="font-size:28px;margin-bottom:8px;">💬</div>
+        <p style="font-size:12px;">No sessions yet</p>
+      </div>
+    </div>
+    <div id="sidebar-footer">
+      <button class="nav-btn" onclick="switchTab('history')" id="nav-history">
+        <span class="icon">📖</span> Prompt History
+      </button>
+      <button class="nav-btn" onclick="switchTab('reports')" id="nav-reports">
+        <span class="icon">📄</span> Reports
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main id="main">
+
+    <!-- Prompt bar -->
+    <div id="prompt-bar">
+      <div id="prompt-form">
+        <textarea
+          id="prompt-input"
+          placeholder="Describe your engineering task… e.g. 'Write a FastAPI service for user authentication with JWT tokens'"
+          rows="1"
+        ></textarea>
+        <button id="run-btn" onclick="runPrompt()">
+          <div class="spinner"></div>
+          <span class="btn-text">▶ Run</span>
+        </button>
+      </div>
+      <div id="quick-actions">
+        <span class="quick-chip" onclick="setPrompt('Write a Python service with proper error handling, type hints, and unit tests for:')">⚡ Code Gen</span>
+        <span class="quick-chip" onclick="setPrompt('Review this code for security, performance, and correctness:')">🔍 Code Review</span>
+        <span class="quick-chip" onclick="setPrompt('Debug and fix this issue:')">🐛 Debug</span>
+        <span class="quick-chip" onclick="setPrompt('Research best practices and implementation approach for:')">📚 Research</span>
+        <span class="quick-chip" onclick="setPrompt('Optimize the performance of:')">🚀 Optimize</span>
+        <span class="quick-chip" onclick="setPrompt('Generate documentation and README for:')">📝 Document</span>
+        <span class="quick-chip" onclick="scaffoldProject()">📦 Scaffold Project</span>
+      </div>
+    </div>
+
+    <div id="content">
+      <!-- Run log panel -->
+      <div id="run-panel">
+        <div id="run-log">
+          <div class="empty-state">
+            <div class="empty-icon">🤖</div>
+            <h3>Engineering Agent Ready</h3>
+            <p>Enter a goal above. The orchestrator will route your request to specialized sub-agents and generate a full report.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right panel -->
+      <div id="right-panel">
+        <div id="right-tabs">
+          <div class="rtab active" id="rtab-output" onclick="showRightTab('output')">Output</div>
+          <div class="rtab" id="rtab-report" onclick="showRightTab('report')">Report</div>
+          <div class="rtab" id="rtab-history" onclick="showRightTab('history')">History</div>
+        </div>
+        <div id="right-content">
+          <div id="tab-output" class="tab-pane">
+            <div class="empty-state">
+              <div class="empty-icon">📊</div>
+              <h3>Run Output</h3>
+              <p>The final combined output from all sub-agents will appear here after a run completes.</p>
+            </div>
+          </div>
+          <div id="tab-report" class="tab-pane" style="display:none;">
+            <div class="empty-state">
+              <div class="empty-icon">📄</div>
+              <h3>Run Report</h3>
+              <p>A full Markdown report with every sub-agent action and code artifact will appear here.</p>
+            </div>
+          </div>
+          <div id="tab-history" class="tab-pane" style="display:none;">
+            <div id="history-list">
+              <div class="empty-state">
+                <div class="empty-icon">📖</div>
+                <h3>No History</h3>
+                <p>Your prompt history will appear here.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+let currentSessionId = null;
+let running = false;
+let lastReportPath = null;
+let lastResults = [];
+
+// ── Init ───────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  autoResizeTextarea();
+  await loadStats();
+  await loadSessions();
+
+  // Auto-create initial session
+  if (!currentSessionId) {
+    currentSessionId = await createSession('Default Session');
+    await loadSessions();
+  }
+
+  await loadHistory();
+  setInterval(loadStats, 30000);
+});
+
+// ── Textarea auto-resize ───────────────────────────────────────────────────
+function autoResizeTextarea() {
+  const ta = document.getElementById('prompt-input');
+  ta.addEventListener('input', () => {
+    ta.style.height = 'auto';
+    ta.style.height = Math.min(ta.scrollHeight, 140) + 'px';
+  });
+  ta.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      runPrompt();
+    }
+  });
+}
+
+// ── Quick actions ──────────────────────────────────────────────────────────
+function setPrompt(text) {
+  const ta = document.getElementById('prompt-input');
+  ta.value = text + ' ';
+  ta.focus();
+  ta.style.height = 'auto';
+  ta.style.height = Math.min(ta.scrollHeight, 140) + 'px';
+  ta.setSelectionRange(ta.value.length, ta.value.length);
+}
+
+// ── Sessions ───────────────────────────────────────────────────────────────
+async function createSession(title = '') {
+  const r = await fetch('/api/sessions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title })
+  });
+  const d = await r.json();
+  return d.session_id;
+}
+
+async function newSession() {
+  const title = prompt('Session name (optional):') || '';
+  currentSessionId = await createSession(title || 'New Session');
+  await loadSessions();
+  clearRunLog();
+  document.getElementById('tab-output').innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><h3>New Session</h3><p>Enter a goal above to get started.</p></div>';
+  document.getElementById('tab-report').innerHTML = '<div class="empty-state"><div class="empty-icon">📄</div><h3>Run Report</h3><p>Your report will appear here.</p></div>';
+}
+
+async function loadSessions() {
+  const r = await fetch('/api/sessions');
+  const sessions = await r.json();
+  const list = document.getElementById('session-list');
+  if (!sessions.length) {
+    list.innerHTML = '<div class="empty-state" style="padding:30px 12px;"><div style="font-size:28px;margin-bottom:8px;">💬</div><p style="font-size:12px;">No sessions yet</p></div>';
+    return;
+  }
+  list.innerHTML = sessions.map(s => `
+    <div class="session-item ${s.session_id === currentSessionId ? 'active' : ''}"
+         onclick="selectSession('${s.session_id}')">
+      <div class="s-title">${esc(s.title || 'Session')}</div>
+      <div class="s-meta">${s.total_prompts} prompt${s.total_prompts !== 1 ? 's' : ''} · ${formatDate(s.last_active)}</div>
+    </div>
+  `).join('');
+}
+
+async function selectSession(sid) {
+  currentSessionId = sid;
+  await loadSessions();
+  clearRunLog();
+  // Load last prompt's report for this session
+  const r = await fetch(`/api/sessions/${sid}`);
+  const s = await r.json();
+  const prompts = s.prompts || [];
+  if (prompts.length) {
+    const last = prompts[0];
+    if (last.report_path) {
+      const fname = last.report_path.split('/').pop();
+      await loadReport(fname);
+    }
+  }
+  showRightTab('history');
+  loadHistory();
+}
+
+// ── Stats ──────────────────────────────────────────────────────────────────
+async function loadStats() {
+  try {
+    const r = await fetch('/api/stats');
+    const d = await r.json();
+    document.getElementById('stat-sessions').textContent = `${d.total_sessions} session${d.total_sessions !== 1 ? 's' : ''}`;
+    document.getElementById('stat-prompts').textContent = `${d.total_prompts} prompt${d.total_prompts !== 1 ? 's' : ''}`;
+    document.getElementById('stat-rate').textContent = `${(d.success_rate * 100).toFixed0()}% success`;
+  } catch {}
+}
+
+Number.prototype.toFixed0 = function() { return Math.round(this).toString(); };
+
+// ── History ────────────────────────────────────────────────────────────────
+async function loadHistory() {
+  const r = await fetch('/api/history?limit=100');
+  const prompts = await r.json();
+  const list = document.getElementById('history-list');
+  if (!prompts.length) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">📖</div><h3>No History</h3><p>Your prompt history will appear here.</p></div>';
+    return;
+  }
+  list.innerHTML = prompts.map(p => `
+    <div class="history-item" onclick="loadPromptReport(${p.id}, '${esc(p.report_path || '')}')">
+      <div class="h-prompt">${esc(p.prompt)}</div>
+      <div class="h-meta">
+        <span class="badge-status ${p.status}">${p.status}</span>
+        <span>${formatDate(p.timestamp)}</span>
+        <span style="color:var(--text3)">${(p.session_title || '').slice(0, 20)}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function loadPromptReport(promptId, reportPath) {
+  showRightTab('report');
+  if (!reportPath) {
+    document.getElementById('tab-report').innerHTML = '<div class="info-card error">⚠️ No report available for this prompt.</div>';
+    return;
+  }
+  const fname = reportPath.split('/').pop();
+  await loadReport(fname);
+}
+
+// ── Run ────────────────────────────────────────────────────────────────────
+async function runPrompt() {
+  const goal = document.getElementById('prompt-input').value.trim();
+  if (!goal || running) return;
+
+  running = true;
+  lastReportPath = null;
+  lastResults = [];
+  setRunning(true);
+  clearRunLog();
+  showRightTab('output');
+
+  const sid = currentSessionId || '';
+  const url = `/api/run?goal=${encodeURIComponent(goal)}&session_id=${encodeURIComponent(sid)}`;
+  const es = new EventSource(url);
+
+  const processingEl = addProcessing('Connecting to orchestrator…');
+
+  es.onmessage = (e) => {
+    const msg = JSON.parse(e.data);
+    handleEvent(msg, processingEl);
+  };
+
+  es.onerror = () => {
+    es.close();
+    running = false;
+    setRunning(false);
+    processingEl && processingEl.remove();
+    addErrorCard('Connection lost. Check the server is running.');
+    loadStats();
+    loadSessions();
+    loadHistory();
+  };
+}
+
+function handleEvent(msg, processingEl) {
+  switch (msg.type) {
+
+    case 'init':
+      currentSessionId = msg.session_id;
+      loadSessions();
+      break;
+
+    case 'status':
+      updateProcessing(processingEl, msg.text);
+      break;
+
+    case 'reasoning':
+      processingEl && processingEl.remove();
+      addInfoCard('reasoning', '🧠 Orchestrator Reasoning', msg.text);
+      break;
+
+    case 'plan':
+      addPlanCard(msg.steps);
+      break;
+
+    case 'step_start':
+      addStepCard(msg.step, msg.agent, msg.task, null, true);
+      break;
+
+    case 'step_done': {
+      lastResults.push(msg);
+      const card = document.getElementById(`step-card-${msg.step}`);
+      if (card) {
+        card.classList.remove('step-running');
+        updateStepCard(card, msg.agent, msg.task, msg.result, msg.duration_ms, true);
+      } else {
+        addStepCard(msg.step, msg.agent, msg.task, msg.result, false, msg.duration_ms);
+      }
+      updateOutputTab();
+      break;
+    }
+
+    case 'step_error': {
+      const card = document.getElementById(`step-card-${msg.step}`);
+      if (card) {
+        card.classList.remove('step-running');
+        updateStepCard(card, msg.agent, '', `ERROR: ${msg.error}`, 0, false);
+      }
+      break;
+    }
+
+    case 'done':
+      running = false;
+      setRunning(false);
+      processingEl && processingEl.remove();
+      addDoneCard(msg.total_steps, msg.total_ms, msg.report_path);
+      if (msg.report_path) {
+        lastReportPath = msg.report_path.split('/').pop();
+        loadReport(lastReportPath);
+      }
+      loadStats();
+      loadSessions();
+      loadHistory();
+      break;
+
+    case 'error':
+      running = false;
+      setRunning(false);
+      processingEl && processingEl.remove();
+      addErrorCard(msg.text);
+      break;
+  }
+}
+
+// ── Run log helpers ────────────────────────────────────────────────────────
+function clearRunLog() {
+  document.getElementById('run-log').innerHTML = '';
+}
+
+function addProcessing(text) {
+  const el = document.createElement('div');
+  el.className = 'processing';
+  el.innerHTML = `<span style="font-size:18px">⚙️</span> <span class="p-text">${esc(text)}</span> <span class="dots"><span>.</span><span>.</span><span>.</span></span>`;
+  document.getElementById('run-log').appendChild(el);
+  scrollLog();
+  return el;
+}
+
+function updateProcessing(el, text) {
+  if (el) el.querySelector('.p-text').textContent = text;
+}
+
+function addInfoCard(type, title, content) {
+  const el = document.createElement('div');
+  el.className = `info-card ${type}`;
+  el.style.flexDirection = 'column';
+  el.style.alignItems = 'flex-start';
+  el.innerHTML = `<strong>${title}</strong><div style="margin-top:6px;font-size:12px;line-height:1.5;">${esc(content)}</div>`;
+  document.getElementById('run-log').appendChild(el);
+  scrollLog();
+}
+
+function addPlanCard(steps) {
+  const el = document.createElement('div');
+  el.className = 'info-card plan';
+  el.style.flexDirection = 'column';
+  el.style.alignItems = 'flex-start';
+  el.innerHTML = `
+    <strong>📐 Execution Plan — ${steps.length} step${steps.length !== 1 ? 's' : ''}</strong>
+    <div class="plan-steps">
+      ${steps.map((s, i) => `
+        <div class="plan-step">
+          <div class="plan-step-num">${i+1}</div>
+          <span class="agent-badge agent-${s.agent}" style="font-size:10px;padding:2px 6px;">${s.agent}</span>
+          <span style="font-size:12px;color:var(--text2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(s.task)}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('run-log').appendChild(el);
+  scrollLog();
+}
+
+function addStepCard(step, agent, task, result, isRunning, duration_ms = null) {
+  const existing = document.getElementById(`step-card-${step}`);
+  if (existing) return;
+
+  const el = document.createElement('div');
+  el.className = `event-card ${isRunning ? 'step-running' : ''}`;
+  el.id = `step-card-${step}`;
+  el.innerHTML = buildStepCardHTML(step, agent, task, result, isRunning, duration_ms);
+  document.getElementById('run-log').appendChild(el);
+  scrollLog();
+}
+
+function updateStepCard(card, agent, task, result, duration_ms, success) {
+  card.innerHTML = buildStepCardHTML(null, agent, task, result, false, duration_ms, success);
+}
+
+function buildStepCardHTML(step, agent, task, result, isRunning, duration_ms, success = true) {
+  const icon = isRunning ? '⏳' : (success ? '✅' : '❌');
+  const agentLabel = agent.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  const dur = duration_ms ? `<span class="card-duration">${duration_ms}ms</span>` : '';
+
+  return `
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="status-icon">${icon}</span>
+      <span class="agent-badge agent-${agent}">${agent}</span>
+      <span class="card-title">${isRunning ? `Running ${agentLabel}…` : agentLabel}</span>
+      ${dur}
+      <span class="collapse-arrow">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="task-label">Task</div>
+      <div class="task-text">${esc(task)}</div>
+      ${result ? `
+        <div class="task-label">Output</div>
+        <div class="md-output">${renderMd(result)}</div>
+      ` : isRunning ? `
+        <div class="processing" style="margin:0;">
+          <span>Processing</span>
+          <span class="dots"><span>.</span><span>.</span><span>.</span></span>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+function toggleCard(header) {
+  header.parentElement.classList.toggle('collapsed');
+}
+
+function addDoneCard(steps, totalMs, reportPath) {
+  const el = document.createElement('div');
+  el.className = 'info-card done';
+  el.style.flexDirection = 'column';
+  el.style.alignItems = 'flex-start';
+  const totalS = totalMs ? (totalMs / 1000).toFixed(1) : '?';
+  el.innerHTML = `
+    <strong>✅ Run complete — ${steps} step${steps !== 1 ? 's' : ''} in ${totalS}s</strong>
+    ${reportPath ? `<div style="margin-top:6px;font-size:12px;">Report saved → <span style="font-family:var(--font-mono);color:var(--accent2);">${reportPath.split('/').pop()}</span></div>` : ''}
+  `;
+  document.getElementById('run-log').appendChild(el);
+  scrollLog();
+}
+
+function addErrorCard(msg) {
+  const el = document.createElement('div');
+  el.className = 'info-card error';
+  el.innerHTML = `<strong>❌ Error</strong> ${esc(msg)}`;
+  document.getElementById('run-log').appendChild(el);
+  scrollLog();
+}
+
+function scrollLog() {
+  const log = document.getElementById('run-log');
+  log.scrollTop = log.scrollHeight;
+}
+
+// ── Output tab ─────────────────────────────────────────────────────────────
+function updateOutputTab() {
+  const tab = document.getElementById('tab-output');
+  if (!lastResults.length) return;
+  const html = lastResults.map((r, i) => `
+    <div style="margin-bottom:20px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span class="agent-badge agent-${r.agent}">${r.agent}</span>
+        <span style="font-size:11px;color:var(--text3);font-family:var(--font-mono);">${r.duration_ms}ms</span>
+      </div>
+      <div class="md-output">${renderMd(r.result)}</div>
+    </div>
+    ${i < lastResults.length - 1 ? '<hr style="border:none;border-top:1px solid var(--border);margin:16px 0;">' : ''}
+  `).join('');
+  tab.innerHTML = html;
+}
+
+// ── Report loading ─────────────────────────────────────────────────────────
+async function loadReport(filename) {
+  const tab = document.getElementById('tab-report');
+  tab.innerHTML = '<div class="processing" style="padding:20px;"><span>Loading report</span><span class="dots"><span>.</span><span>.</span><span>.</span></span></div>';
+  showRightTab('report');
+  try {
+    const r = await fetch(`/api/reports/${filename}`);
+    const d = await r.json();
+    tab.innerHTML = `
+      <a class="report-btn" href="/api/reports/${filename}" download="${filename}">⬇ Download ${filename}</a>
+      <div class="md-output report-md">${renderMd(d.content)}</div>
+    `;
+  } catch {
+    tab.innerHTML = '<div class="info-card error">Failed to load report.</div>';
+  }
+}
+
+// ── Tabs ───────────────────────────────────────────────────────────────────
+function showRightTab(name) {
+  ['output', 'report', 'history'].forEach(t => {
+    document.getElementById(`tab-${t}`).style.display = t === name ? '' : 'none';
+    document.getElementById(`rtab-${t}`).classList.toggle('active', t === name);
+  });
+  if (name === 'history') loadHistory();
+}
+
+function switchTab(name) {
+  if (name === 'history') showRightTab('history');
+  if (name === 'reports') showRightTab('report');
+}
+
+// ── Utilities ──────────────────────────────────────────────────────────────
+function setRunning(r) {
+  const btn = document.getElementById('run-btn');
+  btn.disabled = r;
+  btn.classList.toggle('running', r);
+}
+
+function renderMd(text) {
+  try {
+    return marked.parse(text || '');
+  } catch {
+    return `<pre>${esc(text)}</pre>`;
+  }
+}
+
+function esc(s) {
+  return String(s || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  try {
+    const d = new Date(iso + (iso.endsWith('Z') ? '' : 'Z'));
+    const now = new Date();
+    const diff = now - d;
+    if (diff < 60000) return 'just now';
+    if (diff < 3600000) return `${Math.floor(diff/60000)}m ago`;
+    if (diff < 86400000) return `${Math.floor(diff/3600000)}h ago`;
+    return d.toLocaleDateString();
+  } catch { return iso; }
+}
+
+// ── Scaffold ─────────────────────────────────────────────────────────────
+function scaffoldProject() {
+  var desc = (document.getElementById("prompt-input") ? document.getElementById("prompt-input").value : "").trim();
+  if (!desc) desc = window.prompt("Describe the project to generate (e.g. FastAPI auth service with JWT):");
+  if (!desc) return;
+  if (document.getElementById("prompt-input")) document.getElementById("prompt-input").value = desc;
+  if (typeof addMessage === "function") addMessage("system", "Scaffolding: " + desc);
+  fetch("/api/scaffold", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({description: desc})
+  }).then(function(r){ return r.json(); }).then(function(data) {
+    if (data.error) { if (typeof addMessage==="function") addMessage("error", data.error); return; }
+    var banner = document.getElementById("scaffold-banner");
+    var link = document.getElementById("scaffold-dl");
+    link.href = "/api/download/" + data.zip;
+    link.download = data.zip;
+    banner.style.display = "flex";
+    if (typeof addMessage==="function") addMessage("system",
+      "Zip ready: <a href='/api/download/" + data.zip + "' download style='color:#58a6ff'>" + data.zip + "</a>");
+  }).catch(function(e) { if (typeof addMessage==="function") addMessage("error", String(e)); });
+}
+</script>
+
+    <div id="scaffold-banner" style="display:none;position:fixed;bottom:24px;right:24px;background:#238636;color:#fff;padding:14px 20px;border-radius:10px;font-size:14px;font-weight:600;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.4);align-items:center;gap:12px;">
+      <span>📦 Project zip ready!</span>
+      <a id="scaffold-dl" href="#" style="color:#fff;text-decoration:underline;" download>Download</a>
+      <span onclick="document.getElementById('scaffold-banner').style.display='none'" style="cursor:pointer;opacity:.7;margin-left:8px;">✕</span>
+    </div>
+</body>
+</html>

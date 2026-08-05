@@ -1,0 +1,19 @@
+CC = gcc
+CFLAGS = -O2 -Wall
+
+all: prim_serial prim_parallel
+
+prim_serial: prim_serial.c
+	$(CC) $(CFLAGS) -o prim_serial prim_serial.c
+
+prim_parallel: prim_parallel.c
+	$(CC) $(CFLAGS) -fopenmp -o prim_parallel prim_parallel.c
+
+clean:
+	rm -f prim_serial prim_parallel adjacency_matrix.txt
+
+run: all
+	python3 generate_graph.py
+	./prim_serial > serial_output.txt
+	./prim_parallel > parallel_output.txt
+	@echo "Done. Check serial_output.txt and parallel_output.txt"

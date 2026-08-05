@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+memory/agent_memory.db
+output/
+reports/
+logs/
+checkpoints/

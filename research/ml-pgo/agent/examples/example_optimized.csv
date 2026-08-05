@@ -1,0 +1,11 @@
+kernel_name,runtime_ms,sm_utilization_%,memory_bandwidth_%
+matmul_kernel_fp32,38.1,78,42
+softmax_kernel,14.2,68,20
+layernorm_kernel,9.1,72,38
+attention_mask_kernel,6.0,52,18
+elementwise_add,4.3,85,48
+copy_kernel,3.1,65,50
+global_reduce_kernel,2.7,62,22
+scatter_gather_kernel,2.0,48,35
+batch_norm_kernel,1.9,78,45
+activation_relu,1.4,92,38

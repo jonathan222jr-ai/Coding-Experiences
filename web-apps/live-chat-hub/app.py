@@ -2,10 +2,12 @@ from flask import Flask, render_template, redirect, url_for, request, session, f
 from flask_socketio import SocketIO, emit
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
 import random
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "dev-secret"
+# Supply a real secret via the environment when running anywhere but locally.
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 

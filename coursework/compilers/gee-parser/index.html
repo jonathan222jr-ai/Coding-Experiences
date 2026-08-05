@@ -1,0 +1,130 @@
+   
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/~noonan/course.css">
+  <title>Gee Parser</title>
+</head>
+<body> <a name="top"></a>
+<div class="header">
+<h1>Gee Parser</h1></div>
+
+<blockquote><pre>
+<b>Source File</b>: <a href="gee.py">gee.py</a>
+<b>Grammar File</b>: <a href="grammar.txt">grammar.txt</a> <br>
+<b>Test Files</b>: <a href="t0.gee.txt">t0.gee.txt</a> <a href="t1.gee.txt">t1.gee.txt</a> <a href="t2.gee.txt">t2.gee.txt</a> 
+        <a href="max.gee.txt">max.gee.txt</a> <a href="fact.gee.txt">fact.gee.txt</a> <a href="test.gee.txt">test.gee.txt</a>
+<b>Output</b>: <a href="max-out.txt">max-out.txt</a> <a href="fact-out.txt">fact-out.txt</a> <a href="test-out.txt">test-out.txt</a>
+</pre></blockquote>
+
+See Questions at the bottom.
+
+<p>
+The Gee programming language is:
+<ul>
+<li> A small but interesting programming language;
+
+<li> Designed for class projects in language implementation;
+
+<li> Intended to expose new ways of thinking about programming;
+
+<li>  Different from typical statically-typed languages.
+</ul>
+
+</p><p>
+The purpose of the project is to parse the input according to the
+grammar and produce a printed representation of the
+<i>abstract syntax tree</i>.  Sample data and output are given above.
+</p>
+
+
+<p><hr><p>
+<h3>Parser</h3>
+
+<p>Your task is to construct the remaining recursive descent
+routines to complete the parser for the Gee implementation
+<a href="grammar.txt">grammar</a>.
+You are free to modify the grammar provided you do not 
+change the syntax of Gee.</p>
+<p>  Specially, you must:
+<ol>
+   <li> Build parse routines for the expression nonterminals:<br>
+   expression, andExpr, relationalExpr<br>
+   (as specified in the grammar).
+   Note that currently addExpr is called in 2 places:
+   factor and parse.</li>
+
+   <li>Build classes for ident (VarRef) and string (String)
+   and add the necessary logic to factor.</li>
+
+   <li> Modify function "parse( text )" by commenting out (or deleting) the code that calls addExpr and its associated print (i.e., lines 3-4 in the function body), and uncomment the call to parseStmtList and its print (i.e., lines 6-7 in the function body). After doing this the expression tests will no longer work.</li>
+
+   <li> Build parse routines for the following statements (nonterminals):<br>
+   StmtList, Statement, assign, while, if, block.</li>
+
+   <li> Note that the code for parseStmtList is incorrect in that it
+   processes a statement, instead of creating a list of statements
+   and putting that into a subclass of Statement and returning an object
+   containing the list.</li>
+</ol>
+</p><p>
+
+The output of the parser is a printed representation of
+the abstract syntax tree.  The abstract syntax is defined by
+a collection of classes.
+Each class in the abstract syntax must have an appropriate
+constructor and a <code>__str__</code> function for displaying the
+abstract syntax.
+</p> 
+
+<p>
+Statements should be printed one per line; this can be accomplshed
+by appending a "\n" to the string returned by <code>__str__</code> .
+Expressions (including assignment) should print in <a href="http://en.wikipedia.org/wiki/Polish_notation"> Polish prefix </a>
+with a space separating each element from the next.
+</p>
+
+<p>
+A Gee program file must end with an end of line. To check, either execute : <code>cat</code> filename or in your editor, make sure you can move the cursor to the line below the last line of text.
+</p>
+
+<p><hr><p>
+<h3>Requirements</h3>
+
+<ol>
+    <li> You must use Python 3, <b>not</b> Python 2.  The biggest change is
+    that all print statements must be converted to: <br>
+    <code>print ( ... )</code>. </li>
+
+    <li> Each parse function corresponding to a nonterminal <b>must</b>
+    return an object of either <code>Expression</code> or <code>Statement</code>.</li>
+</ol>
+
+<p><hr><p>
+<h3>What to submit</h3>
+
+<ol>
+ <li>Submit your solution in a single compressed file (e.g., .zip/.tar/.rar/.gz). The file name must be (your ucm email id).zip/.tar/.rar/.gz. Include a ReadMe describing your implementation and the changes you made.&nbsp;</li>
+ <li><b>Do Not</b> include any files that are the result of compilation or testing.&nbsp;
+   All other submission instruction is the same as in the previous labs.&nbsp;</li>
+</ol>
+
+
+<p><hr><p>
+<h3>Questions</h3>
+
+<ol>
+<li> <b>Q</b>: Why does the test case <code>test.gee</code> print an <code>else</code>
+3 times when only 2 of the Ifs have an <code>else</code>?<br>
+I chose an abstract syntax which stores an if-then as an
+if-then-else with an empty <code>Block</code>.  For me it simplifies
+the next assignment.</li>
+
+<li> <b>Q</b>: Are we expected to be able to run tests t0.gee.txt, t1.gee.txt, or t2.gee.txt?<br>
+Only as part of a larger program, since an expression is not a statement.
+</li>
+
+</ol>
+
+</body>	</html>

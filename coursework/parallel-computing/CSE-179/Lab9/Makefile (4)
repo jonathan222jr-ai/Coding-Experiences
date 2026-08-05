@@ -1,0 +1,28 @@
+CC      = mpicc
+CFLAGS  = -O2 -Wall -std=c99
+LDFLAGS = -lm
+ 
+TARGET  = matmul
+ 
+all: $(TARGET)
+ 
+$(TARGET): matmul_parallel.c
+	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
+ 
+clean:
+	rm -f $(TARGET)
+ 
+# ---- Convenience run targets ----
+# Usage: make run N=512 Q=4
+run: $(TARGET)
+	mpirun -np $(Q) ./$(TARGET) $(N) $(Q)
+ 
+# Run all benchmark pairs
+bench: $(TARGET)
+	@echo "n=256  q=2";  mpirun -np 2  ./$(TARGET) 256  2
+	@echo "n=512  q=4";  mpirun -np 4  ./$(TARGET) 512  4
+	@echo "n=1024 q=4";  mpirun -np 4  ./$(TARGET) 1024 4
+	@echo "n=1024 q=8";  mpirun -np 8  ./$(TARGET) 1024 8
+ 
+.PHONY: all clean run bench
+ 

@@ -24,9 +24,17 @@ build/
 dist/
 *.o
 *.out
+*.exe
 *.class
 DerivedData/
 *.xcuserdatad/
+
+# Agent runtime state (may contain prompts, transcripts, or keys)
+logs/
+checkpoints/
+
+# Godot editor cache
+.godot/
 
 # macOS
 .DS_Store
