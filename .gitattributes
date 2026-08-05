@@ -1,0 +1,35 @@
+# Normalize line endings — this repo has files authored on macOS, Linux, and Windows
+* text=auto
+
+# Keep shell scripts and Makefiles LF regardless of platform
+*.sh    text eol=lf
+Makefile text eol=lf
+makefile text eol=lf
+
+# Binary — never diff or normalize
+*.png   binary
+*.jpg   binary
+*.ico   binary
+*.pptx  binary
+*.pdf   binary
+
+# --- GitHub language statistics -------------------------------------------
+# Without these, generated lockfiles, Xcode metadata, and instructor-supplied
+# starter code dominate the language bar and misrepresent the work.
+
+# Generated / tooling files, not authored
+**/package-lock.json        linguist-generated=true
+**/*.pbxproj                linguist-generated=true
+**/*.xcworkspacedata        linguist-generated=true
+**/*.import                 linguist-generated=true
+**/*.uid                    linguist-generated=true
+
+# Instructor-supplied starter code and test fixtures
+coursework/compilers/**/A_partially_completed_scanner/**  linguist-vendored=true
+coursework/compilers/**/all_tests/**                      linguist-vendored=true
+coursework/compilers/**/testfiles/**                      linguist-vendored=true
+coursework/compilers/**/tests/**                          linguist-vendored=true
+coursework/data-structures-cpp/**/testfiles/**            linguist-vendored=true
+
+# Notebooks are real work — keep them counted
+*.ipynb                     linguist-detectable=true

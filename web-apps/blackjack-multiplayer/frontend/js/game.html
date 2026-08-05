@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Game Room</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="center">
+    <h2 id="roomTitle">Game Room</h2>
+    <div class="game-grid">
+      <div>
+        <div class="panel">
+          <h3>Players</h3>
+          <ul id="playerList" class="player-list"></ul>
+        </div>
+
+        <div class="panel" style="margin-top:12px">
+          <h3>Controls</h3>
+          <div>
+            Bet: <input id="betAmount" type="number" min="1" value="10" />
+            <button id="btnBet">Place Bet</button>
+          </div>
+          <div style="margin-top:8px;">
+            <button id="btnReady">Ready</button>
+            <button id="btnStart">Start</button>
+          </div>
+          <div style="margin-top:8px;">
+            <button id="btnHit">Hit</button>
+            <button id="btnStand">Stand</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <h3>Dealer</h3>
+          <div id="dealerCards" class="card-row"></div>
+        </div>
+
+        <div class="panel" style="margin-top:12px;">
+          <h3>Chat</h3>
+          <div id="chatBox" class="chat"></div>
+          <input id="chatInput" placeholder="Say something..." />
+          <button id="btnSend">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="../api/api.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

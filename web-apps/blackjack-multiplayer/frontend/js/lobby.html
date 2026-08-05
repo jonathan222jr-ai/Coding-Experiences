@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Lobby</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <div class="center">
+    <h2>Lobby</h2>
+    <div style="display:flex;gap:12px;justify-content:center;">
+      <input id="gameName" placeholder="Room name" />
+      <button id="btnCreate">Create Room</button>
+      <button id="btnRefresh">Refresh</button>
+      <button id="btnLogout">Logout</button>
+    </div>
+    <div style="margin-top:18px;">
+      <div id="gamesList" class="panel"></div>
+    </div>
+  </div>
+  <script src="../api/api.js"></script>
+  <script src="lobby.js"></script>
+</body>
+</html>
