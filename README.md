@@ -14,6 +14,7 @@ Python agent frameworks built on the Anthropic API.
 | Project | Description |
 |---|---|
 | [`ai-agent-v2`](ai-agents/ai-agent-v2) | Multi-agent system with a dispatching classifier and specialized agents — `coder`, `debugger`, `fullstack`, `behavioral`, `js_explainer`, `reflector` — plus an `agent_builder` for composing new ones. Includes a Flask web UI. |
+| [`chronicler-dnd-agent`](ai-agents/chronicler-dnd-agent) | **Chronicler** — a D&D campaign intelligence system. A DM seed prompt becomes a full world; session notes are ingested and their consequences propagate across every NPC, faction, and plot thread. Nine domain agents (`WorldBuilder`, `SessionIngestion`, `Contradiction`, `NPC`, `LoreKeeper`, `Map`, `PlotWeaver`, `Faction`, `Rules`) over a SQLite world state, with model routing across Claude, GPT-4o, and Gemini, and a Flask UI with a map, lore browser, and encounter builder. |
 | [`eng-agent`](ai-agents/eng-agent) | Engineering agent system targeting a Python data platform (FastAPI, PostgreSQL, Delta Lake, Dagster, ClickHouse). Nine stack-specific agents over a shared `BaseAgent`, a SQLite memory store, a scaffolder that emits projects as zip files, and a self-improvement loop that runs every 10 tasks. |
 | [`interview-agent`](ai-agents/interview-agent) | Interview-preparation assistant with a web UI and a voice mode, offering CLI, server, and continuous-listen entry points. |
 

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+memory/*.db
+output/
+logs/
+reports/
+checkpoints/
+lore/*.txt

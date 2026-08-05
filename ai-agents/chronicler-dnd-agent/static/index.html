@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Chronicler — D&D Campaign AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --parch: #1a1208;
+  --parch2: #211809;
+  --parch3: #2a200d;
+  --panel: rgba(30,22,10,.92);
+  --panel2: rgba(40,30,14,.95);
+  --gold: #c9a227;
+  --gold2: #e8c84a;
+  --gold-dim: rgba(201,162,39,.15);
+  --gold-glow: rgba(201,162,39,.3);
+  --ember: #d4521a;
+  --ember-dim: rgba(212,82,26,.15);
+  --blood: #8b1a1a;
+  --ice: #4a90c4;
+  --ice-dim: rgba(74,144,196,.12);
+  --sage: #5a8a4a;
+  --text: #e8dfc0;
+  --text2: #b09a6a;
+  --text3: #7a6040;
+  --border: rgba(201,162,39,.12);
+  --border2: rgba(201,162,39,.22);
+  --font-title: 'Cinzel', serif;
+  --font-body: 'Crimson Text', serif;
+  --font-lore: 'IM Fell English', serif;
+  --sidebar-w: 280px;
+  --header-h: 64px;
+  --r: 6px;
+}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(201,162,39,.2);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:rgba(201,162,39,.4)}
+
+body{
+  font-family:var(--font-body);
+  background:var(--parch);
+  color:var(--text);
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* Parchment texture overlay */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 20% 20%, rgba(201,162,39,.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(212,82,26,.03) 0%, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Vignette */
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  box-shadow:inset 0 0 120px rgba(0,0,0,.7);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── HEADER ── */
+#header{
+  height:var(--header-h);
+  display:flex;
+  align-items:center;
+  padding:0 20px;
+  border-bottom:1px solid var(--border2);
+  background:rgba(15,10,4,.95);
+  backdrop-filter:blur(20px);
+  position:relative;
+  z-index:20;
+  gap:16px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-icon{
+  width:36px;
+  height:36px;
+  position:relative;
+}
+
+.logo-icon svg{
+  width:100%;
+  height:100%;
+  filter:drop-shadow(0 0 8px rgba(201,162,39,.6));
+}
+
+.logo-text{
+  font-family:var(--font-title);
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:3px;
+  color:var(--gold2);
+  text-shadow:0 0 20px rgba(201,162,39,.4);
+}
+
+.logo-subtitle{
+  font-size:11px;
+  letter-spacing:2px;
+  color:var(--text3);
+  text-transform:uppercase;
+  font-family:var(--font-title);
+}
+
+.header-center{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#campaign-selector{
+  background:var(--parch2);
+  border:1px solid var(--border2);
+  color:var(--text);
+  padding:8px 36px 8px 14px;
+  border-radius:var(--r);
+  font-family:var(--font-title);
+  font-size:13px;
+  cursor:pointer;
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23c9a227'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  transition:.2s;
+  min-width:220px;
+}
+#campaign-selector:focus{outline:none;border-color:var(--gold)}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 16px;
+  border-radius:var(--r);
+  font-family:var(--font-title);
+  font-size:12px;
+  letter-spacing:1px;
+  cursor:pointer;
+  transition:.2s;
+  border:none;
+  text-transform:uppercase;
+}
+
+.btn-gold{
+  background:linear-gradient(135deg, #c9a227, #a07818);
+  color:#1a1208;
+  font-weight:700;
+}
+.btn-gold:hover{background:linear-gradient(135deg,#e8c84a,#c9a227);transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,162,39,.35)}
+
+.btn-ghost{
+  background:var(--gold-dim);
+  border:1px solid var(--border2);
+  color:var(--gold);
+}
+.btn-ghost:hover{background:rgba(201,162,39,.22);border-color:var(--gold)}
+
+.btn-ember{
+  background:rgba(212,82,26,.2);
+  border:1px solid rgba(212,82,26,.3);
+  color:#e8804a;
+}
+.btn-ember:hover{background:rgba(212,82,26,.3)}
+
+/* ── LAYOUT ── */
+#app{
+  display:flex;
+  flex:1;
+  overflow:hidden;
+  position:relative;
+  z-index:1;
+}
+
+/* ── SIDEBAR ── */
+#sidebar{
+  width:var(--sidebar-w);
+  background:rgba(15,10,4,.97);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+.nav-section{
+  padding:12px 8px 4px;
+  font-family:var(--font-title);
+  font-size:9px;
+  letter-spacing:3px;
+  color:var(--text3);
+  text-transform:uppercase;
+}
+
+.nav-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 16px;
+  cursor:pointer;
+  transition:.15s;
+  border-radius:4px;
+  margin:2px 8px;
+  color:var(--text2);
+  font-size:14px;
+}
+.nav-item:hover{background:var(--gold-dim);color:var(--text)}
+.nav-item.active{background:var(--gold-dim);color:var(--gold);border-left:2px solid var(--gold)}
+.nav-item .icon{font-size:16px;width:20px;text-align:center}
+
+.sidebar-bottom{
+  margin-top:auto;
+  padding:12px;
+  border-top:1px solid var(--border);
+}
+
+/* ── MAIN ── */
+#main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.view{display:none}
+.view.active{display:flex;flex-direction:column;flex:1;overflow:hidden}
+
+/* ── PANEL CARDS ── */
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+}
+
+.card-header{
+  padding:12px 16px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--font-title);
+  font-size:13px;
+  letter-spacing:1px;
+  color:var(--gold);
+}
+
+.card-body{padding:16px}
+
+/* ── HOME / SEED VIEW ── */
+#view-home{
+  padding:32px;
+  overflow-y:auto;
+  align-items:center;
+}
+
+.home-inner{
+  width:100%;
+  max-width:780px;
+  margin:0 auto;
+}
+
+.home-hero{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.home-hero h1{
+  font-family:var(--font-title);
+  font-size:42px;
+  font-weight:900;
+  color:var(--gold2);
+  text-shadow:0 0 40px rgba(201,162,39,.3);
+  letter-spacing:4px;
+  margin-bottom:8px;
+}
+
+.home-hero p{
+  color:var(--text2);
+  font-size:16px;
+  font-style:italic;
+  font-family:var(--font-lore);
+}
+
+.seed-textarea{
+  width:100%;
+  min-height:180px;
+  background:var(--parch2);
+  border:1px solid var(--border2);
+  border-radius:var(--r);
+  padding:18px;
+  color:var(--text);
+  font-family:var(--font-lore);
+  font-size:16px;
+  line-height:1.7;
+  resize:vertical;
+  transition:.2s;
+}
+.seed-textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px var(--gold-dim)}
+.seed-textarea::placeholder{color:var(--text3);font-style:italic}
+
+/* ── STATUS LOG ── */
+#status-log{
+  background:var(--parch2);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:16px;
+  max-height:240px;
+  overflow-y:auto;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.log-entry{
+  display:flex;
+  gap:8px;
+  padding:4px 0;
+  color:var(--text2);
+  border-bottom:1px solid rgba(201,162,39,.05);
+}
+.log-entry:last-child{border-bottom:none}
+.log-entry .ts{color:var(--text3);font-size:12px;flex-shrink:0;font-family:monospace}
+.log-entry.success .msg{color:var(--gold)}
+.log-entry.error .msg{color:#e05555}
+.log-entry.info .msg{color:var(--text)}
+
+/* ── MAP VIEW ── */
+#view-map{flex:1;overflow:hidden}
+
+#map-canvas{
+  width:100%;
+  flex:1;
+  position:relative;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(74,144,196,.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(90,138,74,.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 20%, rgba(201,162,39,.04) 0%, transparent 40%),
+    linear-gradient(180deg, #0e0c06 0%, #141008 50%, #0e0c06 100%);
+  overflow:hidden;
+  cursor:grab;
+}
+#map-canvas:active{cursor:grabbing}
+
+.map-location{
+  position:absolute;
+  transform:translate(-50%, -50%);
+  cursor:pointer;
+  transition:.2s;
+}
+.map-location:hover{transform:translate(-50%,-50%) scale(1.15)}
+
+.loc-pin{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+  border:2px solid rgba(201,162,39,.4);
+  background:rgba(20,14,6,.9);
+  box-shadow:0 0 12px rgba(0,0,0,.6), 0 0 0 4px rgba(201,162,39,.08);
+  transition:.2s;
+}
+.loc-pin:hover{border-color:var(--gold);box-shadow:0 0 16px rgba(201,162,39,.4)}
+
+.loc-pin.unrevealed{
+  opacity:0.4;
+  filter:grayscale(1);
+}
+
+.loc-label{
+  position:absolute;
+  top:36px;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:var(--font-title);
+  font-size:10px;
+  letter-spacing:1px;
+  color:var(--text2);
+  white-space:nowrap;
+  text-shadow:0 1px 4px rgba(0,0,0,.9);
+  pointer-events:none;
+}
+
+.loc-popup{
+  position:absolute;
+  z-index:100;
+  width:280px;
+  background:var(--panel2);
+  border:1px solid var(--border2);
+  border-radius:var(--r);
+  padding:16px;
+  box-shadow:0 8px 32px rgba(0,0,0,.8);
+  display:none;
+}
+.loc-popup.visible{display:block}
+.loc-popup h3{font-family:var(--font-title);font-size:14px;color:var(--gold);margin-bottom:4px}
+.loc-popup p{font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:8px}
+.loc-popup .tags{display:flex;gap:6px;flex-wrap:wrap}
+.loc-popup .tag{
+  padding:2px 8px;
+  border-radius:3px;
+  font-size:11px;
+  font-family:var(--font-title);
+  letter-spacing:.5px;
+  background:var(--gold-dim);
+  color:var(--gold);
+  border:1px solid var(--border);
+}
+
+/* Map legend */
+.map-controls{
+  position:absolute;
+  top:16px;
+  right:16px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  z-index:10;
+}
+
+.map-btn{
+  width:36px;
+  height:36px;
+  background:rgba(20,14,6,.9);
+  border:1px solid var(--border2);
+  border-radius:var(--r);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:var(--gold);
+  font-size:18px;
+  transition:.2s;
+}
+.map-btn:hover{background:var(--gold-dim);border-color:var(--gold)}
+
+/* ── NPC VIEW ── */
+#view-npcs{overflow-y:auto;padding:24px;gap:16px}
+
+.npc-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+  gap:16px;
+}
+
+.npc-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  cursor:pointer;
+  transition:.2s;
+}
+.npc-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+
+.npc-card-header{
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-bottom:1px solid var(--border);
+}
+
+.npc-avatar{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:var(--parch3);
+  border:2px solid var(--border2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  flex-shrink:0;
+}
+
+.npc-info h3{
+  font-family:var(--font-title);
+  font-size:14px;
+  color:var(--text);
+  margin-bottom:2px;
+}
+
+.npc-info .npc-meta{
+  font-size:12px;
+  color:var(--text3);
+}
+
+.npc-card-body{
+  padding:12px 16px;
+  font-size:13px;
+  color:var(--text2);
+  line-height:1.5;
+}
+
+.attitude-badge{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:3px;
+  font-size:10px;
+  font-family:var(--font-title);
+  letter-spacing:.5px;
+  margin-top:6px;
+}
+.attitude-hostile{background:rgba(139,26,26,.3);color:#e05555;border:1px solid rgba(139,26,26,.4)}
+.attitude-neutral{background:rgba(201,162,39,.12);color:var(--text2);border:1px solid var(--border)}
+.attitude-friendly{background:rgba(90,138,74,.2);color:#7acc5a;border:1px solid rgba(90,138,74,.3)}
+.attitude-ally{background:rgba(74,144,196,.2);color:#6ab4e8;border:1px solid rgba(74,144,196,.3)}
+
+/* ── PLOTS VIEW ── */
+#view-plots{overflow-y:auto;padding:24px;gap:16px}
+
+.plot-thread{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:20px;
+  transition:.2s;
+}
+.plot-thread:hover{border-color:var(--border2)}
+
+.plot-thread-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.plot-thread-header h3{
+  font-family:var(--font-title);
+  font-size:15px;
+  color:var(--text);
+}
+
+.thread-type-badge{
+  padding:2px 8px;
+  border-radius:3px;
+  font-size:10px;
+  font-family:var(--font-title);
+  letter-spacing:.5px;
+}
+.thread-main{background:rgba(201,162,39,.15);color:var(--gold);border:1px solid var(--border2)}
+.thread-side{background:rgba(74,144,196,.12);color:#6ab4e8;border:1px solid rgba(74,144,196,.2)}
+.thread-faction{background:rgba(212,82,26,.12);color:#e8804a;border:1px solid rgba(212,82,26,.2)}
+.thread-mystery{background:rgba(139,26,139,.15);color:#c86ac8;border:1px solid rgba(139,26,139,.2)}
+.thread-personal{background:rgba(90,138,74,.12);color:#7acc5a;border:1px solid rgba(90,138,74,.2)}
+
+.status-badge{
+  margin-left:auto;
+  padding:2px 8px;
+  border-radius:3px;
+  font-size:10px;
+  font-family:var(--font-title);
+}
+.status-active{background:rgba(90,138,74,.2);color:#7acc5a}
+.status-resolved{background:rgba(74,144,196,.15);color:#6ab4e8}
+.status-dormant{color:var(--text3);background:var(--parch2)}
+
+/* ── LORE VIEW ── */
+#view-lore{overflow-y:auto;padding:24px;gap:16px}
+
+.lore-entry{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:20px;
+}
+
+.lore-entry h3{
+  font-family:var(--font-title);
+  font-size:14px;
+  color:var(--gold);
+  margin-bottom:4px;
+  letter-spacing:1px;
+}
+
+.lore-entry .lore-category{
+  font-size:11px;
+  color:var(--text3);
+  font-family:var(--font-title);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+.lore-entry p{
+  font-family:var(--font-lore);
+  font-size:15px;
+  line-height:1.8;
+  color:var(--text2);
+  font-style:italic;
+}
+
+/* ── SESSION VIEW ── */
+#view-session{padding:24px;overflow-y:auto;gap:24px}
+
+.session-form{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:24px;
+}
+
+.session-form h2{
+  font-family:var(--font-title);
+  font-size:18px;
+  color:var(--gold);
+  margin-bottom:4px;
+  letter-spacing:2px;
+}
+
+.session-form .subtitle{
+  color:var(--text3);
+  font-size:14px;
+  margin-bottom:20px;
+  font-style:italic;
+}
+
+.form-label{
+  display:block;
+  font-family:var(--font-title);
+  font-size:11px;
+  letter-spacing:2px;
+  color:var(--text3);
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+/* ── ENCOUNTER VIEW ── */
+#view-encounter{padding:24px;overflow-y:auto;gap:24px}
+
+.encounter-form{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-input,.form-select{
+  background:var(--parch2);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:10px 14px;
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:14px;
+}
+.form-input:focus,.form-select:focus{outline:none;border-color:var(--gold)}
+.form-select{cursor:pointer;appearance:none}
+
+/* ── MODAL ── */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  backdrop-filter:blur(4px);
+  z-index:200;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.modal-overlay.open{display:flex}
+
+.modal{
+  background:var(--panel2);
+  border:1px solid var(--border2);
+  border-radius:var(--r);
+  width:600px;
+  max-width:95vw;
+  max-height:85vh;
+  overflow-y:auto;
+  box-shadow:0 24px 80px rgba(0,0,0,.9);
+}
+
+.modal-header{
+  padding:20px 24px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.modal-header h2{
+  font-family:var(--font-title);
+  font-size:18px;
+  color:var(--gold);
+  letter-spacing:2px;
+}
+
+.modal-close{
+  background:none;
+  border:none;
+  color:var(--text3);
+  font-size:20px;
+  cursor:pointer;
+  transition:.15s;
+}
+.modal-close:hover{color:var(--text)}
+
+.modal-body{padding:24px}
+
+.modal-body p{
+  font-family:var(--font-lore);
+  font-size:15px;
+  line-height:1.8;
+  color:var(--text2);
+  margin-bottom:12px;
+}
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-bottom:16px;
+}
+
+.detail-field{
+  background:var(--parch2);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:10px 12px;
+}
+
+.detail-field label{
+  display:block;
+  font-family:var(--font-title);
+  font-size:9px;
+  letter-spacing:2px;
+  color:var(--text3);
+  text-transform:uppercase;
+  margin-bottom:3px;
+}
+
+.detail-field span{
+  font-size:14px;
+  color:var(--text);
+}
+
+/* ── CLARIFICATIONS PANEL ── */
+.clarification-item{
+  background:rgba(212,82,26,.08);
+  border:1px solid rgba(212,82,26,.2);
+  border-radius:var(--r);
+  padding:14px;
+  margin-bottom:10px;
+}
+
+.clarification-item p{
+  color:var(--text);
+  font-family:var(--font-lore);
+  font-size:15px;
+  margin-bottom:10px;
+  font-style:italic;
+}
+
+.clarification-input{
+  width:100%;
+  background:var(--parch2);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:8px 12px;
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:14px;
+  margin-bottom:8px;
+}
+.clarification-input:focus{outline:none;border-color:var(--gold)}
+
+/* ── NPC DIALOGUE ── */
+.dialogue-box{
+  background:var(--parch2);
+  border:1px solid var(--border2);
+  border-radius:var(--r);
+  padding:16px;
+  font-family:var(--font-lore);
+  font-size:15px;
+  line-height:1.9;
+  color:var(--text);
+  font-style:italic;
+  white-space:pre-wrap;
+  min-height:80px;
+}
+
+/* ── DIVIDER ── */
+.gold-divider{
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold-glow), transparent);
+  margin:24px 0;
+}
+
+/* ── SPINNER ── */
+.spinner{
+  width:20px;
+  height:20px;
+  border:2px solid var(--border);
+  border-top-color:var(--gold);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── EMPTY STATE ── */
+.empty-state{
+  text-align:center;
+  padding:48px 24px;
+  color:var(--text3);
+}
+.empty-state .icon{font-size:48px;margin-bottom:12px;opacity:.4}
+.empty-state h3{font-family:var(--font-title);font-size:16px;margin-bottom:8px;color:var(--text2)}
+.empty-state p{font-size:14px;font-style:italic}
+
+/* ── TOOLTIP ── */
+[title]{cursor:help}
+
+/* ── ORNAMENT ── */
+.ornament{
+  text-align:center;
+  color:var(--text3);
+  font-size:20px;
+  letter-spacing:8px;
+  margin:8px 0;
+}
+
+/* ── FACTION BADGE ── */
+.faction-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:16px;
+}
+.faction-card h3{
+  font-family:var(--font-title);
+  font-size:14px;
+  color:var(--gold);
+  margin-bottom:6px;
+}
+
+/* animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .3s ease forwards}
+
+@keyframes shimmer{0%,100%{opacity:.6}50%{opacity:1}}
+.shimmer{animation:shimmer 2s ease infinite}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div id="header">
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 2L22 13H34L24 20L28 31L18 24L8 31L12 20L2 13H14L18 2Z" fill="#c9a227" opacity=".9"/>
+        <circle cx="18" cy="18" r="6" fill="#1a1208"/>
+        <path d="M18 12L19.5 17H25L20.5 20L22 25L18 22L14 25L15.5 20L11 17H16.5L18 12Z" fill="#c9a227" opacity=".5"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-text">CHRONICLER</div>
+      <div class="logo-subtitle">D&D Campaign Intelligence</div>
+    </div>
+  </div>
+
+  <div class="header-center">
+    <select id="campaign-selector" onchange="onCampaignChange(this.value)">
+      <option value="">— Select Campaign —</option>
+    </select>
+  </div>
+
+  <div style="display:flex;gap:8px">
+    <button class="btn btn-ghost" onclick="openNewCampaignModal()">⚔️ New Campaign</button>
+    <button class="btn btn-gold" id="btn-add-session" onclick="showView('session')" style="display:none">📜 Log Session</button>
+  </div>
+</div>
+
+<!-- ═══ BODY ═══ -->
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div class="nav-section">Navigate</div>
+    <div class="nav-item active" onclick="showView('home')" id="nav-home">
+      <span class="icon">🏠</span> Overview
+    </div>
+    <div class="nav-item" onclick="showView('map')" id="nav-map">
+      <span class="icon">🗺️</span> World Map
+    </div>
+    <div class="nav-item" onclick="showView('npcs')" id="nav-npcs">
+      <span class="icon">👥</span> Characters
+    </div>
+    <div class="nav-item" onclick="showView('factions')" id="nav-factions">
+      <span class="icon">🏰</span> Factions
+    </div>
+    <div class="nav-item" onclick="showView('plots')" id="nav-plots">
+      <span class="icon">📜</span> Plot Threads
+    </div>
+    <div class="nav-item" onclick="showView('lore')" id="nav-lore">
+      <span class="icon">📚</span> Lore
+    </div>
+
+    <div class="nav-section">DM Tools</div>
+    <div class="nav-item" onclick="showView('session')" id="nav-session">
+      <span class="icon">🎲</span> Log Session
+    </div>
+    <div class="nav-item" onclick="showView('encounter')" id="nav-encounter">
+      <span class="icon">⚔️</span> Encounter Builder
+    </div>
+    <div class="nav-item" onclick="showView('dialogue')" id="nav-dialogue">
+      <span class="icon">💬</span> NPC Dialogue
+    </div>
+    <div class="nav-item" onclick="showView('hooks')" id="nav-hooks">
+      <span class="icon">🪝</span> Plot Hooks
+    </div>
+
+    <div class="sidebar-bottom">
+      <div id="clarif-indicator" style="display:none;padding:10px;background:rgba(212,82,26,.1);border:1px solid rgba(212,82,26,.2);border-radius:6px;cursor:pointer" onclick="openClarificationsModal()">
+        <div style="font-family:var(--font-title);font-size:11px;color:#e8804a;letter-spacing:1px">⚠️ DM QUESTIONS</div>
+        <div id="clarif-count" style="font-size:13px;color:var(--text2);margin-top:2px">0 pending</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN VIEWS -->
+  <div id="main">
+
+    <!-- ── HOME VIEW ── -->
+    <div class="view active" id="view-home">
+      <div id="landing" style="padding:48px 32px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1">
+        <div class="home-hero">
+          <div class="ornament">✦ ✦ ✦</div>
+          <h1>YOUR WORLD AWAITS</h1>
+          <p>Speak your vision. The Chronicler will build the world.</p>
+        </div>
+
+        <div class="card" style="width:100%;max-width:700px">
+          <div class="card-header">🧙 DM Prompt — Seed Your World</div>
+          <div class="card-body">
+            <textarea class="seed-textarea" id="dm-prompt" placeholder="Describe your campaign idea... Be as vague or detailed as you like.
+
+Examples:
+• 'A dark gothic horror campaign set in a cursed city where the sun never rises.'
+• 'Political intrigue in a crumbling empire, with a secret villain who's actually the beloved king's advisor.'
+• 'High seas adventure with rival pirate factions, ancient sea-god cults, and a legendary sunken city.'
+
+The AI will ask clarifying questions if it needs more detail."></textarea>
+
+            <div style="display:flex;gap:10px;margin-top:14px;align-items:center">
+              <button class="btn btn-gold" onclick="buildCampaign()" id="btn-build">
+                ✨ Forge This World
+              </button>
+              <span style="color:var(--text3);font-size:13px;font-style:italic">Powered by Claude Sonnet</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="build-status" style="display:none;margin-top:20px;width:100%;max-width:700px">
+          <div class="card">
+            <div class="card-header">
+              <div class="spinner" id="build-spinner"></div>
+              <span>Building World...</span>
+            </div>
+            <div class="card-body">
+              <div id="status-log"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="dashboard" style="display:none;padding:24px;overflow-y:auto;gap:20px;flex:1">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+          <div class="card" style="cursor:pointer" onclick="showView('npcs')">
+            <div class="card-body" style="text-align:center;padding:20px">
+              <div style="font-size:32px;margin-bottom:8px">👥</div>
+              <div id="stat-npcs" style="font-family:var(--font-title);font-size:28px;color:var(--gold)">0</div>
+              <div style="color:var(--text3);font-size:12px;font-family:var(--font-title);letter-spacing:1px">CHARACTERS</div>
+            </div>
+          </div>
+          <div class="card" style="cursor:pointer" onclick="showView('map')">
+            <div class="card-body" style="text-align:center;padding:20px">
+              <div style="font-size:32px;margin-bottom:8px">📍</div>
+              <div id="stat-locs" style="font-family:var(--font-title);font-size:28px;color:var(--gold)">0</div>
+              <div style="color:var(--text3);font-size:12px;font-family:var(--font-title);letter-spacing:1px">LOCATIONS</div>
+            </div>
+          </div>
+          <div class="card" style="cursor:pointer" onclick="showView('plots')">
+            <div class="card-body" style="text-align:center;padding:20px">
+              <div style="font-size:32px;margin-bottom:8px">📜</div>
+              <div id="stat-plots" style="font-family:var(--font-title);font-size:28px;color:var(--gold)">0</div>
+              <div style="color:var(--text3);font-size:12px;font-family:var(--font-title);letter-spacing:1px">PLOT THREADS</div>
+            </div>
+          </div>
+          <div class="card" style="cursor:pointer" onclick="showView('session')">
+            <div class="card-body" style="text-align:center;padding:20px">
+              <div style="font-size:32px;margin-bottom:8px">🎲</div>
+              <div id="stat-sessions" style="font-family:var(--font-title);font-size:28px;color:var(--gold)">0</div>
+              <div style="color:var(--text3);font-size:12px;font-family:var(--font-title);letter-spacing:1px">SESSIONS LOGGED</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px">
+          <div class="card">
+            <div class="card-header">⚔️ Active Plot Threads</div>
+            <div class="card-body" id="dash-plots" style="max-height:220px;overflow-y:auto"></div>
+          </div>
+          <div class="card">
+            <div class="card-header">📍 Key Locations</div>
+            <div class="card-body" id="dash-locations" style="max-height:220px;overflow-y:auto"></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:4px">
+          <div class="card-header">🌍 Campaign Info</div>
+          <div class="card-body" id="dash-campaign"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MAP VIEW ── -->
+    <div class="view" id="view-map" style="flex-direction:row;overflow:hidden">
+      <div id="map-canvas" style="flex:1">
+        <div class="map-controls">
+          <div class="map-btn" onclick="mapZoom(0.2)" title="Zoom In">+</div>
+          <div class="map-btn" onclick="mapZoom(-0.2)" title="Zoom Out">−</div>
+          <div class="map-btn" onclick="mapReset()" title="Reset">⌂</div>
+        </div>
+        <div id="map-inner" style="position:absolute;inset:0;transform-origin:center;transition:.2s"></div>
+        <div id="loc-popup" class="loc-popup"></div>
+      </div>
+      <div id="map-sidebar" style="width:280px;border-left:1px solid var(--border);overflow-y:auto;padding:16px">
+        <div style="font-family:var(--font-title);font-size:12px;letter-spacing:2px;color:var(--text3);margin-bottom:12px">LOCATIONS</div>
+        <div id="location-list"></div>
+      </div>
+    </div>
+
+    <!-- ── NPCs VIEW ── -->
+    <div class="view" id="view-npcs" style="overflow-y:auto;padding:24px;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:16px">
+        <h2 style="font-family:var(--font-title);font-size:20px;color:var(--gold);letter-spacing:2px">CHARACTERS</h2>
+        <input class="form-input" placeholder="Search characters..." id="npc-search" oninput="filterNPCs()" style="flex:1;max-width:300px"/>
+      </div>
+      <div class="npc-grid" id="npc-grid"></div>
+    </div>
+
+    <!-- ── FACTIONS VIEW ── -->
+    <div class="view" id="view-factions" style="overflow-y:auto;padding:24px;flex-direction:column;gap:16px">
+      <h2 style="font-family:var(--font-title);font-size:20px;color:var(--gold);letter-spacing:2px">FACTIONS</h2>
+      <div id="factions-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px"></div>
+    </div>
+
+    <!-- ── PLOTS VIEW ── -->
+    <div class="view" id="view-plots" style="overflow-y:auto;padding:24px;flex-direction:column;gap:12px">
+      <h2 style="font-family:var(--font-title);font-size:20px;color:var(--gold);letter-spacing:2px">PLOT THREADS</h2>
+      <div id="plots-list" style="display:flex;flex-direction:column;gap:12px"></div>
+    </div>
+
+    <!-- ── LORE VIEW ── -->
+    <div class="view" id="view-lore" style="overflow-y:auto;padding:24px;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:16px">
+        <h2 style="font-family:var(--font-title);font-size:20px;color:var(--gold);letter-spacing:2px">LORE COMPENDIUM</h2>
+        <button class="btn btn-ghost" style="margin-left:auto" onclick="openLoreQueryModal()">🔮 Query Lore AI</button>
+      </div>
+      <div id="lore-list" style="display:flex;flex-direction:column;gap:12px"></div>
+    </div>
+
+    <!-- ── SESSION LOG VIEW ── -->
+    <div class="view" id="view-session" style="overflow-y:auto;padding:24px;flex-direction:column;gap:20px">
+      <div class="session-form">
+        <h2>Log Session Notes</h2>
+        <p class="subtitle">Paste or type what happened. The AI will propagate changes across the entire world.</p>
+
+        <label class="form-label">Session Notes</label>
+        <textarea class="seed-textarea" id="session-notes" style="min-height:220px" placeholder="Write what happened this session...
+
+Examples:
+• The party confronted Lord Aldric and he revealed himself as the traitor. They let him escape.
+• The players explored the Sunken Catacombs and found an ancient map.  
+• The party allied with the Merchant Guild against the Shadow Syndicate.
+• Mira the innkeeper was killed by the assassins. The party burned the tavern.
+
+The AI will detect contradictions, update NPCs, factions, and plot threads automatically."></textarea>
+
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button class="btn btn-gold" onclick="ingestSession()" id="btn-ingest">
+            🎲 Process Session
+          </button>
+          <button class="btn btn-ghost" onclick="saveDraftSession()">
+            💾 Save Draft
+          </button>
+        </div>
+      </div>
+
+      <div id="session-result" style="display:none">
+        <div class="card">
+          <div class="card-header">✅ Session Processed</div>
+          <div class="card-body" id="session-result-body"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">📖 Session History</div>
+        <div class="card-body" id="session-history"></div>
+      </div>
+    </div>
+
+    <!-- ── ENCOUNTER BUILDER ── -->
+    <div class="view" id="view-encounter" style="overflow-y:auto;padding:24px;flex-direction:column;gap:20px">
+      <div class="card">
+        <div class="card-header">⚔️ Encounter Builder</div>
+        <div class="card-body">
+          <div class="encounter-form">
+            <div class="form-group">
+              <label class="form-label">Party Level</label>
+              <input class="form-input" type="number" id="enc-level" value="1" min="1" max="20"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Party Size</label>
+              <input class="form-input" type="number" id="enc-size" value="4" min="1" max="8"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Difficulty</label>
+              <select class="form-select" id="enc-diff">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+                <option value="deadly">Deadly</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Environment</label>
+              <select class="form-select" id="enc-env">
+                <option value="dungeon">Dungeon</option>
+                <option value="forest">Forest</option>
+                <option value="urban">Urban</option>
+                <option value="cave">Cave</option>
+                <option value="ocean">Ocean</option>
+                <option value="mountain">Mountain</option>
+                <option value="underdark">Underdark</option>
+                <option value="castle">Castle</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-gold" style="margin-top:16px" onclick="generateEncounter()">
+            ⚔️ Generate Encounter
+          </button>
+        </div>
+      </div>
+
+      <div id="encounter-result" style="display:none">
+        <div class="card">
+          <div class="card-header">⚔️ Generated Encounter</div>
+          <div class="card-body">
+            <div id="encounter-result-body" style="font-family:var(--font-lore);font-size:15px;line-height:1.8;color:var(--text2);white-space:pre-wrap"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── NPC DIALOGUE ── -->
+    <div class="view" id="view-dialogue" style="overflow-y:auto;padding:24px;flex-direction:column;gap:20px">
+      <div class="card">
+        <div class="card-header">💬 NPC Dialogue Generator</div>
+        <div class="card-body">
+          <div class="form-group" style="margin-bottom:14px">
+            <label class="form-label">Character</label>
+            <select class="form-select" id="dial-npc"></select>
+          </div>
+          <div class="form-group" style="margin-bottom:14px">
+            <label class="form-label">Situation</label>
+            <textarea class="seed-textarea" id="dial-situation" style="min-height:100px" placeholder="Describe the situation...
+
+E.g.: 'The party just told the innkeeper that Lord Aldric is dead.'
+      'The merchant realizes the party stole from him last session.'
+      'The villain confronts the party in the throne room.'"></textarea>
+          </div>
+          <button class="btn btn-gold" onclick="generateDialogue()">
+            💬 Generate Dialogue
+          </button>
+        </div>
+      </div>
+
+      <div id="dialogue-result" style="display:none">
+        <div class="card">
+          <div class="card-header">💬 In-Character Response</div>
+          <div class="card-body">
+            <div class="dialogue-box" id="dialogue-text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PLOT HOOKS ── -->
+    <div class="view" id="view-hooks" style="overflow-y:auto;padding:24px;flex-direction:column;gap:20px">
+      <div class="card">
+        <div class="card-header">🪝 Plot Hook Generator</div>
+        <div class="card-body">
+          <div class="form-group" style="margin-bottom:14px">
+            <label class="form-label">Context (optional)</label>
+            <textarea class="seed-textarea" id="hooks-context" style="min-height:100px" placeholder="Leave blank for hooks based on current world state, or describe a specific situation..."></textarea>
+          </div>
+          <button class="btn btn-gold" onclick="generateHooks()">🪝 Generate Hooks</button>
+        </div>
+      </div>
+      <div id="hooks-result" style="display:none">
+        <div class="card">
+          <div class="card-header">🪝 Plot Hooks</div>
+          <div class="card-body" id="hooks-list"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ═══ MODALS ═══ -->
+
+<!-- New Campaign Modal -->
+<div class="modal-overlay" id="modal-new-campaign">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>⚔️ NEW CAMPAIGN</h2>
+      <button class="modal-close" onclick="closeModal('modal-new-campaign')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group" style="margin-bottom:14px">
+        <label class="form-label">Campaign Name</label>
+        <input class="form-input" id="new-camp-name" placeholder="The Shattered Crown..." style="width:100%"/>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label class="form-label">Setting</label>
+        <input class="form-input" id="new-camp-setting" placeholder="Forgotten Realms / Homebrew / Ravenloft..." style="width:100%"/>
+      </div>
+      <div class="form-group" style="margin-bottom:14px">
+        <label class="form-label">Tone</label>
+        <select class="form-select" id="new-camp-tone" style="width:100%">
+          <option value="high fantasy">High Fantasy</option>
+          <option value="grimdark">Grimdark</option>
+          <option value="horror">Gothic Horror</option>
+          <option value="swashbuckling">Swashbuckling Adventure</option>
+          <option value="political intrigue">Political Intrigue</option>
+          <option value="mystery">Mystery & Investigation</option>
+          <option value="epic">Epic Mythological</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:20px">
+        <button class="btn btn-gold" onclick="createCampaign()">Create Campaign</button>
+        <button class="btn btn-ghost" onclick="closeModal('modal-new-campaign')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NPC Detail Modal -->
+<div class="modal-overlay" id="modal-npc">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-npc-name">NPC</h2>
+      <button class="modal-close" onclick="closeModal('modal-npc')">✕</button>
+    </div>
+    <div class="modal-body" id="modal-npc-body"></div>
+  </div>
+</div>
+
+<!-- Clarifications Modal -->
+<div class="modal-overlay" id="modal-clarif">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>⚠️ DM QUESTIONS</h2>
+      <button class="modal-close" onclick="closeModal('modal-clarif')">✕</button>
+    </div>
+    <div class="modal-body" id="modal-clarif-body"></div>
+  </div>
+</div>
+
+<!-- Lore Query Modal -->
+<div class="modal-overlay" id="modal-lore-query">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🔮 LORE ORACLE</h2>
+      <button class="modal-close" onclick="closeModal('modal-lore-query')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group" style="margin-bottom:14px">
+        <label class="form-label">Ask about your world</label>
+        <textarea class="seed-textarea" id="lore-query-text" style="min-height:80px" placeholder="What is the history of the Sunken City? Who founded the Mage's Council? Why does the forest whisper at night?"></textarea>
+      </div>
+      <button class="btn btn-gold" onclick="queryLore()">🔮 Consult the Oracle</button>
+      <div id="lore-query-result" style="display:none;margin-top:16px">
+        <div class="gold-divider"></div>
+        <div class="lore-entry">
+          <div id="lore-query-text-result" class="dialogue-box"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════════
+let currentCampaignId = null;
+let allNPCs = [];
+let mapScale = 1;
+let mapX = 0, mapY = 0;
+let isDragging = false;
+let dragStart = {x:0, y:0};
+let mapOffStart = {x:0, y:0};
+
+// ═══════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════
+async function init() {
+  await loadCampaigns();
+  setupMapDrag();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  CAMPAIGNS
+// ═══════════════════════════════════════════════════════════
+async function loadCampaigns() {
+  const res = await fetch('/api/campaigns');
+  const campaigns = await res.json();
+  const sel = document.getElementById('campaign-selector');
+  sel.innerHTML = '<option value="">— Select Campaign —</option>';
+  campaigns.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = c.name;
+    sel.appendChild(opt);
+  });
+  if (campaigns.length > 0 && !currentCampaignId) {
+    sel.value = campaigns[0].id;
+    onCampaignChange(campaigns[0].id);
+  }
+}
+
+async function onCampaignChange(id) {
+  if (!id) return;
+  currentCampaignId = parseInt(id);
+  document.getElementById('btn-add-session').style.display = 'flex';
+  await loadCampaignData(currentCampaignId);
+  if (document.querySelector('#view-home.active')) {
+    showDashboard();
+  }
+}
+
+async function loadCampaignData(id) {
+  const res = await fetch(`/api/campaigns/${id}`);
+  if (!res.ok) return;
+  const data = await res.json();
+  allNPCs = data.npcs || [];
+  renderDashboard(data);
+  renderMap(data.locations || []);
+  renderNPCs(data.npcs || []);
+  renderFactions(data.factions || []);
+  renderPlots(data.plot_threads || []);
+  renderLore(data.lore || []);
+  renderSessionHistory(data.sessions || []);
+  renderNPCDialogueSelect(data.npcs || []);
+  updateClarifications(data.clarifications || []);
+  updateStats(data);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  BUILD CAMPAIGN
+// ═══════════════════════════════════════════════════════════
+async function buildCampaign() {
+  const prompt = document.getElementById('dm-prompt').value.trim();
+  if (!prompt) { alert('Please enter a campaign prompt.'); return; }
+
+  const statusLog = document.getElementById('status-log');
+  const buildStatus = document.getElementById('build-status');
+  buildStatus.style.display = 'block';
+  statusLog.innerHTML = '';
+  document.getElementById('btn-build').disabled = true;
+
+  const cid = currentCampaignId || '';
+  const url = `/api/campaigns/build?prompt=${encodeURIComponent(prompt)}${cid ? '&campaign_id='+cid : ''}`;
+  const es = new EventSource(url);
+
+  es.onmessage = async (e) => {
+    const data = JSON.parse(e.data);
+    if (data.type === 'status') addLog(data.text, 'info');
+    else if (data.type === 'error') { addLog('Error: ' + data.text, 'error'); es.close(); }
+    else if (data.type === 'campaign_created') {
+      addLog(`✅ Campaign "${data.data?.campaign?.name || 'World'}" created!`, 'success');
+      currentCampaignId = data.campaign_id;
+      document.getElementById('btn-add-session').style.display = 'flex';
+      await loadCampaigns();
+      document.getElementById('campaign-selector').value = data.campaign_id;
+      await loadCampaignData(data.campaign_id);
+      es.close();
+      document.getElementById('btn-build').disabled = false;
+      buildStatus.style.display = 'none';
+      showDashboard();
+    }
+  };
+  es.onerror = () => { addLog('Connection error.', 'error'); es.close(); document.getElementById('btn-build').disabled = false; };
+}
+
+function addLog(text, type='info') {
+  const log = document.getElementById('status-log');
+  const now = new Date().toLocaleTimeString('en-US', {hour12:false, hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  const el = document.createElement('div');
+  el.className = `log-entry ${type} fade-in`;
+  el.innerHTML = `<span class="ts">${now}</span><span class="msg">${text}</span>`;
+  log.appendChild(el);
+  log.scrollTop = log.scrollHeight;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SESSION INGESTION
+// ═══════════════════════════════════════════════════════════
+async function ingestSession() {
+  if (!currentCampaignId) { alert('Select a campaign first.'); return; }
+  const notes = document.getElementById('session-notes').value.trim();
+  if (!notes) { alert('Enter session notes.'); return; }
+
+  const btn = document.getElementById('btn-ingest');
+  btn.disabled = true;
+  btn.textContent = '⏳ Processing...';
+
+  // Use streaming for session ingestion
+  const es = new EventSource(`/api/campaigns/${currentCampaignId}/sessions?stream=true`);
+
+  // Actually we need to POST, so use fetch with stream
+  const res = await fetch(`/api/campaigns/${currentCampaignId}/sessions`, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({notes, stream: false})
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    showSessionResult(data);
+    await loadCampaignData(currentCampaignId);
+  }
+
+  btn.disabled = false;
+  btn.textContent = '🎲 Process Session';
+}
+
+function showSessionResult(data) {
+  const result = document.getElementById('session-result');
+  const body = document.getElementById('session-result-body');
+  result.style.display = 'block';
+
+  const delta = data.delta || {};
+  let html = `<p style="font-family:var(--font-lore);font-size:15px;line-height:1.8;color:var(--text2);font-style:italic;margin-bottom:16px">${delta.session_summary || 'Session processed.'}</p>`;
+
+  if (delta.events && delta.events.length > 0) {
+    html += `<div style="font-family:var(--font-title);font-size:11px;letter-spacing:2px;color:var(--text3);margin-bottom:8px">WORLD CHANGES</div>`;
+    delta.events.forEach(ev => {
+      html += `<div style="padding:6px 10px;background:var(--gold-dim);border-left:2px solid var(--gold);margin-bottom:6px;font-size:13px;color:var(--text2)">
+        <span style="color:var(--gold);font-family:var(--font-title);font-size:10px;letter-spacing:1px">${ev.event_type}</span>
+        <br/>${ev.description}
+      </div>`;
+    });
+  }
+
+  if (data.plot_update?.new_hooks && data.plot_update.new_hooks.length > 0) {
+    html += `<div class="gold-divider"></div>
+    <div style="font-family:var(--font-title);font-size:11px;letter-spacing:2px;color:var(--text3);margin-bottom:8px">NEXT SESSION HOOKS</div>`;
+    data.plot_update.new_hooks.forEach(h => {
+      html += `<div style="padding:6px 10px;margin-bottom:6px;font-size:13px;color:var(--text2)">🪝 ${h}</div>`;
+    });
+  }
+
+  body.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  DASHBOARD
+// ═══════════════════════════════════════════════════════════
+function showDashboard() {
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'flex';
+  document.getElementById('dashboard').style.flexDirection = 'column';
+  document.getElementById('dashboard').style.gap = '16px';
+}
+
+function renderDashboard(data) {
+  const campInfo = document.getElementById('dash-campaign');
+  const c = data;
+  campInfo.innerHTML = `
+    <div class="detail-grid">
+      <div class="detail-field"><label>Campaign</label><span>${c.name}</span></div>
+      <div class="detail-field"><label>Setting</label><span>${c.setting || '—'}</span></div>
+      <div class="detail-field"><label>Tone</label><span>${c.tone || '—'}</span></div>
+      <div class="detail-field"><label>Sessions Played</label><span>${(c.sessions||[]).length}</span></div>
+    </div>
+    ${c.dm_notes ? `<p style="font-family:var(--font-lore);font-size:14px;color:var(--text2);font-style:italic">${c.dm_notes}</p>` : ''}
+  `;
+
+  const plots = (data.plot_threads || []).filter(p => p.status === 'active').slice(0, 5);
+  document.getElementById('dash-plots').innerHTML = plots.length ? plots.map(p =>
+    `<div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2)">${p.title}</div>`
+  ).join('') : '<div style="color:var(--text3);font-size:13px;font-style:italic">No active plots</div>';
+
+  const locs = (data.locations || []).slice(0, 6);
+  document.getElementById('dash-locations').innerHTML = locs.length ? locs.map(l =>
+    `<div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2)">
+      ${locIcon(l.loc_type)} ${l.name} <span style="color:var(--text3);font-size:11px">${l.status||''}</span>
+    </div>`
+  ).join('') : '<div style="color:var(--text3);font-size:13px;font-style:italic">No locations</div>';
+}
+
+function updateStats(data) {
+  document.getElementById('stat-npcs').textContent = (data.npcs||[]).length;
+  document.getElementById('stat-locs').textContent = (data.locations||[]).length;
+  document.getElementById('stat-plots').textContent = (data.plot_threads||[]).length;
+  document.getElementById('stat-sessions').textContent = (data.sessions||[]).length;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  MAP
+// ═══════════════════════════════════════════════════════════
+function locIcon(type) {
+  const icons = {
+    city:'🏙️', town:'🏘️', dungeon:'🏚️', cave:'⛏️', forest:'🌲', mountain:'⛰️',
+    tavern:'🍺', temple:'⛪', castle:'🏰', village:'🏡', wilderness:'🌿',
+    port:'⚓', ruins:'🏛️', region:'🗺️'
+  };
+  return icons[(type||'').toLowerCase()] || '📍';
+}
+
+function renderMap(locations) {
+  const inner = document.getElementById('map-inner');
+  inner.innerHTML = '';
+  if (!locations.length) {
+    inner.innerHTML = `<div class="empty-state" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column">
+      <div class="icon">🗺️</div><h3>No Map Yet</h3><p>Build a campaign to generate the world map.</p>
+    </div>`;
+    return;
+  }
+
+  // Draw connection lines between nearby locations
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('style', 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none');
+  svg.setAttribute('viewBox', '0 0 100 100');
+  svg.setAttribute('preserveAspectRatio', 'none');
+  inner.appendChild(svg);
+
+  const popup = document.getElementById('loc-popup');
+
+  locations.forEach(loc => {
+    const x = (loc.map_x || 50) + '%';
+    const y = (loc.map_y || 50) + '%';
+    const div = document.createElement('div');
+    div.className = 'map-location';
+    div.style.left = x;
+    div.style.top = y;
+
+    const revealed = loc.revealed;
+    div.innerHTML = `
+      <div class="loc-pin ${revealed ? '' : 'unrevealed'}" title="${loc.name}">${locIcon(loc.loc_type)}</div>
+      <div class="loc-label">${loc.name}</div>
+    `;
+
+    div.addEventListener('click', (e) => {
+      e.stopPropagation();
+      popup.classList.add('visible');
+      popup.style.left = `calc(${loc.map_x}% + 20px)`;
+      popup.style.top = `calc(${loc.map_y}% - 20px)`;
+      popup.innerHTML = `
+        <h3>${locIcon(loc.loc_type)} ${loc.name}</h3>
+        <p>${loc.description || 'No description available.'}</p>
+        ${loc.lore ? `<p style="font-style:italic;font-size:12px;color:var(--text3)">${loc.lore.substring(0,120)}...</p>` : ''}
+        <div class="tags">
+          <span class="tag">${loc.loc_type||'location'}</span>
+          <span class="tag">${loc.status||'intact'}</span>
+          ${loc.revealed ? '<span class="tag" style="background:rgba(90,138,74,.15);color:#7acc5a">Revealed</span>' : '<span class="tag" style="opacity:.5">Unknown</span>'}
+        </div>
+      `;
+    });
+
+    inner.appendChild(div);
+  });
+
+  // Close popup on background click
+  document.getElementById('map-canvas').addEventListener('click', () => {
+    popup.classList.remove('visible');
+  });
+
+  // Location sidebar list
+  const locList = document.getElementById('location-list');
+  locList.innerHTML = locations.map(l => `
+    <div style="padding:10px;border-radius:4px;margin-bottom:6px;cursor:pointer;transition:.15s;background:var(--panel);border:1px solid var(--border)"
+         onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="font-size:13px;color:var(--text);margin-bottom:2px">${locIcon(l.loc_type)} ${l.name}</div>
+      <div style="font-size:11px;color:var(--text3)">${l.loc_type||''} · ${l.status||'intact'}</div>
+    </div>
+  `).join('');
+}
+
+function setupMapDrag() {
+  const canvas = document.getElementById('map-canvas');
+  const inner = document.getElementById('map-inner');
+
+  canvas.addEventListener('mousedown', e => {
+    if (e.target.closest('.map-location') || e.target.closest('.map-controls') || e.target.closest('.loc-popup')) return;
+    isDragging = true;
+    dragStart = {x: e.clientX, y: e.clientY};
+    mapOffStart = {x: mapX, y: mapY};
+  });
+
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    mapX = mapOffStart.x + (e.clientX - dragStart.x);
+    mapY = mapOffStart.y + (e.clientY - dragStart.y);
+    inner.style.transform = `translate(${mapX}px, ${mapY}px) scale(${mapScale})`;
+  });
+
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  canvas.addEventListener('wheel', e => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -0.1 : 0.1;
+    mapScale = Math.max(0.4, Math.min(3, mapScale + delta));
+    inner.style.transform = `translate(${mapX}px, ${mapY}px) scale(${mapScale})`;
+  }, {passive: false});
+}
+
+function mapZoom(delta) {
+  const inner = document.getElementById('map-inner');
+  mapScale = Math.max(0.4, Math.min(3, mapScale + delta));
+  inner.style.transform = `translate(${mapX}px, ${mapY}px) scale(${mapScale})`;
+}
+
+function mapReset() {
+  mapX = 0; mapY = 0; mapScale = 1;
+  document.getElementById('map-inner').style.transform = `translate(0,0) scale(1)`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  NPCs
+// ═══════════════════════════════════════════════════════════
+function renderNPCs(npcs) {
+  allNPCs = npcs;
+  const grid = document.getElementById('npc-grid');
+  if (!npcs.length) {
+    grid.innerHTML = `<div class="empty-state"><div class="icon">👥</div><h3>No Characters Yet</h3><p>Build a campaign to populate the world.</p></div>`;
+    return;
+  }
+  grid.innerHTML = npcs.map(n => `
+    <div class="npc-card fade-in" onclick="openNPCModal(${n.id})">
+      <div class="npc-card-header">
+        <div class="npc-avatar">${raceEmoji(n.race)}</div>
+        <div class="npc-info">
+          <h3>${n.name}</h3>
+          <div class="npc-meta">${n.race||'Unknown'} · ${n.class_role||'Unknown'}</div>
+        </div>
+      </div>
+      <div class="npc-card-body">
+        ${n.backstory ? n.backstory.substring(0,100)+'...' : 'No backstory recorded.'}
+        <div class="attitude-badge attitude-${(n.attitude_to_party||'neutral').toLowerCase()}">
+          ${(n.attitude_to_party||'neutral').toUpperCase()}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterNPCs() {
+  const q = document.getElementById('npc-search').value.toLowerCase();
+  const filtered = allNPCs.filter(n =>
+    n.name.toLowerCase().includes(q) ||
+    (n.race||'').toLowerCase().includes(q) ||
+    (n.class_role||'').toLowerCase().includes(q)
+  );
+  renderNPCs(filtered);
+}
+
+function raceEmoji(race) {
+  const map = {
+    human:'🧑', elf:'🧝', dwarf:'⛏️', halfling:'🧒', gnome:'🔮',
+    'half-elf':'🧝', 'half-orc':'💚', tiefling:'😈', dragonborn:'🐉',
+    orc:'💪', goblin:'👺', vampire:'🧛', dragon:'🐲', undead:'💀'
+  };
+  const lower = (race||'').toLowerCase();
+  return map[lower] || '🧑';
+}
+
+function openNPCModal(npcId) {
+  const npc = allNPCs.find(n => n.id === npcId);
+  if (!npc) return;
+  document.getElementById('modal-npc-name').textContent = npc.name;
+
+  let personality = {};
+  try { personality = JSON.parse(npc.personality || '{}'); } catch {}
+
+  document.getElementById('modal-npc-body').innerHTML = `
+    <div class="detail-grid">
+      <div class="detail-field"><label>Race</label><span>${npc.race||'—'}</span></div>
+      <div class="detail-field"><label>Role</label><span>${npc.class_role||'—'}</span></div>
+      <div class="detail-field"><label>Alignment</label><span>${npc.alignment||'—'}</span></div>
+      <div class="detail-field"><label>Status</label><span>${npc.current_status||'alive'}</span></div>
+    </div>
+    <div class="attitude-badge attitude-${(npc.attitude_to_party||'neutral').toLowerCase()}" style="margin-bottom:12px">
+      ${(npc.attitude_to_party||'neutral').toUpperCase()} to party
+    </div>
+    ${npc.backstory ? `<p>${npc.backstory}</p>` : ''}
+    ${npc.voice_style ? `<div style="font-family:var(--font-title);font-size:10px;letter-spacing:2px;color:var(--text3);margin-top:12px;margin-bottom:4px">VOICE STYLE</div><p style="font-style:italic">${npc.voice_style}</p>` : ''}
+    ${npc.secrets ? `<div style="margin-top:12px;padding:10px;background:rgba(139,26,26,.1);border:1px solid rgba(139,26,26,.2);border-radius:4px"><div style="font-family:var(--font-title);font-size:10px;letter-spacing:2px;color:#e05555;margin-bottom:4px">SECRETS</div><p style="font-size:13px;color:var(--text2)">${npc.secrets}</p></div>` : ''}
+    <div class="gold-divider"></div>
+    <div style="font-family:var(--font-title);font-size:11px;letter-spacing:2px;color:var(--text3);margin-bottom:10px">GENERATE DIALOGUE</div>
+    <textarea class="seed-textarea" id="modal-dial-situation" style="min-height:80px" placeholder="Describe the situation..."></textarea>
+    <button class="btn btn-ghost" style="margin-top:10px" onclick="generateDialogueFromModal(${npc.id})">💬 Generate</button>
+    <div id="modal-dial-result" class="dialogue-box" style="display:none;margin-top:12px"></div>
+  `;
+  openModal('modal-npc');
+}
+
+async function generateDialogueFromModal(npcId) {
+  const npc = allNPCs.find(n => n.id === npcId);
+  const situation = document.getElementById('modal-dial-situation').value.trim();
+  if (!situation) return;
+  const res = await fetch(`/api/campaigns/${currentCampaignId}/npcs/${npcId}/dialogue`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({situation})
+  });
+  const data = await res.json();
+  const box = document.getElementById('modal-dial-result');
+  box.style.display = 'block';
+  box.textContent = data.dialogue || 'No response generated.';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  FACTIONS
+// ═══════════════════════════════════════════════════════════
+function renderFactions(factions) {
+  const list = document.getElementById('factions-list');
+  if (!factions.length) {
+    list.innerHTML = `<div class="empty-state"><div class="icon">🏰</div><h3>No Factions Yet</h3></div>`;
+    return;
+  }
+  list.innerHTML = factions.map(f => `
+    <div class="faction-card">
+      <h3>🏰 ${f.name}</h3>
+      <div style="margin-bottom:6px">
+        <span class="attitude-badge attitude-${(f.attitude_to_party||'neutral').toLowerCase()}" style="font-size:10px">
+          ${(f.attitude_to_party||'neutral').toUpperCase()} to party
+        </span>
+      </div>
+      <p style="font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:8px">${f.description||''}</p>
+      ${f.goals ? `<div style="font-size:12px;color:var(--text3);font-style:italic">Goals: ${f.goals.substring(0,120)}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  PLOTS
+// ═══════════════════════════════════════════════════════════
+function renderPlots(plots) {
+  const list = document.getElementById('plots-list');
+  if (!plots.length) {
+    list.innerHTML = `<div class="empty-state"><div class="icon">📜</div><h3>No Plot Threads Yet</h3></div>`;
+    return;
+  }
+  list.innerHTML = plots.map(p => `
+    <div class="plot-thread fade-in">
+      <div class="plot-thread-header">
+        <h3>${p.title}</h3>
+        <span class="thread-type-badge thread-${p.thread_type||'main'}">${(p.thread_type||'main').toUpperCase()}</span>
+        <span class="status-badge status-${p.status||'active'}">${(p.status||'active').toUpperCase()}</span>
+      </div>
+      <p style="font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:8px">${p.description||''}</p>
+      ${p.hooks ? `<div style="padding:10px;background:var(--parch2);border-radius:4px;font-size:13px;color:var(--text3);font-style:italic">🪝 ${p.hooks}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  LORE
+// ═══════════════════════════════════════════════════════════
+function renderLore(lore) {
+  const list = document.getElementById('lore-list');
+  if (!lore.length) {
+    list.innerHTML = `<div class="empty-state"><div class="icon">📚</div><h3>No Lore Yet</h3></div>`;
+    return;
+  }
+  list.innerHTML = lore.map(l => `
+    <div class="lore-entry fade-in">
+      <h3>${l.title}</h3>
+      <div class="lore-category">${l.category||'lore'}</div>
+      <p>${l.content}</p>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SESSIONS
+// ═══════════════════════════════════════════════════════════
+function renderSessionHistory(sessions) {
+  const hist = document.getElementById('session-history');
+  if (!sessions.length) {
+    hist.innerHTML = `<div style="color:var(--text3);font-style:italic;font-size:14px">No sessions logged yet.</div>`;
+    return;
+  }
+  hist.innerHTML = sessions.map(s => `
+    <div style="padding:12px;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+        <span style="font-family:var(--font-title);font-size:12px;color:var(--gold)">SESSION ${s.session_num}</span>
+        <span style="font-size:11px;color:var(--text3)">${s.created_at?.split('T')[0]||''}</span>
+      </div>
+      <p style="font-size:13px;color:var(--text2);line-height:1.5">${(s.raw_notes||'').substring(0,120)}${s.raw_notes?.length > 120 ? '...' : ''}</p>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  DIALOGUE
+// ═══════════════════════════════════════════════════════════
+function renderNPCDialogueSelect(npcs) {
+  const sel = document.getElementById('dial-npc');
+  sel.innerHTML = '<option value="">— Choose a character —</option>';
+  npcs.forEach(n => {
+    const opt = document.createElement('option');
+    opt.value = n.id;
+    opt.textContent = `${n.name} (${n.race||'?'}, ${n.class_role||'?'})`;
+    sel.appendChild(opt);
+  });
+}
+
+async function generateDialogue() {
+  if (!currentCampaignId) return;
+  const npcId = document.getElementById('dial-npc').value;
+  const situation = document.getElementById('dial-situation').value.trim();
+  if (!npcId || !situation) { alert('Select a character and describe the situation.'); return; }
+
+  const res = await fetch(`/api/campaigns/${currentCampaignId}/npcs/${npcId}/dialogue`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({situation})
+  });
+  const data = await res.json();
+  document.getElementById('dialogue-result').style.display = 'block';
+  document.getElementById('dialogue-text').textContent = data.dialogue || 'No response.';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  ENCOUNTER
+// ═══════════════════════════════════════════════════════════
+async function generateEncounter() {
+  if (!currentCampaignId) { alert('Select a campaign first.'); return; }
+  const body = {
+    party_level: parseInt(document.getElementById('enc-level').value),
+    party_size: parseInt(document.getElementById('enc-size').value),
+    difficulty: document.getElementById('enc-diff').value,
+    environment: document.getElementById('enc-env').value,
+  };
+  const res = await fetch(`/api/campaigns/${currentCampaignId}/encounter`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  });
+  const data = await res.json();
+  document.getElementById('encounter-result').style.display = 'block';
+  const raw = data.raw || JSON.stringify(data, null, 2);
+  document.getElementById('encounter-result-body').textContent = raw;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  PLOT HOOKS
+// ═══════════════════════════════════════════════════════════
+async function generateHooks() {
+  if (!currentCampaignId) return;
+  const context = document.getElementById('hooks-context').value.trim();
+  const res = await fetch(`/api/campaigns/${currentCampaignId}/hooks`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({context})
+  });
+  const data = await res.json();
+  const hooks = data.hooks || [];
+  document.getElementById('hooks-result').style.display = 'block';
+  document.getElementById('hooks-list').innerHTML = hooks.map((h,i) =>
+    `<div style="padding:12px;background:var(--parch2);border-left:2px solid var(--gold);margin-bottom:8px;font-family:var(--font-lore);font-size:15px;color:var(--text2)">
+      <span style="font-family:var(--font-title);font-size:10px;color:var(--gold);display:block;margin-bottom:4px">HOOK ${i+1}</span>
+      ${h}
+    </div>`
+  ).join('') || '<div style="color:var(--text3)">No hooks generated.</div>';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  CLARIFICATIONS
+// ═══════════════════════════════════════════════════════════
+function updateClarifications(clarifications) {
+  const indicator = document.getElementById('clarif-indicator');
+  const count = document.getElementById('clarif-count');
+  if (clarifications.length > 0) {
+    indicator.style.display = 'block';
+    count.textContent = `${clarifications.length} pending`;
+  } else {
+    indicator.style.display = 'none';
+  }
+}
+
+function openClarificationsModal() {
+  if (!currentCampaignId) return;
+  fetch(`/api/campaigns/${currentCampaignId}/clarifications`)
+    .then(r => r.json())
+    .then(clarifications => {
+      const body = document.getElementById('modal-clarif-body');
+      if (!clarifications.length) {
+        body.innerHTML = '<p style="color:var(--text3);font-style:italic">No pending questions.</p>';
+      } else {
+        body.innerHTML = clarifications.map(c => `
+          <div class="clarification-item">
+            <p>${c.question}</p>
+            ${c.context ? `<div style="font-size:12px;color:var(--text3);margin-bottom:8px;font-style:italic">${c.context}</div>` : ''}
+            <input class="clarification-input" id="clarif-${c.id}" placeholder="Your answer..." value="${c.answer||''}"/>
+            <button class="btn btn-ghost" onclick="submitClarification(${c.id})">Submit Answer</button>
+          </div>
+        `).join('');
+      }
+      openModal('modal-clarif');
+    });
+}
+
+async function submitClarification(id) {
+  const answer = document.getElementById(`clarif-${id}`).value.trim();
+  if (!answer) return;
+  await fetch(`/api/campaigns/${currentCampaignId}/clarifications/${id}`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({answer})
+  });
+  openClarificationsModal();
+  loadCampaignData(currentCampaignId);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  LORE QUERY
+// ═══════════════════════════════════════════════════════════
+async function queryLore() {
+  if (!currentCampaignId) return;
+  const topic = document.getElementById('lore-query-text').value.trim();
+  if (!topic) return;
+  const btn = document.querySelector('#modal-lore-query .btn-gold');
+  btn.textContent = '⏳ Consulting...';
+  btn.disabled = true;
+  const res = await fetch(`/api/campaigns/${currentCampaignId}/lore/query`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({topic})
+  });
+  const data = await res.json();
+  document.getElementById('lore-query-result').style.display = 'block';
+  document.getElementById('lore-query-text-result').textContent = data.lore || 'The oracle is silent.';
+  btn.textContent = '🔮 Consult the Oracle';
+  btn.disabled = false;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  CAMPAIGN CREATION
+// ═══════════════════════════════════════════════════════════
+function openNewCampaignModal() { openModal('modal-new-campaign'); }
+
+async function createCampaign() {
+  const name = document.getElementById('new-camp-name').value.trim();
+  if (!name) return;
+  const res = await fetch('/api/campaigns', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      name,
+      setting: document.getElementById('new-camp-setting').value,
+      tone: document.getElementById('new-camp-tone').value,
+    })
+  });
+  const data = await res.json();
+  closeModal('modal-new-campaign');
+  await loadCampaigns();
+  document.getElementById('campaign-selector').value = data.campaign_id;
+  onCampaignChange(data.campaign_id);
+}
+
+function saveDraftSession() {
+  const notes = document.getElementById('session-notes').value;
+  localStorage.setItem('session-draft', notes);
+  alert('Draft saved locally.');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  VIEWS
+// ═══════════════════════════════════════════════════════════
+function showView(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(`view-${view}`)?.classList.add('active');
+  document.getElementById(`nav-${view}`)?.classList.add('active');
+
+  if (view === 'home' && currentCampaignId) showDashboard();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  MODALS
+// ═══════════════════════════════════════════════════════════
+function openModal(id) { document.getElementById(id)?.classList.add('open'); }
+function closeModal(id) { document.getElementById(id)?.classList.remove('open'); }
+
+function openLoreQueryModal() { openModal('modal-lore-query'); }
+
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+
+// ═══════════════════════════════════════════════════════════
+//  START
+// ═══════════════════════════════════════════════════════════
+init();
+</script>
+</body>
+</html>
