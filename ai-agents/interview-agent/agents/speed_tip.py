@@ -19,5 +19,5 @@ to say or the angle to lead with. No preamble, no explanation, no period at the 
 Examples:
 • Lead with the outcome first, then explain the decision
 • Use the event loop / call stack to frame your answer
-• Name a specific micro1 product feature (Zara, AI recruiter) to show you did homework
+• Name a specific product feature of the company to show you did your homework
 • Start with Big-O before writing code"""

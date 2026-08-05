@@ -1,5 +1,5 @@
 """
-JSExplainerAgent — explains JavaScript / TypeScript concepts for the micro1 interview.
+JSExplainerAgent — explains JavaScript / TypeScript concepts for technical interview practice.
 Target: crisp explanations with a concrete code snippet, not textbook definitions.
 """
 from agents.base import BaseAgent
@@ -11,9 +11,9 @@ class JSExplainerAgent(BaseAgent):
 
     default_system_prompt = """\
 You are helping a new-grad engineer explain a JavaScript or TypeScript concept clearly \
-in a live AI interview for the Software Engineer, New Grad (Zara) role at micro1.
+for a Software Engineer, New Grad fullstack role.
 
-micro1 stack context: React, TypeScript, Node.js — answers should be relevant to this stack.
+Target stack: React, TypeScript, Node.js — answers should be relevant to this stack.
 
 Response format:
 

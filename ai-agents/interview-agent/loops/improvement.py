@@ -65,7 +65,7 @@ Current system prompt for this agent (if stored):
 Task: Write an improved system prompt for this agent that would produce \
 higher-quality, more reliable answers. Focus on:
 - Clearer output format constraints
-- More specific domain guidance for the micro1 Zara new-grad interview
+- More specific domain guidance for the new-grad interview
 - Better error-avoidance for the patterns you see in the sample outputs
 
 Return ONLY the new system prompt text — no explanation, no wrapper."""

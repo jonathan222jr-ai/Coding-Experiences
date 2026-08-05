@@ -154,7 +154,7 @@ def listen_once(hint: str = ""):
     recorder    = MicRecorder()
     transcriber = Transcriber()
 
-    print("\n🎙️  micro1 Co-Pilot — Voice Mode")
+    print("\n🎙️  Interview Prep Agent — Voice Mode")
     print("   Press  ENTER  to start recording.")
     print("   Press  ENTER  again to stop and get your answer.")
     if hint:
@@ -182,7 +182,7 @@ def listen_once(hint: str = ""):
 
 def listen_loop():
     """Continuous loop — keeps listening after each answer until Ctrl+C."""
-    print("\n🎙️  micro1 Co-Pilot — Continuous Voice Mode  (Ctrl+C to quit)\n")
+    print("\n🎙️  Interview Prep Agent — Continuous Voice Mode  (Ctrl+C to quit)\n")
     while True:
         try:
             listen_once()

@@ -1,5 +1,5 @@
 """
-DebuggerAgent — diagnoses and fixes bugs for the micro1 interview debugging section.
+DebuggerAgent — diagnoses and fixes bugs for the interview debugging section.
 Explains root cause clearly, not just "change this line".
 """
 from agents.base import BaseAgent
@@ -11,7 +11,7 @@ class DebuggerAgent(BaseAgent):
 
     default_system_prompt = """\
 You are helping a new-grad engineer debug code in a live AI interview for the \
-Software Engineer, New Grad (Zara) role at micro1 (React, TypeScript, Node.js, PostgreSQL).
+Software Engineer, New Grad role (React, TypeScript, Node.js, PostgreSQL).
 
 Response format:
 

@@ -5,14 +5,14 @@ load_dotenv()
 
 @click.group()
 def cli():
-    """micro1 Co-Pilot — live interview assistant"""
+    """Interview Prep Agent — practice interview assistant"""
     pass
 
 @cli.command()
 def serve():
     """Start co-pilot at http://localhost:5000"""
     import subprocess, sys
-    print("Starting micro1 Co-Pilot at http://localhost:5000")
+    print("Starting Interview Prep Agent at http://localhost:5000")
     subprocess.run([sys.executable, "app.py"])
 
 @cli.command()

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>micro1 Co-Pilot</title>
+<title>Interview Prep Agent</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -173,7 +173,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
 <!-- Top bar -->
 <div class="topbar">
   <div class="logo"><div class="logo-dot"></div>CO-PILOT</div>
-  <div class="role-tag">micro1 · SWE New Grad · Zara</div>
+  <div class="role-tag">SWE New Grad · Fullstack</div>
   <div class="topbar-right">
     <div class="top-stat">Qs answered: <span id="q-count">0</span></div>
     <button class="evolve-btn" onclick="triggerEvolve()">⟳ EVOLVE</button>
@@ -203,7 +203,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--s
       <button class="qb" onclick="setQ('How does event delegation work in JavaScript?')">Event delegation</button>
       <button class="qb" onclick="setQ('Explain the difference between useEffect and useLayoutEffect in React.')">useEffect vs useLayoutEffect</button>
       <button class="qb" onclick="setQ('Given an array, find the two numbers that sum to a target value.')">Two Sum</button>
-      <button class="qb" onclick="setQ('Why do you want to work at micro1?')">Why micro1?</button>
+      <button class="qb" onclick="setQ('Why do you want to work at this company?')">Why this company?</button>
       <button class="qb" onclick="setQ('Tell me about a time you had to debug a difficult problem.')">Debugging story</button>
     </div>
   </div>
@@ -250,7 +250,7 @@ const AGENTS = {
   js_explainer: {label:'JS/TS Concept', color:'#4dd0c4', tag:'SONNET'},
   fullstack:    {label:'Fullstack',     color:'#5dff9e', tag:'SONNET'},
   debugger:     {label:'Debugger',      color:'#ff8a65', tag:'SONNET'},
-  motivation:   {label:'Why micro1',    color:'#c084fc', tag:'SONNET'},
+  motivation:   {label:'Why This Role', color:'#c084fc', tag:'SONNET'},
 };
 
 const TYPE_COLORS = {
@@ -440,7 +440,7 @@ function loadSession(i) {
 
 // ── Transcript ───────────────────────────────────────────────────────────────
 function updateTranscript() {
-  const lines = ['═'.repeat(52), 'micro1 Co-Pilot — Session Transcript', '═'.repeat(52), ''];
+  const lines = ['═'.repeat(52), 'Interview Prep Agent — Session Transcript', '═'.repeat(52), ''];
   for (const s of [...sessions].reverse()) {
     lines.push(`── ${s.fulltime} ──`);
     lines.push(`TYPE: ${s.type}`);
@@ -467,7 +467,7 @@ function saveTranscript() {
   const blob = new Blob([text], {type:'text/plain'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `micro1_interview_${Date.now()}.txt`;
+  a.download = `interview_practice_${Date.now()}.txt`;
   a.click();
 }
 

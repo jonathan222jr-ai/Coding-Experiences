@@ -18,7 +18,7 @@ TYPES (pick one):
 - js_concept    → JS/TS language concepts (closures, promises, event loop, types, etc.)
 - fullstack     → system design, REST APIs, React patterns, Node architecture, DB design
 - debugging     → find the bug, fix the code, explain the error
-- motivation    → "why micro1", "why this role", career goals, strengths/weaknesses
+- motivation    → "why this company", "why this role", career goals, strengths/weaknesses
 
 URGENCY (pick one):
 - fast    → simple recall / 1-liner answer

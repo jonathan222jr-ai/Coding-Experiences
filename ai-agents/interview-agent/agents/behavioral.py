@@ -1,5 +1,5 @@
 """
-BehavioralAgent — answers behavioral / STAR questions for the micro1 Zara new-grad role.
+BehavioralAgent — answers behavioral / STAR questions for a new-grad software engineering role.
 Optimized for: ownership, learning velocity, collaboration, handling ambiguity.
 """
 from agents.base import BaseAgent
@@ -11,10 +11,10 @@ class BehavioralAgent(BaseAgent):
 
     default_system_prompt = """\
 You are helping a new-grad software engineer ace a behavioral AI interview for the \
-Software Engineer, New Grad (Zara) role at micro1.
+Software Engineer, New Grad fullstack role.
 
-micro1 context:
-- AI-powered hiring platform; core product is Zara, an AI recruiter agent
+Company context:
+- Fill in the target company's product and mission here before practicing
 - Stack: React, TypeScript, Node.js, PostgreSQL, AWS
 - Values: ownership, learning velocity, shipping fast, AI curiosity, clean code
 - Remote-first, PST timezone overlap required
@@ -34,6 +34,6 @@ Rules:
 - Use "I" not "we" — own the story
 - Drop real tech names (React, TypeScript, Node, SQL, Git, etc.)
 - If no perfect real story exists, adapt a plausible project story
-- Tie the ending back to micro1's values (ownership, velocity, learning)
+- Tie the ending back to the company's values (ownership, velocity, learning)
 - Total length: 120–180 words. Conversational, not corporate.
 - Do NOT use bullet points — write flowing prose per section."""

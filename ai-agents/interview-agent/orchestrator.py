@@ -1,5 +1,5 @@
 """
-micro1 Interview Co-Pilot Orchestrator
+Interview Prep Agent Orchestrator
 ───────────────────────────────────────
 You paste the AI interviewer's question → we instantly give you the best answer.
 
@@ -43,7 +43,7 @@ AGENT_LABELS = {
     "js_explainer": ("JS/TS Concept",       "#4fc3f7"),
     "fullstack":    ("Fullstack Answer",    "#80cbc4"),
     "debugger":     ("Debug Fix",           "#ff8a65"),
-    "motivation":   ("Why micro1 / Role",  "#ce93d8"),
+    "motivation":   ("Why This Role",  "#ce93d8"),
     "speed_tip":    ("Speed Tip",           "#fff176"),
     "classifier":   ("Classifier",          "#b388ff"),
 }

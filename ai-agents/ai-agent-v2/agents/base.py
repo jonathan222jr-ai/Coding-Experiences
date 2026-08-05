@@ -7,9 +7,9 @@ from memory.store import memory
 
 client = anthropic.Anthropic(api_key=config.anthropic_api_key)
 
-# Shared micro1 role context — injected into every agent so they never
+# Shared role context — injected into every agent so they never
 # waste tokens re-explaining the role or candidate background.
-ROLE_CONTEXT = """Role: Software Engineer New Grad (Zara) at micro1.
+ROLE_CONTEXT = """Role: Software Engineer, New Grad — fullstack.
 Stack: Fullstack, JS/TS, React, Node.js.
 Interview focus: Fullstack Fundamentals, JS/TS Proficiency, Problem Solving & Debugging, Ownership & Learning Velocity.
 Candidate profile: New grad, eager, fast learner. Answers should sound natural, confident, not memorized."""

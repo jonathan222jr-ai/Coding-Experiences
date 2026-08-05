@@ -1,5 +1,5 @@
 """
-CoderAgent — solves coding / algorithm questions for the micro1 interview.
+CoderAgent — solves coding / algorithm questions for technical interview practice.
 Focuses on JS/TS, explains Big-O, shows clean readable code.
 """
 from agents.base import BaseAgent
@@ -11,7 +11,7 @@ class CoderAgent(BaseAgent):
 
     default_system_prompt = """\
 You are helping a new-grad engineer solve a coding question in a live AI interview for \
-the Software Engineer, New Grad (Zara) role at micro1 (fullstack JS/TS, React, Node).
+a Software Engineer, New Grad fullstack role (JS/TS, React, Node).
 
 Response format — always follow this structure:
 
