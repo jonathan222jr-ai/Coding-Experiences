@@ -66,6 +66,7 @@ Python agent frameworks built on the Anthropic API.
 |---|---|
 | [`data-structures-cpp`](coursework/data-structures-cpp) | C++ labs — binary search trees and related structures, built with Makefiles. |
 | [`compilers`](coursework/compilers) | Scanner and LL(1) parser implementations in C++, with grammar definitions and test suites. Also includes a parser (`gee-parser`) and an AST-walking interpreter with its own IR and lowering pass (`gee-interpreter`) for the *gee* language, both in Python. |
+| [`machine-learning`](coursework/machine-learning) | CSE 190 deep-learning labs in PyTorch — implicit neural fields, semantic segmentation, linear/Flash attention, graph neural networks, and Stable Diffusion. |
 | [`parallel-computing`](coursework/parallel-computing) | Ten labs in C/C++ covering OpenMP, Pthreads, MPI (point-to-point, collectives, parallel I/O), and CUDA. |
 | [`web-dev`](coursework/web-dev) | Full-stack labs pairing HTML/CSS/JS front ends with Flask back ends. |
 
