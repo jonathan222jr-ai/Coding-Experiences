@@ -1,295 +1,195 @@
 """
-Helper Utility: Automated Benchmark & Profile Runner
+Run a workload under DrGPUM and return the profile directory.
 
-Runs benchmarking and profiling in sequence, generates comparison reports.
+    from agent.helpers.benchmark_runner import profile
 
-Usage:
-    from benchmark_runner import run_benchmark_pair
-    
-    run_benchmark_pair(
-        baseline_script='baseline.py',
-        optimized_script='optimized.py',
-        output_dir='results/',
-        profile=True
-    )
+    out = profile(["python3", "train.py"], label="baseline")
+    # -> Path("runs/baseline/gvprof-measurements/memory_liveness")
+
+`gvprof` must be on PATH along with hpcrun/hpcstruct/hpcprof and the redshow
+binaries. On a machine where DrGPUM was installed to $PREFIX:
+
+    export DrGPUM_PATH=$PREFIX
+    export PATH=$DrGPUM_PATH/bin:$DrGPUM_PATH/hpctoolkit/bin:$DrGPUM_PATH/redshow/bin:$PATH
+
+Profiling is slow -- every device memory operation is intercepted. A PyTorch
+training loop that runs in seconds unprofiled can take minutes, and the
+`hpcprof` correlation pass afterwards can take considerably longer than the run
+itself. Profile the smallest workload that still exhibits the behaviour you
+care about: the same allocations happen in 5 iterations as in 500.
 """
 
-import subprocess
+from __future__ import annotations
+
 import os
-import json
+import shutil
+import subprocess
 from pathlib import Path
-from datetime import datetime
-from typing import Optional, Dict
+from typing import List, Optional, Sequence
 
 
-class BenchmarkRunner:
-    """Orchestrates benchmarking and profiling workflow."""
-    
-    def __init__(self, output_dir: str = 'benchmark_results'):
-        """
-        Initialize benchmark runner.
-        
-        Args:
-            output_dir: Directory to store results
-        """
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(exist_ok=True)
-        
-        # Create timestamped subdirectory
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        self.run_dir = self.output_dir / timestamp
-        self.run_dir.mkdir(exist_ok=True)
-        
-        self.results = {}
-    
-    def run_script(self, script_path: str, description: str = "Run") -> Dict:
-        """
-        Run a Python script and capture output.
-        
-        Args:
-            script_path: Path to Python script
-            description: Label for this run
-        
-        Returns:
-            dict with stdout and exit code
-        """
-        print(f"\n{'='*70}")
-        print(f"{description}: {script_path}")
-        print(f"{'='*70}")
-        
-        try:
-            result = subprocess.run(
-                ['python', script_path],
-                capture_output=True,
-                text=True,
-                timeout=600  # 10 minute timeout
-            )
-            
-            print(result.stdout)
-            if result.stderr:
-                print("STDERR:", result.stderr)
-            
-            return {
-                'success': result.returncode == 0,
-                'return_code': result.returncode,
-                'stdout': result.stdout,
-                'stderr': result.stderr,
-            }
-        
-        except subprocess.TimeoutExpired:
-            print(f"ERROR: Script timed out after 600 seconds")
-            return {
-                'success': False,
-                'return_code': -1,
-                'error': 'Timeout'
-            }
-        
-        except Exception as e:
-            print(f"ERROR: {e}")
-            return {
-                'success': False,
-                'return_code': -1,
-                'error': str(e)
-            }
-    
-    def profile_script(self, script_path: str, output_csv: str, 
-                      description: str = "Profile") -> Dict:
-        """
-        Profile a script using DrGPUM.
-        
-        Args:
-            script_path: Path to Python script
-            output_csv: Output CSV filename
-            description: Label for this profile
-        
-        Returns:
-            dict with profiling results
-        """
-        print(f"\n{'='*70}")
-        print(f"{description}: {script_path}")
-        print(f"{'='*70}")
-        
-        output_path = self.run_dir / output_csv
-        
-        try:
-            # Check if drg is available
-            subprocess.run(['drg', '--version'], 
-                         capture_output=True, 
-                         timeout=10,
-                         check=True)
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            print("WARNING: DrGPUM (drg) not found. Skipping profiling.")
-            print("To use profiling, ensure DrGPUM is installed and in PATH:")
-            print("  export DrGPUM_PATH=<path-to-drgpum>/gvprof")
-            print("  export PATH=${DrGPUM_PATH}/bin:$PATH")
-            return {
-                'success': False,
-                'error': 'DrGPUM not available'
-            }
-        
-        try:
-            cmd = ['drg', '-o', str(output_path), 'python', script_path]
-            print(f"Running: {' '.join(cmd)}")
-            
-            result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=600  # 10 minute timeout
-            )
-            
-            print(result.stdout)
-            if result.stderr:
-                print("STDERR:", result.stderr)
-            
-            if result.returncode == 0 and output_path.exists():
-                print(f"\n✓ Profile saved to: {output_path}")
-                return {
-                    'success': True,
-                    'output_path': str(output_path),
-                    'stdout': result.stdout,
-                }
-            else:
-                return {
-                    'success': False,
-                    'return_code': result.returncode,
-                    'error': 'Profile generation failed'
-                }
-        
-        except subprocess.TimeoutExpired:
-            print(f"ERROR: Profiling timed out after 600 seconds")
-            return {
-                'success': False,
-                'error': 'Timeout'
-            }
-        
-        except Exception as e:
-            print(f"ERROR: {e}")
-            return {
-                'success': False,
-                'error': str(e)
-            }
-    
-    def run_benchmark_pair(self, baseline_script: str, optimized_script: str,
-                          profile: bool = True) -> Dict:
-        """
-        Run baseline and optimized benchmarks, optionally with profiling.
-        
-        Args:
-            baseline_script: Path to baseline Python script
-            optimized_script: Path to optimized Python script
-            profile: Whether to run DrGPUM profiling
-        
-        Returns:
-            dict with all results
-        """
-        print(f"\n{'#'*70}")
-        print("BENCHMARK RUNNER: Baseline vs Optimized")
-        print(f"{'#'*70}")
-        print(f"Output directory: {self.run_dir}")
-        
-        # Run baseline
-        print("\n" + "="*70)
-        print("PHASE 1: BASELINE")
-        print("="*70)
-        baseline_result = self.run_script(baseline_script, "Run baseline")
-        self.results['baseline_run'] = baseline_result
-        
-        # Profile baseline (if requested)
-        if profile:
-            profile_result = self.profile_script(
-                baseline_script,
-                'baseline_profile.csv',
-                'Profile baseline'
-            )
-            self.results['baseline_profile'] = profile_result
-        
-        # Run optimized
-        print("\n" + "="*70)
-        print("PHASE 2: OPTIMIZED")
-        print("="*70)
-        optimized_result = self.run_script(optimized_script, "Run optimized")
-        self.results['optimized_run'] = optimized_result
-        
-        # Profile optimized (if requested)
-        if profile:
-            profile_result = self.profile_script(
-                optimized_script,
-                'optimized_profile.csv',
-                'Profile optimized'
-            )
-            self.results['optimized_profile'] = profile_result
-        
-        # Generate summary
-        self._generate_summary()
-        
-        return self.results
-    
-    def _generate_summary(self):
-        """Generate and save summary report."""
-        summary_path = self.run_dir / 'summary.json'
-        
-        summary = {
-            'timestamp': datetime.now().isoformat(),
-            'output_dir': str(self.run_dir),
-            'results': self.results,
-        }
-        
-        with open(summary_path, 'w') as f:
-            json.dump(summary, f, indent=2)
-        
-        print(f"\n{'='*70}")
-        print("BENCHMARK SUMMARY")
-        print(f"{'='*70}")
-        print(f"Results saved to: {summary_path}")
-        print(f"\nTo compare profiles (if generated):")
-        print(f"  python helpers/parse_drgpum_csv.py \\")
-        print(f"    {self.run_dir}/baseline_profile.csv \\")
-        print(f"    {self.run_dir}/optimized_profile.csv")
+class ProfilerNotFound(RuntimeError):
+    """gvprof (or its HPCToolkit dependencies) are not on PATH."""
 
 
-def run_benchmark_pair(baseline_script: str, optimized_script: str,
-                      output_dir: str = 'benchmark_results',
-                      profile: bool = True) -> Dict:
-    """
-    Convenience function to run a benchmark pair.
-    
-    Args:
-        baseline_script: Path to baseline script
-        optimized_script: Path to optimized script
-        output_dir: Output directory for results
-        profile: Whether to use DrGPUM profiling
-    
-    Returns:
-        dict with all results
-    
-    Example:
-        results = run_benchmark_pair(
-            'baseline_matmul.py',
-            'optimized_matmul.py',
-            profile=True
+#: The analysis mode this project uses. DrGPUM also supports `redundancy`,
+#: `value_pattern`, and `data_flow`, none of which report memory liveness.
+DEFAULT_ANALYSIS = "memory_liveness"
+
+#: Control knobs passed to every run. Both are off by default in DrGPUM and
+#: both are required for a usable profile:
+#:
+#:   LIVENESS_ONGPU   without it NO ACCESS operations are recorded at all, so
+#:                    every object looks unused and `optimal_memory_peak` is
+#:                    reported as 0 -- i.e. the tool's headline metric is
+#:                    simply absent.
+#:   TORCH_ANALYSIS   without it PyTorch tensors are invisible; the objects
+#:                    reported are caching-allocator segments.
+#:
+#: Measured on this project: enabling LIVENESS_ONGPU took optimal_memory_peak
+#: from "not computed" to 44.0 MB against a 62.3 MB peak, and removed two
+#: false NEVER_USED findings.
+DEFAULT_CONTROL_KNOBS = (
+    "HPCRUN_SANITIZER_LIVENESS_ONGPU=1",
+    "HPCRUN_SANITIZER_TORCH_ANALYSIS=1",
+)
+
+
+def check_toolchain() -> None:
+    """Fail early and clearly if the profiler is not usable."""
+    missing = [t for t in ("gvprof", "hpcrun", "hpcstruct", "hpcprof") if not shutil.which(t)]
+    if missing:
+        raise ProfilerNotFound(
+            f"not on PATH: {', '.join(missing)}. Source the DrGPUM environment "
+            f"first (see this module's docstring). If hpcrun is missing but "
+            f"gvprof is present, HPCToolkit was never built -- `gvprof` is a "
+            f"shell script that calls hpcrun, so it will appear to run and then "
+            f"produce nothing."
         )
+
+
+def profile(
+    command: Sequence[str],
+    label: str = "baseline",
+    runs_dir: str = "runs",
+    analysis: str = DEFAULT_ANALYSIS,
+    timeout: Optional[float] = None,
+    env: Optional[dict] = None,
+    control_knobs: Sequence[str] = DEFAULT_CONTROL_KNOBS,
+) -> Path:
+    """Profile `command`, returning the directory holding the analysis output.
+
+    Raises ProfilerNotFound if the toolchain is missing, CalledProcessError if
+    the workload itself fails, and FileNotFoundError if the profiler ran but
+    produced no analysis directory (usually a sign the workload never touched
+    the GPU).
     """
-    runner = BenchmarkRunner(output_dir=output_dir)
-    return runner.run_benchmark_pair(baseline_script, optimized_script, profile=profile)
+    check_toolchain()
+
+    run_dir = Path(runs_dir) / label
+    run_dir.mkdir(parents=True, exist_ok=True)
+
+    # gvprof writes gvprof-measurements/ into the working directory, so we run
+    # from run_dir to keep runs separated. That reinterprets every relative path
+    # in `command` against run_dir, which silently breaks the common case
+    # (`python3 train.py` becoming runs/baseline/train.py). Resolve arguments
+    # that name an existing file against the *caller's* cwd first.
+    command = [
+        str(Path(arg).resolve()) if Path(arg).is_file() else arg for arg in command
+    ]
+
+    # gvprof refuses to overwrite these, and a stale pair silently corrupts the
+    # next run's results.
+    for stale in ("gvprof-measurements", "gvprof-database"):
+        shutil.rmtree(run_dir / stale, ignore_errors=True)
+
+    knobs = [x for k in control_knobs for x in ("-ck", k)]
+    argv = ["gvprof", "-v", *knobs, "-e", analysis, *command]
+    log = run_dir / "gvprof.log"
+
+    with log.open("w") as fh:
+        proc = subprocess.run(
+            argv,
+            cwd=run_dir,
+            stdout=fh,
+            stderr=subprocess.STDOUT,
+            timeout=timeout,
+            env={**os.environ, **(env or {})},
+        )
+
+    out = run_dir / "gvprof-measurements" / analysis
+    if not out.is_dir():
+        raise FileNotFoundError(
+            f"{out} was not produced (gvprof exit {proc.returncode}). "
+            f"See {log}. A run that produces no analysis directory usually "
+            f"means the workload made no CUDA allocations, or hpcrun failed to "
+            f"attach."
+        )
+
+    # The directory appears as soon as redshow initialises, before it has
+    # flushed anything -- so its existence alone proves nothing. gvprof also
+    # exits 0 after an hpcrun segfault. Require actual content, and surface the
+    # profiler's own log, or the caller gets "No memory objects found" from the
+    # parser much later with no clue why.
+    liveness = out / "memory_liveness.txt"
+    if not liveness.is_file() or liveness.stat().st_size == 0:
+        tail = ""
+        if log.is_file():
+            lines = log.read_text(errors="replace").strip().splitlines()
+            tail = "\n  ".join(lines[-4:])
+        raise FileNotFoundError(
+            f"{out} is empty -- the profiler started but produced no data "
+            f"(gvprof exit {proc.returncode}).\n"
+            f"Last lines of {log}:\n  {tail}\n"
+            f"Common causes: the workload failed to start (check the path), "
+            f"hpcrun segfaulted, or CUPTI could not attach because another "
+            f"profiler holds the GPU."
+        )
+    return out
+
+
+def profile_pair(
+    baseline_cmd: Sequence[str],
+    optimized_cmd: Sequence[str],
+    runs_dir: str = "runs",
+    **kwargs,
+) -> tuple[Path, Path]:
+    """Profile before-and-after variants for comparison.
+
+    Both must run the *same workload configuration* -- same batch size, same
+    input data, same iteration count. Comparing peaks across different
+    configurations measures the configuration, not the optimization.
+    """
+    before = profile(baseline_cmd, label="baseline", runs_dir=runs_dir, **kwargs)
+    after = profile(optimized_cmd, label="optimized", runs_dir=runs_dir, **kwargs)
+    return before, after
+
+
+def main(argv: Optional[List[str]] = None) -> int:
+    import argparse
+
+    p = argparse.ArgumentParser(
+        prog="python -m agent.helpers.benchmark_runner",
+        description="Profile a command under DrGPUM.",
+    )
+    p.add_argument("--label", default="baseline")
+    p.add_argument("--runs-dir", default="runs")
+    p.add_argument("--analysis", default=DEFAULT_ANALYSIS)
+    p.add_argument("command", nargs=argparse.REMAINDER, help="the workload, after --")
+    args = p.parse_args(argv)
+
+    cmd = [c for c in args.command if c != "--"]
+    if not cmd:
+        p.error("no command given (put it after --)")
+
+    try:
+        out = profile(cmd, label=args.label, runs_dir=args.runs_dir, analysis=args.analysis)
+    except (ProfilerNotFound, FileNotFoundError) as e:
+        print(f"error: {e}")
+        return 2
+    print(out)
+    return 0
 
 
 if __name__ == "__main__":
-    import sys
-    
-    if len(sys.argv) < 3:
-        print("Usage:")
-        print("  python benchmark_runner.py baseline.py optimized.py [--no-profile]")
-        sys.exit(1)
-    
-    baseline = sys.argv[1]
-    optimized = sys.argv[2]
-    profile = '--no-profile' not in sys.argv
-    
-    results = run_benchmark_pair(baseline, optimized, profile=profile)
-    
-    print(f"\n{'='*70}")
-    print("RESULTS SAVED")
-    print(f"{'='*70}")
-    print(f"Success: Baseline={results['baseline_run']['success']}, "
-          f"Optimized={results['optimized_run']['success']}")
+    raise SystemExit(main())

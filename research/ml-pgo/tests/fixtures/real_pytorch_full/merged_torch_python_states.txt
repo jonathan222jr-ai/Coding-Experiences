@@ -1,0 +1,1002 @@
+--------------------------------------------------
+ALLOC 9223372036854775811
+ALLOC 9223372036854775814
+ALLOC 9223372036854775816
+ALLOC 9223372036854775818
+ALLOC 9223372036854775820
+ALLOC 9223372036854775822
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: convert
+	First line: 1320
+	Call at line: 1329
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _apply
+	First line: 900
+	Call at line: 930
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _apply
+	First line: 900
+	Call at line: 903
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: to
+	First line: 1216
+	Call at line: 1343
+(4)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 25
+
+--------------------------------------------------
+ALLOC 9223372036854775824
+ACCESS 9223372036854775825
+ALLOC 9223372036854775946
+ACCESS 9223372036854775947
+FREE 9223372036854775948
+ALLOC 9223372036854776044
+ACCESS 9223372036854776045
+FREE 9223372036854776046
+ALLOC 9223372036854776141
+ACCESS 9223372036854776142
+FREE 9223372036854776143
+ALLOC 9223372036854776238
+ACCESS 9223372036854776239
+FREE 9223372036854776240
+(0)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 29
+
+--------------------------------------------------
+ALLOC 9223372036854775826
+ACCESS 9223372036854775827
+ALLOC 9223372036854775949
+ACCESS 9223372036854775950
+FREE 9223372036854775951
+ALLOC 9223372036854776047
+ACCESS 9223372036854776048
+FREE 9223372036854776049
+ALLOC 9223372036854776144
+ACCESS 9223372036854776145
+FREE 9223372036854776146
+ALLOC 9223372036854776241
+ACCESS 9223372036854776242
+FREE 9223372036854776243
+(0)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 30
+
+--------------------------------------------------
+ALLOC 9223372036854775828
+ALLOC 9223372036854775830
+ALLOC 9223372036854775834
+ACCESS 9223372036854775835
+ACCESS 9223372036854775836
+FREE 9223372036854775837
+ALLOC 9223372036854775841
+ALLOC 9223372036854775842
+ACCESS 9223372036854775843
+ACCESS 9223372036854775844
+FREE 9223372036854775845
+ALLOC 9223372036854775849
+ALLOC 9223372036854775850
+ACCESS 9223372036854775851
+FREE 9223372036854775852
+ALLOC 9223372036854775952
+ALLOC 9223372036854775954
+ACCESS 9223372036854775955
+ACCESS 9223372036854775956
+FREE 9223372036854775957
+ALLOC 9223372036854775961
+ALLOC 9223372036854775962
+ACCESS 9223372036854775963
+ACCESS 9223372036854775964
+FREE 9223372036854775965
+ALLOC 9223372036854775969
+ALLOC 9223372036854775970
+ACCESS 9223372036854775971
+FREE 9223372036854775972
+ALLOC 9223372036854776050
+ALLOC 9223372036854776051
+ACCESS 9223372036854776052
+ACCESS 9223372036854776053
+FREE 9223372036854776054
+ALLOC 9223372036854776058
+ALLOC 9223372036854776059
+ACCESS 9223372036854776060
+ACCESS 9223372036854776061
+FREE 9223372036854776062
+ALLOC 9223372036854776066
+ALLOC 9223372036854776067
+ACCESS 9223372036854776068
+FREE 9223372036854776069
+ALLOC 9223372036854776147
+ALLOC 9223372036854776148
+ACCESS 9223372036854776149
+ACCESS 9223372036854776150
+FREE 9223372036854776151
+ALLOC 9223372036854776155
+ALLOC 9223372036854776156
+ACCESS 9223372036854776157
+ACCESS 9223372036854776158
+FREE 9223372036854776159
+ALLOC 9223372036854776163
+ALLOC 9223372036854776164
+ACCESS 9223372036854776165
+FREE 9223372036854776166
+ALLOC 9223372036854776244
+ALLOC 9223372036854776245
+ACCESS 9223372036854776246
+ACCESS 9223372036854776247
+FREE 9223372036854776248
+ALLOC 9223372036854776252
+ALLOC 9223372036854776253
+ACCESS 9223372036854776254
+ACCESS 9223372036854776255
+FREE 9223372036854776256
+ALLOC 9223372036854776260
+ALLOC 9223372036854776261
+ACCESS 9223372036854776262
+FREE 9223372036854776263
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/linear.py
+	Function: forward
+	First line: 124
+	Call at line: 125
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _call_impl
+	First line: 1743
+	Call at line: 1750
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _wrapped_call_impl
+	First line: 1735
+	Call at line: 1739
+(3)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: forward
+	First line: 22
+	Call at line: 23
+(4)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _call_impl
+	First line: 1743
+	Call at line: 1750
+(5)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _wrapped_call_impl
+	First line: 1735
+	Call at line: 1739
+(6)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 31
+
+--------------------------------------------------
+ALLOC 9223372036854775838
+ACCESS 9223372036854775839
+ALLOC 9223372036854775846
+ACCESS 9223372036854775847
+ALLOC 9223372036854775958
+ACCESS 9223372036854775959
+ALLOC 9223372036854775966
+ACCESS 9223372036854775967
+ALLOC 9223372036854776055
+ACCESS 9223372036854776056
+ALLOC 9223372036854776063
+ACCESS 9223372036854776064
+ALLOC 9223372036854776152
+ACCESS 9223372036854776153
+ALLOC 9223372036854776160
+ACCESS 9223372036854776161
+ALLOC 9223372036854776249
+ACCESS 9223372036854776250
+ALLOC 9223372036854776257
+ACCESS 9223372036854776258
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/functional.py
+	Function: relu
+	First line: 1693
+	Call at line: 1704
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/activation.py
+	Function: forward
+	First line: 132
+	Call at line: 133
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _call_impl
+	First line: 1743
+	Call at line: 1750
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _wrapped_call_impl
+	First line: 1735
+	Call at line: 1739
+(4)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: forward
+	First line: 22
+	Call at line: 23
+(5)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _call_impl
+	First line: 1743
+	Call at line: 1750
+(6)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _wrapped_call_impl
+	First line: 1735
+	Call at line: 1739
+(7)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 31
+
+--------------------------------------------------
+FREE 9223372036854775840
+FREE 9223372036854775848
+FREE 9223372036854775960
+FREE 9223372036854775968
+FREE 9223372036854776057
+FREE 9223372036854776065
+FREE 9223372036854776154
+FREE 9223372036854776162
+FREE 9223372036854776251
+FREE 9223372036854776259
+(0)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: forward
+	First line: 22
+	Call at line: 23
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _call_impl
+	First line: 1743
+	Call at line: 1750
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _wrapped_call_impl
+	First line: 1735
+	Call at line: 1739
+(3)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 31
+
+--------------------------------------------------
+ALLOC 9223372036854775853
+ACCESS 9223372036854775854
+ALLOC 9223372036854775855
+ALLOC 9223372036854775856
+ACCESS 9223372036854775857
+ALLOC 9223372036854775973
+ACCESS 9223372036854775974
+ALLOC 9223372036854775975
+ALLOC 9223372036854775976
+ACCESS 9223372036854775977
+ALLOC 9223372036854776070
+ACCESS 9223372036854776071
+ALLOC 9223372036854776072
+ALLOC 9223372036854776073
+ACCESS 9223372036854776074
+ALLOC 9223372036854776167
+ACCESS 9223372036854776168
+ALLOC 9223372036854776169
+ALLOC 9223372036854776170
+ACCESS 9223372036854776171
+ALLOC 9223372036854776264
+ACCESS 9223372036854776265
+ALLOC 9223372036854776266
+ALLOC 9223372036854776267
+ACCESS 9223372036854776268
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/functional.py
+	Function: cross_entropy
+	First line: 3404
+	Call at line: 3494
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/loss.py
+	Function: forward
+	First line: 1294
+	Call at line: 1295
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _call_impl
+	First line: 1743
+	Call at line: 1750
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/nn/modules/module.py
+	Function: _wrapped_call_impl
+	First line: 1735
+	Call at line: 1739
+(4)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 31
+
+--------------------------------------------------
+FREE 9223372036854775858
+FREE 9223372036854775978
+FREE 9223372036854775979
+FREE 9223372036854776075
+FREE 9223372036854776076
+FREE 9223372036854776172
+FREE 9223372036854776173
+FREE 9223372036854776269
+FREE 9223372036854776270
+(0)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 31
+
+--------------------------------------------------
+ALLOC 9223372036854775859
+ACCESS 9223372036854775860
+ALLOC 9223372036854775986
+ACCESS 9223372036854775987
+ALLOC 9223372036854776083
+ACCESS 9223372036854776084
+ALLOC 9223372036854776180
+ACCESS 9223372036854776181
+ALLOC 9223372036854776277
+ACCESS 9223372036854776278
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/autograd/__init__.py
+	Function: _make_grads
+	First line: 88
+	Call at line: 220
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/autograd/__init__.py
+	Function: backward
+	First line: 242
+	Call at line: 340
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/_tensor.py
+	Function: backward
+	First line: 570
+	Call at line: 626
+(3)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+ALLOC 9223372036854775861
+ACCESS 9223372036854775862
+ACCESS 9223372036854775863
+FREE 9223372036854775864
+ALLOC 9223372036854775865
+ACCESS 9223372036854775866
+FREE 9223372036854775867
+FREE 9223372036854775868
+ALLOC 9223372036854775869
+ALLOC 9223372036854775873
+ACCESS 9223372036854775874
+ALLOC 9223372036854775875
+ACCESS 9223372036854775876
+ALLOC 9223372036854775877
+ACCESS 9223372036854775878
+FREE 9223372036854775879
+ALLOC 9223372036854775880
+ACCESS 9223372036854775881
+FREE 9223372036854775882
+FREE 9223372036854775883
+ALLOC 9223372036854775884
+ACCESS 9223372036854775885
+ALLOC 9223372036854775886
+ACCESS 9223372036854775887
+ALLOC 9223372036854775888
+ACCESS 9223372036854775889
+FREE 9223372036854775890
+ALLOC 9223372036854775891
+ACCESS 9223372036854775892
+FREE 9223372036854775893
+FREE 9223372036854775894
+ALLOC 9223372036854775896
+ACCESS 9223372036854775897
+ALLOC 9223372036854775898
+ACCESS 9223372036854775899
+FREE 9223372036854775900
+ALLOC 9223372036854775988
+ACCESS 9223372036854775989
+ACCESS 9223372036854775990
+FREE 9223372036854775991
+ALLOC 9223372036854775992
+ACCESS 9223372036854775993
+FREE 9223372036854775994
+FREE 9223372036854775995
+ALLOC 9223372036854775996
+ACCESS 9223372036854775997
+ALLOC 9223372036854775998
+ACCESS 9223372036854775999
+ALLOC 9223372036854776000
+ACCESS 9223372036854776001
+FREE 9223372036854776002
+ALLOC 9223372036854776003
+ACCESS 9223372036854776004
+FREE 9223372036854776005
+FREE 9223372036854776006
+ALLOC 9223372036854776007
+ACCESS 9223372036854776008
+ALLOC 9223372036854776009
+ACCESS 9223372036854776010
+ALLOC 9223372036854776011
+ACCESS 9223372036854776012
+FREE 9223372036854776013
+ALLOC 9223372036854776014
+ACCESS 9223372036854776015
+FREE 9223372036854776016
+FREE 9223372036854776017
+ALLOC 9223372036854776018
+ACCESS 9223372036854776019
+ALLOC 9223372036854776020
+ACCESS 9223372036854776021
+FREE 9223372036854776022
+ALLOC 9223372036854776085
+ACCESS 9223372036854776086
+ACCESS 9223372036854776087
+FREE 9223372036854776088
+ALLOC 9223372036854776089
+ACCESS 9223372036854776090
+FREE 9223372036854776091
+FREE 9223372036854776092
+ALLOC 9223372036854776093
+ACCESS 9223372036854776094
+ALLOC 9223372036854776095
+ACCESS 9223372036854776096
+ALLOC 9223372036854776097
+ACCESS 9223372036854776098
+FREE 9223372036854776099
+ALLOC 9223372036854776100
+ACCESS 9223372036854776101
+FREE 9223372036854776102
+FREE 9223372036854776103
+ALLOC 9223372036854776104
+ACCESS 9223372036854776105
+ALLOC 9223372036854776106
+ACCESS 9223372036854776107
+ALLOC 9223372036854776108
+ACCESS 9223372036854776109
+FREE 9223372036854776110
+ALLOC 9223372036854776111
+ACCESS 9223372036854776112
+FREE 9223372036854776113
+FREE 9223372036854776114
+ALLOC 9223372036854776115
+ACCESS 9223372036854776116
+ALLOC 9223372036854776117
+ACCESS 9223372036854776118
+FREE 9223372036854776119
+ALLOC 9223372036854776182
+ACCESS 9223372036854776183
+ACCESS 9223372036854776184
+FREE 9223372036854776185
+ALLOC 9223372036854776186
+ACCESS 9223372036854776187
+FREE 9223372036854776188
+FREE 9223372036854776189
+ALLOC 9223372036854776190
+ACCESS 9223372036854776191
+ALLOC 9223372036854776192
+ACCESS 9223372036854776193
+ALLOC 9223372036854776194
+ACCESS 9223372036854776195
+FREE 9223372036854776196
+ALLOC 9223372036854776197
+ACCESS 9223372036854776198
+FREE 9223372036854776199
+FREE 9223372036854776200
+ALLOC 9223372036854776201
+ACCESS 9223372036854776202
+ALLOC 9223372036854776203
+ACCESS 9223372036854776204
+ALLOC 9223372036854776205
+ACCESS 9223372036854776206
+FREE 9223372036854776207
+ALLOC 9223372036854776208
+ACCESS 9223372036854776209
+FREE 9223372036854776210
+FREE 9223372036854776211
+ALLOC 9223372036854776212
+ACCESS 9223372036854776213
+ALLOC 9223372036854776214
+ACCESS 9223372036854776215
+FREE 9223372036854776216
+ALLOC 9223372036854776279
+ACCESS 9223372036854776280
+ACCESS 9223372036854776281
+FREE 9223372036854776282
+ALLOC 9223372036854776283
+ACCESS 9223372036854776284
+FREE 9223372036854776285
+FREE 9223372036854776286
+ALLOC 9223372036854776287
+ACCESS 9223372036854776288
+ALLOC 9223372036854776289
+ACCESS 9223372036854776290
+ALLOC 9223372036854776291
+ACCESS 9223372036854776292
+FREE 9223372036854776293
+ALLOC 9223372036854776294
+ACCESS 9223372036854776295
+FREE 9223372036854776296
+FREE 9223372036854776297
+ALLOC 9223372036854776298
+ACCESS 9223372036854776299
+ALLOC 9223372036854776300
+ACCESS 9223372036854776301
+ALLOC 9223372036854776302
+ACCESS 9223372036854776303
+FREE 9223372036854776304
+ALLOC 9223372036854776305
+ACCESS 9223372036854776306
+FREE 9223372036854776307
+FREE 9223372036854776308
+ALLOC 9223372036854776309
+ACCESS 9223372036854776310
+ALLOC 9223372036854776311
+ACCESS 9223372036854776312
+FREE 9223372036854776313
+FREE 9223372036854776335
+FREE 9223372036854776336
+FREE 9223372036854776337
+FREE 9223372036854776338
+FREE 9223372036854776339
+FREE 9223372036854776340
+FREE 9223372036854776341
+FREE 9223372036854776342
+FREE 9223372036854776343
+FREE 9223372036854776344
+FREE 9223372036854776345
+FREE 9223372036854776346
+FREE 9223372036854776347
+FREE 9223372036854776348
+FREE 9223372036854776349
+FREE 9223372036854776350
+FREE 9223372036854776351
+FREE 9223372036854776352
+FREE 9223372036854776353
+FREE 9223372036854776354
+FREE 9223372036854776355
+FREE 9223372036854776356
+FREE 9223372036854776357
+FREE 9223372036854776358
+FREE 9223372036854776359
+FREE 9223372036854776360
+FREE 9223372036854776361
+
+--------------------------------------------------
+FREE 9223372036854775901
+FREE 9223372036854776023
+FREE 9223372036854776120
+FREE 9223372036854776217
+FREE 9223372036854776314
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/_tensor.py
+	Function: backward
+	First line: 570
+	Call at line: 626
+(1)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+ALLOC 9223372036854775902
+ACCESS 9223372036854775903
+ALLOC 9223372036854775906
+ACCESS 9223372036854775907
+ALLOC 9223372036854775910
+ACCESS 9223372036854775911
+ALLOC 9223372036854775914
+ACCESS 9223372036854775915
+ALLOC 9223372036854775918
+ACCESS 9223372036854775919
+ALLOC 9223372036854775922
+ACCESS 9223372036854775923
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: _init_group
+	First line: 135
+	Call at line: 174
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: step
+	First line: 210
+	Call at line: 234
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: _use_grad
+	First line: 72
+	Call at line: 91
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: wrapper
+	First line: 473
+	Call at line: 493
+(4)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+ALLOC 9223372036854775904
+ACCESS 9223372036854775905
+ALLOC 9223372036854775908
+ACCESS 9223372036854775909
+ALLOC 9223372036854775912
+ACCESS 9223372036854775913
+ALLOC 9223372036854775916
+ACCESS 9223372036854775917
+ALLOC 9223372036854775920
+ACCESS 9223372036854775921
+ALLOC 9223372036854775924
+ACCESS 9223372036854775925
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: _init_group
+	First line: 135
+	Call at line: 178
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: step
+	First line: 210
+	Call at line: 234
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: _use_grad
+	First line: 72
+	Call at line: 91
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: wrapper
+	First line: 473
+	Call at line: 493
+(4)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+ACCESS 9223372036854775926
+ACCESS 9223372036854776024
+ACCESS 9223372036854776121
+ACCESS 9223372036854776218
+ACCESS 9223372036854776315
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: _multi_tensor_adam
+	First line: 485
+	Call at line: 619
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: adam
+	First line: 809
+	Call at line: 876
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: maybe_fallback
+	First line: 140
+	Call at line: 154
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: step
+	First line: 210
+	Call at line: 244
+(4)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: _use_grad
+	First line: 72
+	Call at line: 91
+(5)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: wrapper
+	First line: 473
+	Call at line: 493
+(6)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+ACCESS 9223372036854775927
+ACCESS 9223372036854776025
+ACCESS 9223372036854776122
+ACCESS 9223372036854776219
+ACCESS 9223372036854776316
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: _multi_tensor_adam
+	First line: 485
+	Call at line: 621
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: adam
+	First line: 809
+	Call at line: 876
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: maybe_fallback
+	First line: 140
+	Call at line: 154
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: step
+	First line: 210
+	Call at line: 244
+(4)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: _use_grad
+	First line: 72
+	Call at line: 91
+(5)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: wrapper
+	First line: 473
+	Call at line: 493
+(6)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+ACCESS 9223372036854775928
+ACCESS 9223372036854776026
+ACCESS 9223372036854776123
+ACCESS 9223372036854776220
+ACCESS 9223372036854776317
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: _multi_tensor_adam
+	First line: 485
+	Call at line: 634
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: adam
+	First line: 809
+	Call at line: 876
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: maybe_fallback
+	First line: 140
+	Call at line: 154
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: step
+	First line: 210
+	Call at line: 244
+(4)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: _use_grad
+	First line: 72
+	Call at line: 91
+(5)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: wrapper
+	First line: 473
+	Call at line: 493
+(6)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+ALLOC 9223372036854775929
+ALLOC 9223372036854775930
+ALLOC 9223372036854775931
+ALLOC 9223372036854775932
+ALLOC 9223372036854775933
+ALLOC 9223372036854775934
+ACCESS 9223372036854775935
+ALLOC 9223372036854776027
+ALLOC 9223372036854776028
+ALLOC 9223372036854776029
+ALLOC 9223372036854776030
+ALLOC 9223372036854776031
+ALLOC 9223372036854776032
+ACCESS 9223372036854776033
+ALLOC 9223372036854776124
+ALLOC 9223372036854776125
+ALLOC 9223372036854776126
+ALLOC 9223372036854776127
+ALLOC 9223372036854776128
+ALLOC 9223372036854776129
+ACCESS 9223372036854776130
+ALLOC 9223372036854776221
+ALLOC 9223372036854776222
+ALLOC 9223372036854776223
+ALLOC 9223372036854776224
+ALLOC 9223372036854776225
+ALLOC 9223372036854776226
+ACCESS 9223372036854776227
+ALLOC 9223372036854776318
+ALLOC 9223372036854776319
+ALLOC 9223372036854776320
+ALLOC 9223372036854776321
+ALLOC 9223372036854776322
+ALLOC 9223372036854776323
+ACCESS 9223372036854776324
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: _multi_tensor_adam
+	First line: 485
+	Call at line: 703
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: adam
+	First line: 809
+	Call at line: 876
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: maybe_fallback
+	First line: 140
+	Call at line: 154
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: step
+	First line: 210
+	Call at line: 244
+(4)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: _use_grad
+	First line: 72
+	Call at line: 91
+(5)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: wrapper
+	First line: 473
+	Call at line: 493
+(6)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+ACCESS 9223372036854775936
+ACCESS 9223372036854776034
+ACCESS 9223372036854776131
+ACCESS 9223372036854776228
+ACCESS 9223372036854776325
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: _multi_tensor_adam
+	First line: 485
+	Call at line: 705
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: adam
+	First line: 809
+	Call at line: 876
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: maybe_fallback
+	First line: 140
+	Call at line: 154
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: step
+	First line: 210
+	Call at line: 244
+(4)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: _use_grad
+	First line: 72
+	Call at line: 91
+(5)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: wrapper
+	First line: 473
+	Call at line: 493
+(6)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+ACCESS 9223372036854775937
+ACCESS 9223372036854776035
+ACCESS 9223372036854776132
+ACCESS 9223372036854776229
+ACCESS 9223372036854776326
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: _multi_tensor_adam
+	First line: 485
+	Call at line: 706
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: adam
+	First line: 809
+	Call at line: 876
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: maybe_fallback
+	First line: 140
+	Call at line: 154
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: step
+	First line: 210
+	Call at line: 244
+(4)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: _use_grad
+	First line: 72
+	Call at line: 91
+(5)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: wrapper
+	First line: 473
+	Call at line: 493
+(6)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+ACCESS 9223372036854775938
+ACCESS 9223372036854776036
+ACCESS 9223372036854776133
+ACCESS 9223372036854776230
+ACCESS 9223372036854776327
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: _multi_tensor_adam
+	First line: 485
+	Call at line: 707
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: adam
+	First line: 809
+	Call at line: 876
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: maybe_fallback
+	First line: 140
+	Call at line: 154
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: step
+	First line: 210
+	Call at line: 244
+(4)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: _use_grad
+	First line: 72
+	Call at line: 91
+(5)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: wrapper
+	First line: 473
+	Call at line: 493
+(6)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+FREE 9223372036854775939
+FREE 9223372036854775940
+FREE 9223372036854775941
+FREE 9223372036854775942
+FREE 9223372036854775943
+FREE 9223372036854775944
+FREE 9223372036854776037
+FREE 9223372036854776038
+FREE 9223372036854776039
+FREE 9223372036854776040
+FREE 9223372036854776041
+FREE 9223372036854776042
+FREE 9223372036854776134
+FREE 9223372036854776135
+FREE 9223372036854776136
+FREE 9223372036854776137
+FREE 9223372036854776138
+FREE 9223372036854776139
+FREE 9223372036854776231
+FREE 9223372036854776232
+FREE 9223372036854776233
+FREE 9223372036854776234
+FREE 9223372036854776235
+FREE 9223372036854776236
+FREE 9223372036854776328
+FREE 9223372036854776329
+FREE 9223372036854776330
+FREE 9223372036854776331
+FREE 9223372036854776332
+FREE 9223372036854776333
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: adam
+	First line: 809
+	Call at line: 876
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: maybe_fallback
+	First line: 140
+	Call at line: 154
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/adam.py
+	Function: step
+	First line: 210
+	Call at line: 244
+(3)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: _use_grad
+	First line: 72
+	Call at line: 91
+(4)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: wrapper
+	First line: 473
+	Call at line: 493
+(5)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+
+--------------------------------------------------
+FREE 9223372036854775980
+FREE 9223372036854775981
+FREE 9223372036854775982
+FREE 9223372036854775983
+FREE 9223372036854775984
+FREE 9223372036854775985
+FREE 9223372036854776077
+FREE 9223372036854776078
+FREE 9223372036854776079
+FREE 9223372036854776080
+FREE 9223372036854776081
+FREE 9223372036854776082
+FREE 9223372036854776174
+FREE 9223372036854776175
+FREE 9223372036854776176
+FREE 9223372036854776177
+FREE 9223372036854776178
+FREE 9223372036854776179
+FREE 9223372036854776271
+FREE 9223372036854776272
+FREE 9223372036854776273
+FREE 9223372036854776274
+FREE 9223372036854776275
+FREE 9223372036854776276
+(0)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/optim/optimizer.py
+	Function: zero_grad
+	First line: 939
+	Call at line: 975
+(1)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/_dynamo/eval_frame.py
+	Function: _fn
+	First line: 738
+	Call at line: 745
+(2)File: /home/jonathan/.local/lib/python3.10/site-packages/torch/_compile.py
+	Function: inner
+	First line: 22
+	Call at line: 32
+(3)File: /home/jonathan/mlpgo/runs/torch_ongpu/train_small.py
+	Function: <module>
+	First line: 1
+	Call at line: 32
+

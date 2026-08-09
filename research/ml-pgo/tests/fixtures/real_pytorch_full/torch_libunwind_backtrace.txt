@@ -1,0 +1,1920 @@
+--------------------------------------------------
+ALLOC 9223372036854775811
+ALLOC 9223372036854775814
+ALLOC 9223372036854775816
+ALLOC 9223372036854775818
+ALLOC 9223372036854775820
+ALLOC 9223372036854775822
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855376573: at::TensorBase at::detail::_empty_strided_generic<c10::ArrayRef<long> >(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType)+0x1565
+0x140502855348995: at::detail::empty_strided_generic(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType)+0x19
+0x140501687263290: at::detail::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>)+0x298
+0x140501687264911: at::detail::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x111
+0x140501689648426: at::native::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x58
+0x140501727061401: at::(anonymous namespace)::(anonymous namespace)::wrapper_CUDA__empty_strided(c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x1769
+0x140501727061840:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872707715: at::_ops::empty_strided::redispatch(c10::DispatchKeySet, c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x243
+0x140502876669614:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502873705364:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872980070: at::_ops::empty_strided::call(c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x1270
+0x140502859428199: at::empty_strided(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions)+0x487
+0x140502863418822: at::native::_to_copy(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>)+0x7686
+0x140502878616411:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502868991029: at::_ops::_to_copy::redispatch(c10::DispatchKeySet, at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>)+0x245
+0x140502876682179:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502868991029: at::_ops::_to_copy::redispatch(c10::DispatchKeySet, at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>)+0x245
+0x140502910464703: torch::autograd::VariableType::(anonymous namespace)::_to_copy(c10::DispatchKeySet, at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>)+0x687
+0x140502910465790:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870318106:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502869548798: at::_ops::_to_copy::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>)+0x926
+0x140502863399789: at::native::to(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, bool, std::optional<c10::MemoryFormat>)+0x285
+0x140502880801729:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502871990985:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502871351002: at::_ops::to_dtype_layout::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, bool, std::optional<c10::MemoryFormat>)+0x954
+0x140502567170747: torch::autograd::dispatch_to(at::Tensor const&, c10::Device, bool, bool, std::optional<c10::MemoryFormat>)+0x299
+0x140502567619653: torch::autograd::THPVariable_to(_object*, _object*, _object*)+0x1093
+0x94246159057095: _PyObject_GetDictPtr+0x407
+0x94246158965364: _PyEval_EvalFrameDefault+0x2052
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158965039: _PyEval_EvalFrameDefault+0x1727
+0x94246159107985: PyMethod_New+0x401
+0x94246158985394: _PyEval_EvalFrameDefault+0x22082
+0x94246159107985: PyMethod_New+0x401
+0x94246158985394: _PyEval_EvalFrameDefault+0x22082
+0x94246159107985: PyMethod_New+0x401
+0x94246158985394: _PyEval_EvalFrameDefault+0x22082
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775824
+ALLOC 9223372036854775946
+ALLOC 9223372036854776044
+ALLOC 9223372036854776141
+ALLOC 9223372036854776238
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501689648272: at::native::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x32
+0x140501727058096: at::(anonymous namespace)::(anonymous namespace)::wrapper_CUDA_memory_format_empty(c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x944
+0x140501727058411:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872708615: at::_ops::empty_memory_format::redispatch(c10::DispatchKeySet, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x231
+0x140502876681071:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502873694004:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872969978: at::_ops::empty_memory_format::call(c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x1194
+0x140502857340422: at::empty(c10::ArrayRef<long>, c10::TensorOptions, std::optional<c10::MemoryFormat>)+0x422
+0x140502863631508: at::native::randn(c10::ArrayRef<long>, std::optional<at::Generator>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x276
+0x140502863631908: at::native::randn(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x68
+0x140502878713983: at::(anonymous namespace)::(anonymous namespace)::wrapper_CompositeExplicitAutograd__randn(c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x191
+0x140502878714069:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502869126370: at::_ops::randn::redispatch(c10::DispatchKeySet, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x226
+0x140502876672229:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870229991:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502869454496: at::_ops::randn::call(c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x1136
+0x140502569012511: torch::autograd::THPVariable_randn(_object*, _object*, _object*)+0x8383
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158989666: _PyEval_EvalFrameDefault+0x26354
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775826
+ALLOC 9223372036854775949
+ALLOC 9223372036854776047
+ALLOC 9223372036854776144
+ALLOC 9223372036854776241
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501689648272: at::native::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x32
+0x140501727058096: at::(anonymous namespace)::(anonymous namespace)::wrapper_CUDA_memory_format_empty(c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x944
+0x140501727058411:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872708615: at::_ops::empty_memory_format::redispatch(c10::DispatchKeySet, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x231
+0x140502876681071:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502873694004:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872969978: at::_ops::empty_memory_format::call(c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x1194
+0x140502857340422: at::empty(c10::ArrayRef<long>, c10::TensorOptions, std::optional<c10::MemoryFormat>)+0x422
+0x140502863630312: at::native::randint(long, long, c10::ArrayRef<long>, std::optional<at::Generator>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x312
+0x140502863631108: at::native::randint(long, long, c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x68
+0x140502878725737: at::(anonymous namespace)::(anonymous namespace)::wrapper_CompositeExplicitAutograd_low_randint(c10::SymInt, c10::SymInt, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x297
+0x140502878782981:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872669934: at::_ops::randint_low::redispatch(c10::DispatchKeySet, c10::SymInt, c10::SymInt, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x382
+0x140502876688164:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502873522088: at::Tensor c10::callUnboxedKernelFunction<at::Tensor, c10::SymInt, c10::SymInt, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool> >(void*, c10::OperatorKernel*, c10::DispatchKeySet, c10::SymInt&&, c10::SymInt&&, c10::ArrayRef<c10::SymInt>&&, std::optional<c10::ScalarType>&&, std::optional<c10::Layout>&&, std::optional<c10::Device>&&, std::optional<bool>&&)+0x120
+0x140502873767019:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502873069709: at::_ops::randint_low::call(c10::SymInt, c10::SymInt, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x1725
+0x140502568644991: torch::autograd::THPVariable_randint(_object*, _object*, _object*)::{lambda(c10::SymInt, c10::SymInt, c10::ArrayRef<c10::SymInt>, c10::TensorOptions)#7}::operator()(c10::SymInt, c10::SymInt, c10::ArrayRef<c10::SymInt>, c10::TensorOptions) const [clone .isra.0]+0x703
+0x140502569018642: torch::autograd::THPVariable_randint(_object*, _object*, _object*)+0x4610
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158989666: _PyEval_EvalFrameDefault+0x26354
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775828
+ALLOC 9223372036854775841
+ALLOC 9223372036854775849
+ALLOC 9223372036854775952
+ALLOC 9223372036854775961
+ALLOC 9223372036854775969
+ALLOC 9223372036854776050
+ALLOC 9223372036854776058
+ALLOC 9223372036854776066
+ALLOC 9223372036854776147
+ALLOC 9223372036854776155
+ALLOC 9223372036854776163
+ALLOC 9223372036854776244
+ALLOC 9223372036854776252
+ALLOC 9223372036854776260
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501687262952: at::detail::empty_cuda(c10::ArrayRef<long>, c10::TensorOptions const&)+0x232
+0x140501727044971: at::(anonymous namespace)::create_out(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions const&)+0x27
+0x140501728214073: at::(anonymous namespace)::structured_addmm_out_cuda_functional::set_output_raw_strided(long, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions, c10::ArrayRef<at::Dimname>)+0x233
+0x140502861013086: at::meta::structured_addmm::meta(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x382
+0x140501727835876: at::(anonymous namespace)::wrapper_CUDA_addmm(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x228
+0x140501727836125:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502869048950: at::_ops::addmm::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x134
+0x140502910482241: torch::autograd::VariableType::(anonymous namespace)::addmm(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x433
+0x140502910486259:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870266120: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x632
+0x140502869490179: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x819
+0x140502860973388: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x1116
+0x140502880791763:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870161180: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x572
+0x140502869386182: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x806
+0x140502569068038: torch::autograd::THPVariable_linear(_object*, _object*, _object*)+0x1046
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158986311: _PyEval_EvalFrameDefault+0x22999
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775830
+ALLOC 9223372036854775842
+ALLOC 9223372036854775850
+ALLOC 9223372036854775954
+ALLOC 9223372036854775962
+ALLOC 9223372036854775970
+ALLOC 9223372036854776051
+ALLOC 9223372036854776059
+ALLOC 9223372036854776067
+ALLOC 9223372036854776148
+ALLOC 9223372036854776156
+ALLOC 9223372036854776164
+ALLOC 9223372036854776245
+ALLOC 9223372036854776253
+ALLOC 9223372036854776261
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501689648272: at::native::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x32
+0x140501727058096: at::(anonymous namespace)::(anonymous namespace)::wrapper_CUDA_memory_format_empty(c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x944
+0x140501727058411:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872708615: at::_ops::empty_memory_format::redispatch(c10::DispatchKeySet, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x231
+0x140502876681071:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502873694004:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872969978: at::_ops::empty_memory_format::call(c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x1194
+0x140501687350134: at::empty(c10::ArrayRef<long>, c10::TensorOptions, std::optional<c10::MemoryFormat>)+0x422
+0x140501730408026: void at::cuda::blas::gemm_and_bias<float>(bool, bool, long, long, long, at::OpMathType<float>::type, float const*, long, float const*, long, float const*, float*, long, at::cuda::blas::GEMMAndBiasActivationEpilogue)+0x778
+0x140501730811793: at::native::(anonymous namespace)::addmm_out_cuda_impl(at::Tensor&, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::native::(anonymous namespace)::Activation)::{lambda()#1}::operator()() const+0x273
+0x140501730822852: at::native::(anonymous namespace)::addmm_out_cuda_impl(at::Tensor&, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::native::(anonymous namespace)::Activation)+0x916
+0x140501727835916: at::(anonymous namespace)::wrapper_CUDA_addmm(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x268
+0x140501727836125:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502869048950: at::_ops::addmm::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x134
+0x140502910482241: torch::autograd::VariableType::(anonymous namespace)::addmm(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x433
+0x140502910486259:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870266120: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x632
+0x140502869490179: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x819
+0x140502860973388: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x1116
+0x140502880791763:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870161180: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x572
+0x140502869386182: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x806
+0x140502569068038: torch::autograd::THPVariable_linear(_object*, _object*, _object*)+0x1046
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158986311: _PyEval_EvalFrameDefault+0x22999
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775834
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140501730620073: at::cuda::getNewWorkspace()+0x41
+0x140501730621521: at::cuda::getCurrentCUDABlasHandle()+0x1425
+0x140501730408061: void at::cuda::blas::gemm_and_bias<float>(bool, bool, long, long, long, at::OpMathType<float>::type, float const*, long, float const*, long, float const*, float*, long, at::cuda::blas::GEMMAndBiasActivationEpilogue)+0x813
+0x140501730811793: at::native::(anonymous namespace)::addmm_out_cuda_impl(at::Tensor&, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::native::(anonymous namespace)::Activation)::{lambda()#1}::operator()() const+0x273
+0x140501730822852: at::native::(anonymous namespace)::addmm_out_cuda_impl(at::Tensor&, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::native::(anonymous namespace)::Activation)+0x916
+0x140501727835916: at::(anonymous namespace)::wrapper_CUDA_addmm(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x268
+0x140501727836125:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502869048950: at::_ops::addmm::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x134
+0x140502910482241: torch::autograd::VariableType::(anonymous namespace)::addmm(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x433
+0x140502910486259:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870266120: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x632
+0x140502869490179: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x819
+0x140502860973388: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x1116
+0x140502880791763:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870161180: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x572
+0x140502869386182: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x806
+0x140502569068038: torch::autograd::THPVariable_linear(_object*, _object*, _object*)+0x1046
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158986311: _PyEval_EvalFrameDefault+0x22999
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+FREE 9223372036854775837
+FREE 9223372036854775845
+FREE 9223372036854775852
+FREE 9223372036854775957
+FREE 9223372036854775965
+FREE 9223372036854775972
+FREE 9223372036854776054
+FREE 9223372036854776062
+FREE 9223372036854776069
+FREE 9223372036854776151
+FREE 9223372036854776159
+FREE 9223372036854776166
+FREE 9223372036854776248
+FREE 9223372036854776256
+FREE 9223372036854776263
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140501730408333: void at::cuda::blas::gemm_and_bias<float>(bool, bool, long, long, long, at::OpMathType<float>::type, float const*, long, float const*, long, float const*, float*, long, at::cuda::blas::GEMMAndBiasActivationEpilogue)+0x1085
+0x140501730811793: at::native::(anonymous namespace)::addmm_out_cuda_impl(at::Tensor&, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::native::(anonymous namespace)::Activation)::{lambda()#1}::operator()() const+0x273
+0x140501730822852: at::native::(anonymous namespace)::addmm_out_cuda_impl(at::Tensor&, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::native::(anonymous namespace)::Activation)+0x916
+0x140501727835916: at::(anonymous namespace)::wrapper_CUDA_addmm(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x268
+0x140501727836125:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502869048950: at::_ops::addmm::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x134
+0x140502910482241: torch::autograd::VariableType::(anonymous namespace)::addmm(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x433
+0x140502910486259:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870266120: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x632
+0x140502869490179: at::_ops::addmm::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&)+0x819
+0x140502860973388: at::native::linear(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x1116
+0x140502880791763:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870161180: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x572
+0x140502869386182: at::_ops::linear::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&)+0x806
+0x140502569068038: torch::autograd::THPVariable_linear(_object*, _object*, _object*)+0x1046
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158986311: _PyEval_EvalFrameDefault+0x22999
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775838
+ALLOC 9223372036854775846
+ALLOC 9223372036854775958
+ALLOC 9223372036854775966
+ALLOC 9223372036854776055
+ALLOC 9223372036854776063
+ALLOC 9223372036854776152
+ALLOC 9223372036854776160
+ALLOC 9223372036854776249
+ALLOC 9223372036854776257
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501687262952: at::detail::empty_cuda(c10::ArrayRef<long>, c10::TensorOptions const&)+0x232
+0x140501727044971: at::(anonymous namespace)::create_out(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions const&)+0x27
+0x140501728433862: at::(anonymous namespace)::structured_clamp_min_out_functional::set_output_raw_strided(long, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions, c10::ArrayRef<at::Dimname>)+0x198
+0x140502856102838: at::TensorIteratorBase::fast_set_up(at::TensorIteratorConfig const&)+0x1398
+0x140502856121466: at::TensorIteratorBase::build(at::TensorIteratorConfig&)+0x122
+0x140502856127110: at::TensorIteratorBase::build_borrowing_unary_op(at::TensorBase const&, at::TensorBase const&)+0x150
+0x140502863356542: at::meta::structured_clamp_min::meta(at::Tensor const&, c10::Scalar const&)+0x110
+0x140501727840813: at::(anonymous namespace)::wrapper_CUDA_clamp_min(at::Tensor const&, c10::Scalar const&)+0x285
+0x140501727840992:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870126761: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, c10::Scalar const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, c10::Scalar const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, c10::Scalar const&)+0x441
+0x140502874620392: at::_ops::clamp_min::call(at::Tensor const&, c10::Scalar const&)+0x744
+0x140502858849930: at::native::relu(at::Tensor const&)+0x58
+0x140501727067923: at::(anonymous namespace)::(anonymous namespace)::wrapper_CUDA__relu(at::Tensor const&)+0x131
+0x140501727068077:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502875587275: at::_ops::relu::redispatch(c10::DispatchKeySet, at::Tensor const&)+0x107
+0x140502914704913: torch::autograd::VariableType::(anonymous namespace)::relu(c10::DispatchKeySet, at::Tensor const&)+0x257
+0x140502914706528:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870043762: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&)+0x290
+0x140502875870575: at::_ops::relu::call(at::Tensor const&)+0x367
+0x140502568664276: torch::autograd::THPVariable_relu(_object*, _object*, _object*)+0x676
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158969667: _PyEval_EvalFrameDefault+0x6355
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158986311: _PyEval_EvalFrameDefault+0x22999
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+FREE 9223372036854775840
+FREE 9223372036854775848
+FREE 9223372036854775960
+FREE 9223372036854775968
+FREE 9223372036854776057
+FREE 9223372036854776065
+FREE 9223372036854776154
+FREE 9223372036854776162
+FREE 9223372036854776251
+FREE 9223372036854776259
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502570549176: THPVariable_subclass_clear(THPVariable*)+0x728
+0x140502570550022: THPVariable_subclass_dealloc(_object*)+0x758
+0x94246158985560: _PyEval_EvalFrameDefault+0x22248
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158986311: _PyEval_EvalFrameDefault+0x22999
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775853
+ALLOC 9223372036854775973
+ALLOC 9223372036854776070
+ALLOC 9223372036854776167
+ALLOC 9223372036854776264
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501687262952: at::detail::empty_cuda(c10::ArrayRef<long>, c10::TensorOptions const&)+0x232
+0x140501727044971: at::(anonymous namespace)::create_out(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions const&)+0x27
+0x140501728240697: at::(anonymous namespace)::structured_log_softmax_cuda_out_functional::set_output_raw_strided(long, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions, c10::ArrayRef<at::Dimname>)+0x233
+0x140502862803921: at::meta::structured__log_softmax::meta(at::Tensor const&, long, bool)+0x833
+0x140501727780936: at::(anonymous namespace)::wrapper_CUDA__log_softmax(at::Tensor const&, long, bool)+0x136
+0x140501727781140:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502868934656: at::_ops::_log_softmax::redispatch(c10::DispatchKeySet, at::Tensor const&, long, bool)+0x128
+0x140502910450024: torch::autograd::VariableType::(anonymous namespace)::_log_softmax(c10::DispatchKeySet, at::Tensor const&, long, bool)+0x680
+0x140502910451511:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870184349: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, long, bool>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, long, bool)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, long, bool)+0x493
+0x140502869407143: at::_ops::_log_softmax::call(at::Tensor const&, long, bool)+0x791
+0x140502862815469: at::native::log_softmax(at::Tensor const&, long, std::optional<c10::ScalarType>)+0x125
+0x140502880792227:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870107761: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, long, std::optional<c10::ScalarType> >(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, long, std::optional<c10::ScalarType>)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, long, std::optional<c10::ScalarType>)+0x481
+0x140502873018424: at::_ops::log_softmax_int::call(at::Tensor const&, long, std::optional<c10::ScalarType>)+0x760
+0x140502861458243: at::native::cross_entropy_loss_symint(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x1667
+0x140502880898754: at::(anonymous namespace)::(anonymous namespace)::wrapper_CompositeImplicitAutograd__cross_entropy_loss(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x98
+0x140502880899609:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502875336981: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x565
+0x140502874863049: at::_ops::cross_entropy_loss::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x1225
+0x140502569104659: torch::autograd::THPVariable_cross_entropy_loss(_object*, _object*, _object*)+0x915
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158969667: _PyEval_EvalFrameDefault+0x6355
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158986311: _PyEval_EvalFrameDefault+0x22999
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775855
+ALLOC 9223372036854775975
+ALLOC 9223372036854776072
+ALLOC 9223372036854776169
+ALLOC 9223372036854776266
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501687262952: at::detail::empty_cuda(c10::ArrayRef<long>, c10::TensorOptions const&)+0x232
+0x140501727044971: at::(anonymous namespace)::create_out(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions const&)+0x27
+0x140501728208249: at::(anonymous namespace)::structured_nll_loss_forward_out_cuda_functional::set_output_raw_strided(long, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions, c10::ArrayRef<at::Dimname>)+0x233
+0x140502861471138: at::meta::structured_nll_loss_forward::meta(at::Tensor const&, at::Tensor const&, at::OptionalTensorRef, long, long)+0x498
+0x140501727958705: at::(anonymous namespace)::wrapper_CUDA_nll_loss_forward(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, long)+0x209
+0x140501727959053:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872623656: at::_ops::nll_loss_forward::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x424
+0x140502912572311: torch::autograd::VariableType::(anonymous namespace)::nll_loss_forward(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x439
+0x140502912575248:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872083999: std::tuple<at::Tensor, at::Tensor> c10::Dispatcher::callWithDispatchKeySlowPath<std::tuple<at::Tensor, at::Tensor>, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt>(c10::TypedOperatorHandle<std::tuple<at::Tensor, at::Tensor> (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x511
+0x140502873270201: at::_ops::nll_loss_forward::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x1193
+0x140502861400568: at::native::nll_loss_symint(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x168
+0x140502880895394: at::(anonymous namespace)::(anonymous namespace)::wrapper_CompositeImplicitAutograd__nll_loss(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x82
+0x140502880895897:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872077807: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x511
+0x140502874907033: at::_ops::nll_loss::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x1193
+0x140502861474007: at::native::nll_loss_nd_symint(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x871
+0x140502880896402: at::(anonymous namespace)::(anonymous namespace)::wrapper_CompositeImplicitAutograd__nll_loss_nd(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x82
+0x140502880897225:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872077807: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x511
+0x140502871469833: at::_ops::nll_loss_nd::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x1193
+0x140502861458307: at::native::cross_entropy_loss_symint(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x1731
+0x140502880898754: at::(anonymous namespace)::(anonymous namespace)::wrapper_CompositeImplicitAutograd__cross_entropy_loss(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x98
+0x140502880899609:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502875336981: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x565
+0x140502874863049: at::_ops::cross_entropy_loss::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x1225
+0x140502569104659: torch::autograd::THPVariable_cross_entropy_loss(_object*, _object*, _object*)+0x915
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158969667: _PyEval_EvalFrameDefault+0x6355
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158986311: _PyEval_EvalFrameDefault+0x22999
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775856
+ALLOC 9223372036854775976
+ALLOC 9223372036854776073
+ALLOC 9223372036854776170
+ALLOC 9223372036854776267
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501687262952: at::detail::empty_cuda(c10::ArrayRef<long>, c10::TensorOptions const&)+0x232
+0x140501727044971: at::(anonymous namespace)::create_out(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions const&)+0x27
+0x140501728208249: at::(anonymous namespace)::structured_nll_loss_forward_out_cuda_functional::set_output_raw_strided(long, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions, c10::ArrayRef<at::Dimname>)+0x233
+0x140502861471026: at::meta::structured_nll_loss_forward::meta(at::Tensor const&, at::Tensor const&, at::OptionalTensorRef, long, long)+0x386
+0x140501727958705: at::(anonymous namespace)::wrapper_CUDA_nll_loss_forward(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, long)+0x209
+0x140501727959053:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872623656: at::_ops::nll_loss_forward::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x424
+0x140502912572311: torch::autograd::VariableType::(anonymous namespace)::nll_loss_forward(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x439
+0x140502912575248:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872083999: std::tuple<at::Tensor, at::Tensor> c10::Dispatcher::callWithDispatchKeySlowPath<std::tuple<at::Tensor, at::Tensor>, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt>(c10::TypedOperatorHandle<std::tuple<at::Tensor, at::Tensor> (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x511
+0x140502873270201: at::_ops::nll_loss_forward::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x1193
+0x140502861400568: at::native::nll_loss_symint(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x168
+0x140502880895394: at::(anonymous namespace)::(anonymous namespace)::wrapper_CompositeImplicitAutograd__nll_loss(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x82
+0x140502880895897:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872077807: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x511
+0x140502874907033: at::_ops::nll_loss::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x1193
+0x140502861474007: at::native::nll_loss_nd_symint(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x871
+0x140502880896402: at::(anonymous namespace)::(anonymous namespace)::wrapper_CompositeImplicitAutograd__nll_loss_nd(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x82
+0x140502880897225:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872077807: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x511
+0x140502871469833: at::_ops::nll_loss_nd::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt)+0x1193
+0x140502861458307: at::native::cross_entropy_loss_symint(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x1731
+0x140502880898754: at::(anonymous namespace)::(anonymous namespace)::wrapper_CompositeImplicitAutograd__cross_entropy_loss(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x98
+0x140502880899609:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502875336981: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x565
+0x140502874863049: at::_ops::cross_entropy_loss::call(at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, double)+0x1225
+0x140502569104659: torch::autograd::THPVariable_cross_entropy_loss(_object*, _object*, _object*)+0x915
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158969667: _PyEval_EvalFrameDefault+0x6355
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159108318: PyMethod_New+0x734
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159010100: _PyObject_FastCallDictTstate+0x196
+0x94246159096044: _PyObject_Call_Prepend+0x92
+0x94246160173988: PyInit__datetime+0x2356
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158986311: _PyEval_EvalFrameDefault+0x22999
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+FREE 9223372036854775858
+FREE 9223372036854775978
+FREE 9223372036854776075
+FREE 9223372036854776172
+FREE 9223372036854776269
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502570549176: THPVariable_subclass_clear(THPVariable*)+0x728
+0x140502570550022: THPVariable_subclass_dealloc(_object*)+0x758
+0x94246158965202: _PyEval_EvalFrameDefault+0x1890
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775859
+ALLOC 9223372036854775986
+ALLOC 9223372036854776083
+ALLOC 9223372036854776180
+ALLOC 9223372036854776277
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855376573: at::TensorBase at::detail::_empty_strided_generic<c10::ArrayRef<long> >(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType)+0x1565
+0x140502855348995: at::detail::empty_strided_generic(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType)+0x19
+0x140501687263290: at::detail::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>)+0x298
+0x140501687264911: at::detail::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x111
+0x140501689648426: at::native::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x58
+0x140501727061401: at::(anonymous namespace)::(anonymous namespace)::wrapper_CUDA__empty_strided(c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x1769
+0x140501727061840:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872707715: at::_ops::empty_strided::redispatch(c10::DispatchKeySet, c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x243
+0x140502876669614:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502873705364:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872980070: at::_ops::empty_strided::call(c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x1270
+0x140502863657632: at::native::empty_like(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x2512
+0x140502878601909:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502871940771:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502874694883: at::_ops::empty_like::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x915
+0x140502863626971: at::native::ones_like(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x59
+0x140502878609173:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502871940771:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502873047043: at::_ops::ones_like::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x915
+0x140502568548259: torch::autograd::THPVariable_ones_like(_object*, _object*, _object*)+0x1619
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158989666: _PyEval_EvalFrameDefault+0x26354
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158969667: _PyEval_EvalFrameDefault+0x6355
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158969667: _PyEval_EvalFrameDefault+0x6355
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158965364: _PyEval_EvalFrameDefault+0x2052
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775861
+ALLOC 9223372036854775988
+ALLOC 9223372036854776085
+ALLOC 9223372036854776182
+ALLOC 9223372036854776279
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501687262952: at::detail::empty_cuda(c10::ArrayRef<long>, c10::TensorOptions const&)+0x232
+0x140501727044971: at::(anonymous namespace)::create_out(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions const&)+0x27
+0x140501728272729: at::(anonymous namespace)::structured_nll_loss_backward_out_cuda_functional::set_output_raw_strided(long, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions, c10::ArrayRef<at::Dimname>)+0x233
+0x140502861468944: at::meta::structured_nll_loss_backward::meta(at::Tensor const&, at::Tensor const&, at::Tensor const&, at::OptionalTensorRef, long, long, at::Tensor const&)+0x448
+0x140501727959440: at::(anonymous namespace)::wrapper_CUDA_nll_loss_backward(at::Tensor const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, long, at::Tensor const&)+0x272
+0x140501727959717:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502874360806: at::_ops::nll_loss_backward::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, at::Tensor const&)+0x438
+0x140502913993754: torch::autograd::VariableType::(anonymous namespace)::nll_loss_backward(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, at::Tensor const&)+0x778
+0x140502913995958:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872088258: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, at::Tensor const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, at::Tensor const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, at::Tensor const&)+0x626
+0x140502874910530: at::_ops::nll_loss_backward::call(at::Tensor const&, at::Tensor const&, at::Tensor const&, std::optional<at::Tensor> const&, long, c10::SymInt, at::Tensor const&)+0x1186
+0x140502909321857: torch::autograd::generated::NllLossBackward0::apply(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x721
+0x140502923077627: torch::autograd::Node::operator()(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x859
+0x140502923048406: torch::autograd::Engine::evaluate_function(std::shared_ptr<torch::autograd::GraphTask>&, torch::autograd::Node*, torch::autograd::InputBuffer&, std::shared_ptr<torch::autograd::ReadyQueue> const&)+0x5734
+0x140502923051663: torch::autograd::Engine::thread_main(std::shared_ptr<torch::autograd::GraphTask> const&)+0x1695
+0x140502923017263: torch::autograd::Engine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x319
+0x140502570378156: torch::autograd::python::PythonEngine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x92
+0x140503185248851: std::error_code::default_error_condition() const+0x51
+0x140503201041452: monitor_begin_thread+0x449
+0x140503197960899: pthread_condattr_setpshared+0x1299
+0x140503198558288: __xmknodat+0x560
+
+--------------------------------------------------
+FREE 9223372036854775864
+FREE 9223372036854775991
+FREE 9223372036854776088
+FREE 9223372036854776185
+FREE 9223372036854776282
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502923340124: torch::autograd::SavedVariable::reset_data()+0x236
+0x140502909851465: torch::autograd::generated::NllLossBackward0::release_variables()+0x89
+0x140502923049342: torch::autograd::Engine::evaluate_function(std::shared_ptr<torch::autograd::GraphTask>&, torch::autograd::Node*, torch::autograd::InputBuffer&, std::shared_ptr<torch::autograd::ReadyQueue> const&)+0x6670
+0x140502923051663: torch::autograd::Engine::thread_main(std::shared_ptr<torch::autograd::GraphTask> const&)+0x1695
+0x140502923017263: torch::autograd::Engine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x319
+0x140502570378156: torch::autograd::python::PythonEngine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x92
+0x140503185248851: std::error_code::default_error_condition() const+0x51
+0x140503201041452: monitor_begin_thread+0x449
+0x140503197960899: pthread_condattr_setpshared+0x1299
+0x140503198558288: __xmknodat+0x560
+
+--------------------------------------------------
+ALLOC 9223372036854775865
+ALLOC 9223372036854775992
+ALLOC 9223372036854776089
+ALLOC 9223372036854776186
+ALLOC 9223372036854776283
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501687262952: at::detail::empty_cuda(c10::ArrayRef<long>, c10::TensorOptions const&)+0x232
+0x140501727044971: at::(anonymous namespace)::create_out(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions const&)+0x27
+0x140501728291033: at::(anonymous namespace)::structured_log_softmax_backward_cuda_out_functional::set_output_raw_strided(long, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions, c10::ArrayRef<at::Dimname>)+0x233
+0x140502862806524: at::meta::structured__log_softmax_backward_data::meta(at::Tensor const&, at::Tensor const&, long, c10::ScalarType)+0x780
+0x140501727809101: at::(anonymous namespace)::wrapper_CUDA__log_softmax_backward_data(at::Tensor const&, at::Tensor const&, long, c10::ScalarType)+0x205
+0x140501727809337:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870787820: at::_ops::_log_softmax_backward_data::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, long, c10::ScalarType)+0x140
+0x140502911882810: torch::autograd::VariableType::(anonymous namespace)::_log_softmax_backward_data(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, long, c10::ScalarType)+0x586
+0x140502911884556:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502871915108: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, long, c10::ScalarType>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, long, c10::ScalarType)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, long, c10::ScalarType)+0x564
+0x140502871250094: at::_ops::_log_softmax_backward_data::call(at::Tensor const&, at::Tensor const&, long, c10::ScalarType)+0x798
+0x140502909333140: torch::autograd::generated::LogSoftmaxBackward0::apply(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x404
+0x140502923077627: torch::autograd::Node::operator()(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x859
+0x140502923048406: torch::autograd::Engine::evaluate_function(std::shared_ptr<torch::autograd::GraphTask>&, torch::autograd::Node*, torch::autograd::InputBuffer&, std::shared_ptr<torch::autograd::ReadyQueue> const&)+0x5734
+0x140502923051663: torch::autograd::Engine::thread_main(std::shared_ptr<torch::autograd::GraphTask> const&)+0x1695
+0x140502923017263: torch::autograd::Engine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x319
+0x140502570378156: torch::autograd::python::PythonEngine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x92
+0x140503185248851: std::error_code::default_error_condition() const+0x51
+0x140503201041452: monitor_begin_thread+0x449
+0x140503197960899: pthread_condattr_setpshared+0x1299
+0x140503198558288: __xmknodat+0x560
+
+--------------------------------------------------
+FREE 9223372036854775867
+FREE 9223372036854775879
+FREE 9223372036854775882
+FREE 9223372036854775890
+FREE 9223372036854775893
+FREE 9223372036854775900
+FREE 9223372036854775994
+FREE 9223372036854776002
+FREE 9223372036854776005
+FREE 9223372036854776013
+FREE 9223372036854776016
+FREE 9223372036854776022
+FREE 9223372036854776091
+FREE 9223372036854776099
+FREE 9223372036854776102
+FREE 9223372036854776110
+FREE 9223372036854776113
+FREE 9223372036854776119
+FREE 9223372036854776188
+FREE 9223372036854776196
+FREE 9223372036854776199
+FREE 9223372036854776207
+FREE 9223372036854776210
+FREE 9223372036854776216
+FREE 9223372036854776285
+FREE 9223372036854776293
+FREE 9223372036854776296
+FREE 9223372036854776304
+FREE 9223372036854776307
+FREE 9223372036854776313
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502855455944: std::vector<at::Tensor, std::allocator<at::Tensor> >::~vector()+0x136
+0x140502923045580: torch::autograd::Engine::evaluate_function(std::shared_ptr<torch::autograd::GraphTask>&, torch::autograd::Node*, torch::autograd::InputBuffer&, std::shared_ptr<torch::autograd::ReadyQueue> const&)+0x2908
+0x140502923051663: torch::autograd::Engine::thread_main(std::shared_ptr<torch::autograd::GraphTask> const&)+0x1695
+0x140502923017263: torch::autograd::Engine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x319
+0x140502570378156: torch::autograd::python::PythonEngine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x92
+0x140503185248851: std::error_code::default_error_condition() const+0x51
+0x140503201041452: monitor_begin_thread+0x449
+0x140503197960899: pthread_condattr_setpshared+0x1299
+0x140503198558288: __xmknodat+0x560
+
+--------------------------------------------------
+FREE 9223372036854775868
+FREE 9223372036854775995
+FREE 9223372036854776092
+FREE 9223372036854776189
+FREE 9223372036854776286
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502923340124: torch::autograd::SavedVariable::reset_data()+0x236
+0x140502909810917: torch::autograd::generated::LogSoftmaxBackward0::release_variables()+0x53
+0x140502923049342: torch::autograd::Engine::evaluate_function(std::shared_ptr<torch::autograd::GraphTask>&, torch::autograd::Node*, torch::autograd::InputBuffer&, std::shared_ptr<torch::autograd::ReadyQueue> const&)+0x6670
+0x140502923051663: torch::autograd::Engine::thread_main(std::shared_ptr<torch::autograd::GraphTask> const&)+0x1695
+0x140502923017263: torch::autograd::Engine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x319
+0x140502570378156: torch::autograd::python::PythonEngine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x92
+0x140503185248851: std::error_code::default_error_condition() const+0x51
+0x140503201041452: monitor_begin_thread+0x449
+0x140503197960899: pthread_condattr_setpshared+0x1299
+0x140503198558288: __xmknodat+0x560
+
+--------------------------------------------------
+ALLOC 9223372036854775869
+ALLOC 9223372036854775884
+ALLOC 9223372036854775996
+ALLOC 9223372036854776007
+ALLOC 9223372036854776093
+ALLOC 9223372036854776104
+ALLOC 9223372036854776190
+ALLOC 9223372036854776201
+ALLOC 9223372036854776287
+ALLOC 9223372036854776298
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501687262952: at::detail::empty_cuda(c10::ArrayRef<long>, c10::TensorOptions const&)+0x232
+0x140501727044971: at::(anonymous namespace)::create_out(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions const&)+0x27
+0x140501728222809: at::(anonymous namespace)::structured_mm_out_cuda_functional::set_output_raw_strided(long, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions, c10::ArrayRef<at::Dimname>)+0x233
+0x140502861015396: at::meta::structured_mm::meta(at::Tensor const&, at::Tensor const&)+0x292
+0x140501727787132: at::(anonymous namespace)::wrapper_CUDA_mm(at::Tensor const&, at::Tensor const&)+0x188
+0x140501727787344:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502874233358: at::_ops::mm::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&)+0x110
+0x140502913597795: torch::autograd::VariableType::(anonymous namespace)::mm(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&)+0x291
+0x140502913600755:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870073691: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&)+0x443
+0x140502874559512: at::_ops::mm::call(at::Tensor const&, at::Tensor const&)+0x408
+0x140502932706285: torch::autograd::generated::details::mm_mat1_backward(at::Tensor const&, at::Tensor const&, c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, c10::Layout, c10::Scalar const&)+0x253
+0x140502909166861: torch::autograd::generated::AddmmBackward0::apply(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x877
+0x140502923077627: torch::autograd::Node::operator()(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x859
+0x140502923048406: torch::autograd::Engine::evaluate_function(std::shared_ptr<torch::autograd::GraphTask>&, torch::autograd::Node*, torch::autograd::InputBuffer&, std::shared_ptr<torch::autograd::ReadyQueue> const&)+0x5734
+0x140502923051663: torch::autograd::Engine::thread_main(std::shared_ptr<torch::autograd::GraphTask> const&)+0x1695
+0x140502923017263: torch::autograd::Engine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x319
+0x140502570378156: torch::autograd::python::PythonEngine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x92
+0x140503185248851: std::error_code::default_error_condition() const+0x51
+0x140503201041452: monitor_begin_thread+0x449
+0x140503197960899: pthread_condattr_setpshared+0x1299
+0x140503198558288: __xmknodat+0x560
+
+--------------------------------------------------
+ALLOC 9223372036854775873
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140501730620073: at::cuda::getNewWorkspace()+0x41
+0x140501730621521: at::cuda::getCurrentCUDABlasHandle()+0x1425
+0x140501730256805: void at::cuda::blas::gemm_internal_cublas<float>(char, char, long, long, long, at::OpMathType<float>::type, float const*, long, float const*, long, at::OpMathType<float>::type, float*, long)+0x85
+0x140501730281495: void at::cuda::blas::gemm<float>(char, char, long, long, long, at::OpMathType<float>::type, float const*, long, float const*, long, at::OpMathType<float>::type, float*, long)+0x855
+0x140501730825375: at::native::(anonymous namespace)::addmm_out_cuda_impl(at::Tensor&, at::Tensor const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&, c10::Scalar const&, at::native::(anonymous namespace)::Activation)+0x3439
+0x140501730826522: at::native::structured_mm_out_cuda::impl(at::Tensor const&, at::Tensor const&, at::Tensor const&)+0x74
+0x140501727787154: at::(anonymous namespace)::wrapper_CUDA_mm(at::Tensor const&, at::Tensor const&)+0x210
+0x140501727787344:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502874233358: at::_ops::mm::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&)+0x110
+0x140502913597795: torch::autograd::VariableType::(anonymous namespace)::mm(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&)+0x291
+0x140502913600755:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870073691: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&)+0x443
+0x140502874559512: at::_ops::mm::call(at::Tensor const&, at::Tensor const&)+0x408
+0x140502932706285: torch::autograd::generated::details::mm_mat1_backward(at::Tensor const&, at::Tensor const&, c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, c10::Layout, c10::Scalar const&)+0x253
+0x140502909166861: torch::autograd::generated::AddmmBackward0::apply(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x877
+0x140502923077627: torch::autograd::Node::operator()(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x859
+0x140502923048406: torch::autograd::Engine::evaluate_function(std::shared_ptr<torch::autograd::GraphTask>&, torch::autograd::Node*, torch::autograd::InputBuffer&, std::shared_ptr<torch::autograd::ReadyQueue> const&)+0x5734
+0x140502923051663: torch::autograd::Engine::thread_main(std::shared_ptr<torch::autograd::GraphTask> const&)+0x1695
+0x140502923017263: torch::autograd::Engine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x319
+0x140502570378156: torch::autograd::python::PythonEngine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x92
+0x140503185248851: std::error_code::default_error_condition() const+0x51
+0x140503201041452: monitor_begin_thread+0x449
+0x140503197960899: pthread_condattr_setpshared+0x1299
+0x140503198558288: __xmknodat+0x560
+
+--------------------------------------------------
+ALLOC 9223372036854775875
+ALLOC 9223372036854775886
+ALLOC 9223372036854775896
+ALLOC 9223372036854775998
+ALLOC 9223372036854776009
+ALLOC 9223372036854776018
+ALLOC 9223372036854776095
+ALLOC 9223372036854776106
+ALLOC 9223372036854776115
+ALLOC 9223372036854776192
+ALLOC 9223372036854776203
+ALLOC 9223372036854776212
+ALLOC 9223372036854776289
+ALLOC 9223372036854776300
+ALLOC 9223372036854776309
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501687262952: at::detail::empty_cuda(c10::ArrayRef<long>, c10::TensorOptions const&)+0x232
+0x140501727044971: at::(anonymous namespace)::create_out(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions const&)+0x27
+0x140501728222809: at::(anonymous namespace)::structured_mm_out_cuda_functional::set_output_raw_strided(long, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions, c10::ArrayRef<at::Dimname>)+0x233
+0x140502861015396: at::meta::structured_mm::meta(at::Tensor const&, at::Tensor const&)+0x292
+0x140501727787132: at::(anonymous namespace)::wrapper_CUDA_mm(at::Tensor const&, at::Tensor const&)+0x188
+0x140501727787344:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502874233358: at::_ops::mm::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&)+0x110
+0x140502913597795: torch::autograd::VariableType::(anonymous namespace)::mm(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&)+0x291
+0x140502913600755:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870073691: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&)+0x443
+0x140502874559512: at::_ops::mm::call(at::Tensor const&, at::Tensor const&)+0x408
+0x140502932707299: torch::autograd::generated::details::mm_mat2_backward(at::Tensor const&, at::Tensor const&, c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, c10::Layout, c10::Scalar const&)+0x467
+0x140502909166973: torch::autograd::generated::AddmmBackward0::apply(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x989
+0x140502923077627: torch::autograd::Node::operator()(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x859
+0x140502923048406: torch::autograd::Engine::evaluate_function(std::shared_ptr<torch::autograd::GraphTask>&, torch::autograd::Node*, torch::autograd::InputBuffer&, std::shared_ptr<torch::autograd::ReadyQueue> const&)+0x5734
+0x140502923051663: torch::autograd::Engine::thread_main(std::shared_ptr<torch::autograd::GraphTask> const&)+0x1695
+0x140502923017263: torch::autograd::Engine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x319
+0x140502570378156: torch::autograd::python::PythonEngine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x92
+0x140503185248851: std::error_code::default_error_condition() const+0x51
+0x140503201041452: monitor_begin_thread+0x449
+0x140503197960899: pthread_condattr_setpshared+0x1299
+0x140503198558288: __xmknodat+0x560
+
+--------------------------------------------------
+ALLOC 9223372036854775877
+ALLOC 9223372036854775888
+ALLOC 9223372036854775898
+ALLOC 9223372036854776000
+ALLOC 9223372036854776011
+ALLOC 9223372036854776020
+ALLOC 9223372036854776097
+ALLOC 9223372036854776108
+ALLOC 9223372036854776117
+ALLOC 9223372036854776194
+ALLOC 9223372036854776205
+ALLOC 9223372036854776214
+ALLOC 9223372036854776291
+ALLOC 9223372036854776302
+ALLOC 9223372036854776311
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501687262952: at::detail::empty_cuda(c10::ArrayRef<long>, c10::TensorOptions const&)+0x232
+0x140501727044971: at::(anonymous namespace)::create_out(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions const&)+0x27
+0x140501728266073: at::(anonymous namespace)::structured_sum_out_functional::set_output_raw_strided(long, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions, c10::ArrayRef<at::Dimname>)+0x233
+0x140502862550317: at::meta::resize_reduction(at::impl::MetaBase&, at::Tensor const&, c10::OptionalArrayRef<long>, bool, c10::ScalarType, bool)+0x1533
+0x140502862469695: at::meta::structured_sum_dim_IntList::meta(at::Tensor const&, c10::OptionalArrayRef<long>, bool, std::optional<c10::ScalarType>)+0x79
+0x140501727774930: at::(anonymous namespace)::wrapper_CUDA_sum_dim_IntList(at::Tensor const&, c10::OptionalArrayRef<long>, bool, std::optional<c10::ScalarType>)+0x98
+0x140501727775129:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872585392: at::_ops::sum_dim_IntList::redispatch(c10::DispatchKeySet, at::Tensor const&, c10::OptionalArrayRef<long>, bool, std::optional<c10::ScalarType>)+0x224
+0x140502912665734: torch::autograd::VariableType::(anonymous namespace)::sum_dim_IntList(c10::DispatchKeySet, at::Tensor const&, c10::OptionalArrayRef<long>, bool, std::optional<c10::ScalarType>)+0x326
+0x140502912667550:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502873792960: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, c10::OptionalArrayRef<long>, bool, std::optional<c10::ScalarType> >(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, c10::OptionalArrayRef<long>, bool, std::optional<c10::ScalarType>)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, c10::OptionalArrayRef<long>, bool, std::optional<c10::ScalarType>)+0x688
+0x140502873102127: at::_ops::sum_dim_IntList::call(at::Tensor const&, c10::OptionalArrayRef<long>, bool, std::optional<c10::ScalarType>)+0x895
+0x140502855439796: at::Tensor at::_sum_to<c10::SymInt>(at::Tensor, c10::ArrayRef<c10::SymInt>, bool)+0x932
+0x140502923203133: torch::autograd::InputMetadata::reduce_grad(at::Tensor&) const+0x93
+0x140502923203513: torch::autograd::InputMetadata::maybe_reduce(unsigned long, at::Tensor, std::function<std::string (std::string const&)> const&) const+0x169
+0x140502923060436: void torch::autograd::validate_outputs_impl<torch::autograd::Edge>(std::vector<torch::autograd::Edge, std::allocator<torch::autograd::Edge> > const&, std::vector<at::Tensor, std::allocator<at::Tensor> >&, std::function<std::string (std::string const&)> const&)+0x212
+0x140502923044916: torch::autograd::Engine::evaluate_function(std::shared_ptr<torch::autograd::GraphTask>&, torch::autograd::Node*, torch::autograd::InputBuffer&, std::shared_ptr<torch::autograd::ReadyQueue> const&)+0x2244
+0x140502923051663: torch::autograd::Engine::thread_main(std::shared_ptr<torch::autograd::GraphTask> const&)+0x1695
+0x140502923017263: torch::autograd::Engine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x319
+0x140502570378156: torch::autograd::python::PythonEngine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x92
+0x140503185248851: std::error_code::default_error_condition() const+0x51
+0x140503201041452: monitor_begin_thread+0x449
+0x140503197960899: pthread_condattr_setpshared+0x1299
+0x140503198558288: __xmknodat+0x560
+
+--------------------------------------------------
+ALLOC 9223372036854775880
+ALLOC 9223372036854775891
+ALLOC 9223372036854776003
+ALLOC 9223372036854776014
+ALLOC 9223372036854776100
+ALLOC 9223372036854776111
+ALLOC 9223372036854776197
+ALLOC 9223372036854776208
+ALLOC 9223372036854776294
+ALLOC 9223372036854776305
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855368697: at::TensorBase at::detail::_empty_generic<long>(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x1897
+0x140502855347892: at::detail::empty_generic(c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType, std::optional<c10::MemoryFormat>)+0x20
+0x140501687261070: at::detail::empty_cuda(c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>, std::optional<c10::MemoryFormat>)+0x302
+0x140501687262661: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x85
+0x140501687262952: at::detail::empty_cuda(c10::ArrayRef<long>, c10::TensorOptions const&)+0x232
+0x140501727044971: at::(anonymous namespace)::create_out(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions const&)+0x27
+0x140501728318518: at::(anonymous namespace)::structured_threshold_backward_out_functional::set_output_raw_strided(long, c10::ArrayRef<long>, c10::ArrayRef<long>, c10::TensorOptions, c10::ArrayRef<at::Dimname>)+0x198
+0x140502856102838: at::TensorIteratorBase::fast_set_up(at::TensorIteratorConfig const&)+0x1398
+0x140502856121466: at::TensorIteratorBase::build(at::TensorIteratorConfig&)+0x122
+0x140502858860386: at::meta::structured_threshold_backward::meta(at::Tensor const&, at::Tensor const&, c10::Scalar const&)+0x226
+0x140501727921498: at::(anonymous namespace)::wrapper_CUDA_threshold_backward(at::Tensor const&, at::Tensor const&, c10::Scalar const&)+0x394
+0x140501727921763:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502869050942: at::_ops::threshold_backward::redispatch(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, c10::Scalar const&)+0x126
+0x140502910686859: torch::autograd::VariableType::(anonymous namespace)::threshold_backward(c10::DispatchKeySet, at::Tensor const&, at::Tensor const&, c10::Scalar const&)+0x971
+0x140502910688534:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870269632: at::Tensor c10::Dispatcher::callWithDispatchKeySlowPath<at::Tensor, at::Tensor const&, at::Tensor const&, c10::Scalar const&>(c10::TypedOperatorHandle<at::Tensor (at::Tensor const&, at::Tensor const&, c10::Scalar const&)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, at::Tensor const&, at::Tensor const&, c10::Scalar const&)+0x528
+0x140502869497766: at::_ops::threshold_backward::call(at::Tensor const&, at::Tensor const&, c10::Scalar const&)+0x790
+0x140502909325337: torch::autograd::generated::ReluBackward0::apply(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x409
+0x140502923077627: torch::autograd::Node::operator()(std::vector<at::Tensor, std::allocator<at::Tensor> >&&)+0x859
+0x140502923048406: torch::autograd::Engine::evaluate_function(std::shared_ptr<torch::autograd::GraphTask>&, torch::autograd::Node*, torch::autograd::InputBuffer&, std::shared_ptr<torch::autograd::ReadyQueue> const&)+0x5734
+0x140502923051663: torch::autograd::Engine::thread_main(std::shared_ptr<torch::autograd::GraphTask> const&)+0x1695
+0x140502923017263: torch::autograd::Engine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x319
+0x140502570378156: torch::autograd::python::PythonEngine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x92
+0x140503185248851: std::error_code::default_error_condition() const+0x51
+0x140503201041452: monitor_begin_thread+0x449
+0x140503197960899: pthread_condattr_setpshared+0x1299
+0x140503198558288: __xmknodat+0x560
+
+--------------------------------------------------
+FREE 9223372036854775883
+FREE 9223372036854775894
+FREE 9223372036854776006
+FREE 9223372036854776017
+FREE 9223372036854776103
+FREE 9223372036854776114
+FREE 9223372036854776200
+FREE 9223372036854776211
+FREE 9223372036854776297
+FREE 9223372036854776308
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502923340124: torch::autograd::SavedVariable::reset_data()+0x236
+0x140502909809125: torch::autograd::generated::ReluBackward0::release_variables()+0x53
+0x140502923049342: torch::autograd::Engine::evaluate_function(std::shared_ptr<torch::autograd::GraphTask>&, torch::autograd::Node*, torch::autograd::InputBuffer&, std::shared_ptr<torch::autograd::ReadyQueue> const&)+0x6670
+0x140502923051663: torch::autograd::Engine::thread_main(std::shared_ptr<torch::autograd::GraphTask> const&)+0x1695
+0x140502923017263: torch::autograd::Engine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x319
+0x140502570378156: torch::autograd::python::PythonEngine::thread_init(int, std::shared_ptr<torch::autograd::ReadyQueue> const&, bool)+0x92
+0x140503185248851: std::error_code::default_error_condition() const+0x51
+0x140503201041452: monitor_begin_thread+0x449
+0x140503197960899: pthread_condattr_setpshared+0x1299
+0x140503198558288: __xmknodat+0x560
+
+--------------------------------------------------
+FREE 9223372036854775901
+FREE 9223372036854776023
+FREE 9223372036854776120
+FREE 9223372036854776217
+FREE 9223372036854776314
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502570549176: THPVariable_subclass_clear(THPVariable*)+0x728
+0x140502570550022: THPVariable_subclass_dealloc(_object*)+0x758
+0x94246158913474: _Py_CheckFunctionResult+0x530
+0x94246159012720: PyMapping_Check+0x400
+0x94246159054499: _PyFunction_Vectorcall+0x179
+0x94246158969667: _PyEval_EvalFrameDefault+0x6355
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158965364: _PyEval_EvalFrameDefault+0x2052
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775902
+ALLOC 9223372036854775904
+ALLOC 9223372036854775906
+ALLOC 9223372036854775908
+ALLOC 9223372036854775910
+ALLOC 9223372036854775912
+ALLOC 9223372036854775914
+ALLOC 9223372036854775916
+ALLOC 9223372036854775918
+ALLOC 9223372036854775920
+ALLOC 9223372036854775922
+ALLOC 9223372036854775924
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855376573: at::TensorBase at::detail::_empty_strided_generic<c10::ArrayRef<long> >(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType)+0x1565
+0x140502855348995: at::detail::empty_strided_generic(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType)+0x19
+0x140501687263290: at::detail::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>)+0x298
+0x140501687264911: at::detail::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x111
+0x140501689648426: at::native::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x58
+0x140501727061401: at::(anonymous namespace)::(anonymous namespace)::wrapper_CUDA__empty_strided(c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x1769
+0x140501727061840:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872707715: at::_ops::empty_strided::redispatch(c10::DispatchKeySet, c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x243
+0x140502876669614:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502873705364:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872980070: at::_ops::empty_strided::call(c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x1270
+0x140502863657632: at::native::empty_like(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x2512
+0x140502878601909:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502871940771:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502874694883: at::_ops::empty_like::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x915
+0x140502856135801: at::empty_like(at::Tensor const&, c10::TensorOptions, std::optional<c10::MemoryFormat>)+0x233
+0x140502863646422: at::native::zeros_like(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x534
+0x140502878613125:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502871940771:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502874695907: at::_ops::zeros_like::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x915
+0x140502568073429: torch::autograd::THPVariable_zeros_like(_object*, _object*, _object*)+0x1637
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158989666: _PyEval_EvalFrameDefault+0x26354
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158965364: _PyEval_EvalFrameDefault+0x2052
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158965364: _PyEval_EvalFrameDefault+0x2052
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+ALLOC 9223372036854775929
+ALLOC 9223372036854775930
+ALLOC 9223372036854775931
+ALLOC 9223372036854775932
+ALLOC 9223372036854775933
+ALLOC 9223372036854775934
+ALLOC 9223372036854776027
+ALLOC 9223372036854776028
+ALLOC 9223372036854776029
+ALLOC 9223372036854776030
+ALLOC 9223372036854776031
+ALLOC 9223372036854776032
+ALLOC 9223372036854776124
+ALLOC 9223372036854776125
+ALLOC 9223372036854776126
+ALLOC 9223372036854776127
+ALLOC 9223372036854776128
+ALLOC 9223372036854776129
+ALLOC 9223372036854776221
+ALLOC 9223372036854776222
+ALLOC 9223372036854776223
+ALLOC 9223372036854776224
+ALLOC 9223372036854776225
+ALLOC 9223372036854776226
+ALLOC 9223372036854776318
+ALLOC 9223372036854776319
+ALLOC 9223372036854776320
+ALLOC 9223372036854776321
+ALLOC 9223372036854776322
+ALLOC 9223372036854776323
+0x140503193129084: redshow::MemoryLiveness::memory_op_callback(std::shared_ptr<redshow::Memory>, bool)+0x300
+0x140503193139346: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x402
+0x140503193375314: redshow_submemory_register+0x690
+0x140503193375697: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x257
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669582607: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::alloc_found_block(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::AllocParams const&, unsigned long, std::shared_ptr<c10::GatheredContext>, bool)+0x607
+0x140501669682748: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::malloc(signed char, unsigned long, CUstream_st*)+0x956
+0x140501669690631: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::malloc(void**, signed char, unsigned long, CUstream_st*)+0x87
+0x140501669691983: c10::cuda::CUDACachingAllocator::Native::NativeCachingAllocator::allocate(unsigned long)+0x335
+0x140502855376573: at::TensorBase at::detail::_empty_strided_generic<c10::ArrayRef<long> >(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType)+0x1565
+0x140502855348995: at::detail::empty_strided_generic(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::Allocator*, c10::DispatchKeySet, c10::ScalarType)+0x19
+0x140501687263290: at::detail::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, c10::ScalarType, std::optional<c10::Device>)+0x298
+0x140501687264911: at::detail::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x111
+0x140501689648426: at::native::empty_strided_cuda(c10::ArrayRef<long>, c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x58
+0x140501727061401: at::(anonymous namespace)::(anonymous namespace)::wrapper_CUDA__empty_strided(c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x1769
+0x140501727061840:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872707715: at::_ops::empty_strided::redispatch(c10::DispatchKeySet, c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x243
+0x140502876669614:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502873705364:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872980070: at::_ops::empty_strided::call(c10::ArrayRef<c10::SymInt>, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>)+0x1270
+0x140502863657632: at::native::empty_like(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>)+0x2512
+0x140501703281156: std::vector<at::Tensor, std::allocator<at::Tensor> > at::native::foreach_unary_op<float, at::native::Sqrt>(c10::ArrayRef<at::Tensor>)+0x292
+0x140501702503723: at::native::foreach_tensor_sqrt_cuda(c10::ArrayRef<at::Tensor>)+0x363
+0x140501727109990: at::(anonymous namespace)::(anonymous namespace)::wrapper_CUDA___foreach_sqrt(c10::ArrayRef<at::Tensor>)+0x134
+0x140501727110096:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502872741166: at::_ops::_foreach_sqrt::redispatch(c10::DispatchKeySet, c10::ArrayRef<at::Tensor>)+0x110
+0x140502912823955: torch::autograd::VariableType::(anonymous namespace)::_foreach_sqrt(c10::DispatchKeySet, c10::ArrayRef<at::Tensor>)+0x499
+0x140502912826307:  -- error: unable to obtain symbol name for this frame+0x0
+0x140502870067080: std::vector<at::Tensor, std::allocator<at::Tensor> > c10::Dispatcher::callWithDispatchKeySlowPath<std::vector<at::Tensor, std::allocator<at::Tensor> >, c10::ArrayRef<at::Tensor> >(c10::TypedOperatorHandle<std::vector<at::Tensor, std::allocator<at::Tensor> > (c10::ArrayRef<at::Tensor>)> const&, at::StepCallbacks&, c10::DispatchKeySet, c10::KernelFunction const&, c10::ArrayRef<at::Tensor>)+0x360
+0x140502872844632: at::_ops::_foreach_sqrt::call(c10::ArrayRef<at::Tensor>)+0x424
+0x140502568302623: torch::autograd::THPVariable__foreach_sqrt(_object*, _object*, _object*)+0x591
+0x94246159052306: PyObject_CallFunctionObjArgs+0x1298
+0x94246159013723: _PyObject_MakeTpCall+0x603
+0x94246158987734: _PyEval_EvalFrameDefault+0x24422
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158969667: _PyEval_EvalFrameDefault+0x6355
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246159111218: PyObject_Call+0x290
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246159111218: PyObject_Call+0x290
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158965364: _PyEval_EvalFrameDefault+0x2052
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+FREE 9223372036854775939
+FREE 9223372036854775940
+FREE 9223372036854775941
+FREE 9223372036854775942
+FREE 9223372036854775943
+FREE 9223372036854775944
+FREE 9223372036854776037
+FREE 9223372036854776038
+FREE 9223372036854776039
+FREE 9223372036854776040
+FREE 9223372036854776041
+FREE 9223372036854776042
+FREE 9223372036854776134
+FREE 9223372036854776135
+FREE 9223372036854776136
+FREE 9223372036854776137
+FREE 9223372036854776138
+FREE 9223372036854776139
+FREE 9223372036854776231
+FREE 9223372036854776232
+FREE 9223372036854776233
+FREE 9223372036854776234
+FREE 9223372036854776235
+FREE 9223372036854776236
+FREE 9223372036854776328
+FREE 9223372036854776329
+FREE 9223372036854776330
+FREE 9223372036854776331
+FREE 9223372036854776332
+FREE 9223372036854776333
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502570549176: THPVariable_subclass_clear(THPVariable*)+0x728
+0x140502570550022: THPVariable_subclass_dealloc(_object*)+0x758
+0x94246158913474: _Py_CheckFunctionResult+0x530
+0x94246159012720: PyMapping_Check+0x400
+0x94246159054499: _PyFunction_Vectorcall+0x179
+0x94246158969667: _PyEval_EvalFrameDefault+0x6355
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246159111218: PyObject_Call+0x290
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246159111218: PyObject_Call+0x290
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158965364: _PyEval_EvalFrameDefault+0x2052
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+FREE 9223372036854775948
+FREE 9223372036854775951
+FREE 9223372036854775979
+FREE 9223372036854776046
+FREE 9223372036854776049
+FREE 9223372036854776076
+FREE 9223372036854776143
+FREE 9223372036854776146
+FREE 9223372036854776173
+FREE 9223372036854776240
+FREE 9223372036854776243
+FREE 9223372036854776270
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502570549176: THPVariable_subclass_clear(THPVariable*)+0x728
+0x140502570550022: THPVariable_subclass_dealloc(_object*)+0x758
+0x94246158858063: _PyObject_GC_Malloc+0x1327
+0x94246158970289: _PyEval_EvalFrameDefault+0x6977
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+FREE 9223372036854775980
+FREE 9223372036854775981
+FREE 9223372036854775982
+FREE 9223372036854775983
+FREE 9223372036854775984
+FREE 9223372036854775985
+FREE 9223372036854776077
+FREE 9223372036854776078
+FREE 9223372036854776079
+FREE 9223372036854776080
+FREE 9223372036854776081
+FREE 9223372036854776082
+FREE 9223372036854776174
+FREE 9223372036854776175
+FREE 9223372036854776176
+FREE 9223372036854776177
+FREE 9223372036854776178
+FREE 9223372036854776179
+FREE 9223372036854776271
+FREE 9223372036854776272
+FREE 9223372036854776273
+FREE 9223372036854776274
+FREE 9223372036854776275
+FREE 9223372036854776276
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502570575182: THPVariable_set_grad(THPVariable*, _object*, void*)+0x798
+0x94246158881579: _PyObject_GenericSetAttrWithDict+0x1851
+0x94246158879392: PyObject_SetAttr+0x112
+0x94246158967642: _PyEval_EvalFrameDefault+0x4330
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158974195: _PyEval_EvalFrameDefault+0x10883
+0x94246159054444: _PyFunction_Vectorcall+0x124
+0x94246158965364: _PyEval_EvalFrameDefault+0x2052
+0x94246159900502: PyEval_EvalCode+0x438
+0x94246159900198: PyEval_EvalCode+0x134
+0x94246160058376: PyUnicode_Tailmatch+0x2360
+0x94246160035855: PyInit__collections+0x1519
+0x94246160057765: PyUnicode_Tailmatch+0x1749
+0x94246160055176: _PyRun_SimpleFileObject+0x424
+0x94246160054375: _PyRun_AnyFileObject+0x71
+0x94246160006750: Py_RunMain+0x702
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+FREE 9223372036854776335
+FREE 9223372036854776336
+FREE 9223372036854776337
+FREE 9223372036854776338
+FREE 9223372036854776339
+FREE 9223372036854776340
+FREE 9223372036854776341
+FREE 9223372036854776342
+FREE 9223372036854776343
+FREE 9223372036854776344
+FREE 9223372036854776345
+FREE 9223372036854776346
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502570549176: THPVariable_subclass_clear(THPVariable*)+0x728
+0x140502570550022: THPVariable_subclass_dealloc(_object*)+0x758
+0x94246158916721: _Py_CheckFunctionResult+0x3777
+0x94246158916204: _Py_CheckFunctionResult+0x3260
+0x94246158916721: _Py_CheckFunctionResult+0x3777
+0x94246158916204: _Py_CheckFunctionResult+0x3260
+0x94246158916499: _Py_CheckFunctionResult+0x3555
+0x94246159148039: PyObject_DelItem+0x2903
+0x94246159487887: PyDict_Clear+0x319
+0x94246160034826: PyInit__collections+0x490
+0x94246158865613: PyObject_GC_Del+0x2317
+0x94246160074656: PyMarshal_ReadLongFromFile+0x3472
+0x94246160072294: PyMarshal_ReadLongFromFile+0x1110
+0x94246160059256: Py_FinalizeEx+0x328
+0x94246160006419: Py_RunMain+0x371
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+FREE 9223372036854776347
+FREE 9223372036854776348
+FREE 9223372036854776361
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502570549176: THPVariable_subclass_clear(THPVariable*)+0x728
+0x140502570550022: THPVariable_subclass_dealloc(_object*)+0x758
+0x94246159487887: PyDict_Clear+0x319
+0x94246160034826: PyInit__collections+0x490
+0x94246158865613: PyObject_GC_Del+0x2317
+0x94246160074656: PyMarshal_ReadLongFromFile+0x3472
+0x94246160072294: PyMarshal_ReadLongFromFile+0x1110
+0x94246160059256: Py_FinalizeEx+0x328
+0x94246160006419: Py_RunMain+0x371
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+FREE 9223372036854776349
+FREE 9223372036854776351
+FREE 9223372036854776353
+FREE 9223372036854776355
+FREE 9223372036854776357
+FREE 9223372036854776359
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502922952760: torch::autograd::AutogradMeta::~AutogradMeta()+0x712
+0x140503183455026: c10::TensorImpl::~TensorImpl()+0x530
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502923107620: torch::autograd::AccumulateGrad::~AccumulateGrad()+0x740
+0x140502923083689: torch::autograd::deleteNode(torch::autograd::Node*)+0x169
+0x140502913094142: std::_Sp_counted_deleter<torch::autograd::generated::NllLossBackward0*, void (*)(torch::autograd::Node*), std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()+0x14
+0x140502922952656: torch::autograd::AutogradMeta::~AutogradMeta()+0x608
+0x140503183455026: c10::TensorImpl::~TensorImpl()+0x530
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502570549176: THPVariable_subclass_clear(THPVariable*)+0x728
+0x140502570550022: THPVariable_subclass_dealloc(_object*)+0x758
+0x94246159487887: PyDict_Clear+0x319
+0x94246160034826: PyInit__collections+0x490
+0x94246158865613: PyObject_GC_Del+0x2317
+0x94246160074656: PyMarshal_ReadLongFromFile+0x3472
+0x94246160072294: PyMarshal_ReadLongFromFile+0x1110
+0x94246160059256: Py_FinalizeEx+0x328
+0x94246160006419: Py_RunMain+0x371
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+
+--------------------------------------------------
+FREE 9223372036854776350
+FREE 9223372036854776352
+FREE 9223372036854776354
+FREE 9223372036854776356
+FREE 9223372036854776358
+FREE 9223372036854776360
+0x140503193133553: redshow::MemoryLiveness::memfree_op_callback(std::shared_ptr<redshow::Memfree>, bool)+0x225
+0x140503193139238: redshow::MemoryLiveness::op_callback(std::shared_ptr<redshow::Operation>, bool)+0x294
+0x140503193373675: redshow_submemory_unregister+0x555
+0x140503193375936: torch_memory_callback(torch_monitor_callback_site, torch_monitor_callback_data*)+0x496
+0x140503186734617: torch_monitor::TorchProfiler::MemoryState::reportMemoryUsage(void*, long, unsigned long, unsigned long, c10::Device)+0x153
+0x140501669578035: c10::cuda::CUDACachingAllocator::Native::DeviceCachingAllocator::free(c10::cuda::CUDACachingAllocator::Native::(anonymous namespace)::Block*)+0x499
+0x140501669578511: c10::cuda::CUDACachingAllocator::Native::local_raw_delete(void*)+0x111
+0x140503183483584: c10::intrusive_ptr<c10::StorageImpl, c10::detail::intrusive_target_default_null_type<c10::StorageImpl> >::reset_()+0x256
+0x140503183455035: c10::TensorImpl::~TensorImpl()+0x539
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502923107620: torch::autograd::AccumulateGrad::~AccumulateGrad()+0x740
+0x140502923083689: torch::autograd::deleteNode(torch::autograd::Node*)+0x169
+0x140502913094142: std::_Sp_counted_deleter<torch::autograd::generated::NllLossBackward0*, void (*)(torch::autograd::Node*), std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_dispose()+0x14
+0x140502922952656: torch::autograd::AutogradMeta::~AutogradMeta()+0x608
+0x140503183455026: c10::TensorImpl::~TensorImpl()+0x530
+0x140503183455465: c10::TensorImpl::~TensorImpl()+0x9
+0x140502570549176: THPVariable_subclass_clear(THPVariable*)+0x728
+0x140502570550022: THPVariable_subclass_dealloc(_object*)+0x758
+0x94246159487887: PyDict_Clear+0x319
+0x94246160034826: PyInit__collections+0x490
+0x94246158865613: PyObject_GC_Del+0x2317
+0x94246160074656: PyMarshal_ReadLongFromFile+0x3472
+0x94246160072294: PyMarshal_ReadLongFromFile+0x1110
+0x94246160059256: Py_FinalizeEx+0x328
+0x94246160006419: Py_RunMain+0x371
+0x94246159851117: Py_BytesMain+0x45
+0x140503201037458: monitor_main+0x237
+0x140503197523344: __libc_init_first+0x144
+0x140503197523520: __libc_start_main+0x128
+0x140503201035375: __libc_start_main+0x108
+0x94246159850853: _start+0x37
+

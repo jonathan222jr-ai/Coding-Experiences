@@ -24,7 +24,7 @@ If you only look at three things:
 |---|---|
 | **[Chronicler](ai-agents/chronicler-dnd-agent)** | Nine cooperating agents maintaining a consistent D&D world, including a contradiction checker that catches conflicts before they're committed to state |
 | **[Multiplayer Blackjack](web-apps/blackjack-multiplayer)** | Full-stack real-time game — FastAPI + Socket.IO backend, vanilla JS front end, synchronized play across clients |
-| **[ML-PGO Research](research/ml-pgo)** | Undergraduate research using an LLM agent to read GPU memory profiles and propose optimizations |
+| **[ML-PGO Research](research/ml-pgo)** | Undergraduate research: an LLM agent reads GPU memory profiles and proposes fixes. Found 29% of peak memory recoverable on a PyTorch workload, with every allocation traced to a source line |
 
 ---
 
@@ -92,7 +92,7 @@ persistent SQLite memory.
 
 | Project | Description |
 |---|---|
-| [`ml-pgo`](research/ml-pgo) | Undergraduate research on LLM-guided profile-guided optimization: an agent that reads GPU memory-profiler output and proposes optimizations, with a persistent memory store, token accounting, a batch experiment runner, and three chained agent skills. |
+| [`ml-pgo`](research/ml-pgo) | Undergraduate research on LLM-guided profile-guided optimization. Parses DrGPUM memory profiles, ranks inefficiencies by an idle byte-kernel metric, and attributes each allocation to a line of Python. Detection is deterministic — the model interprets findings but never produces a metric. Four authored agent skills, an append-only experiment ledger, and 37 tests against real captured profiles. |
 
 ---
 

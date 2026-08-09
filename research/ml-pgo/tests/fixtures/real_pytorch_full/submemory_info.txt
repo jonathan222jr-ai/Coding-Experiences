@@ -1,0 +1,4 @@
+submemory_peak_kernel: 0
+optimal_submemory_peak: 0 B
+current_submemory_peak: 30740992 B
+

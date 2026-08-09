@@ -1,0 +1,26 @@
+memory_peak_kernel: 20
+optimal_memory_peak: 402653184 B
+current_memory_peak: 1140850688 B
+
+op_id: 10, ALLOC 1000
+op_id: 12, COPYT 1000
+op_id: 20, ALLOC 2000
+op_id: 30, ALLOC 3000
+op_id: 40, ALLOC 4000
+op_id: 50, ALLOC 5000
+op_id: 60, ALLOC 6000
+op_id: 62, COPYT 6000
+op_id: 64, COPYT 6000
+op_id: 100, ACCESS 1000
+op_id: 110, ACCESS 4000
+op_id: 150, ACCESS 5000
+op_id: 200, ACCESS 4000
+op_id: 300, ACCESS 6000
+op_id: 500, ACCESS 3000
+op_id: 700, ACCESS 3000
+op_id: 850, FREE 6000
+op_id: 860, ACCESS 1000
+op_id: 870, FREE 3000
+op_id: 880, FREE 4000
+op_id: 890, FREE 2000
+op_id: 900, FREE 1000

@@ -246,11 +246,12 @@
           <p>Undergraduate research into whether an LLM agent can read GPU memory profiles
              and propose optimizations a human would.</p>
           <ul>
-            <li>Parses DrGPUM profiler output, identifies kernel hotspots, and ranks concrete
-                fixes by impact against effort</li>
-            <li>Three chained agent skills — analyze the profile, suggest the fix, then verify
-                the speedup is real and the bottleneck actually moved</li>
-            <li>Persistent memory across runs plus token accounting to keep experiments cheap</li>
+            <li>Found 29% of peak GPU memory recoverable on a PyTorch workload, with all 327
+                allocations attributed to specific lines of Python</li>
+            <li>Detection is deterministic and runs locally — the model interprets findings
+                and locates them in source, but never produces a metric</li>
+            <li>Four authored agent skills with explicit stop conditions, an append-only
+                experiment ledger, and 37 tests against real captured profiles</li>
           </ul>
           <div class="chips"><span class="chip">Python</span><span class="chip">CUDA</span><span class="chip">PyTorch</span><span class="chip">HPCToolkit</span></div>
         </article>

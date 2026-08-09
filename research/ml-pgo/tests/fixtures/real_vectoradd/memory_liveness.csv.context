@@ -1,0 +1,76 @@
+95  Malloc  1 count(s)
+Unknown:0	main#
+Unknown:0	cudaMalloc#
+Unknown:0	libcudart_static_f74e2f2bcf2cf49bd1a61332e1d15bd1e748f9cf#
+Unknown:0	libcudart_static_5382377d5c772c9d197c0cda9fd9742ee6ad893c#
+Unknown:0	gpu_op_alloc#
+<unknown file> [libhpcrun.so.0.0.0]:0	 <op>#
+
+119  Malloc  1 count(s)
+Unknown:0	main#
+Unknown:0	cudaMalloc#
+Unknown:0	libcudart_static_f74e2f2bcf2cf49bd1a61332e1d15bd1e748f9cf#
+Unknown:0	libcudart_static_5382377d5c772c9d197c0cda9fd9742ee6ad893c#
+Unknown:0	gpu_op_alloc#
+<unknown file> [libhpcrun.so.0.0.0]:0	 <op>#
+
+143  Malloc  1 count(s)
+Unknown:0	main#
+Unknown:0	cudaMalloc#
+Unknown:0	libcudart_static_f74e2f2bcf2cf49bd1a61332e1d15bd1e748f9cf#
+Unknown:0	libcudart_static_5382377d5c772c9d197c0cda9fd9742ee6ad893c#
+Unknown:0	gpu_op_alloc#
+<unknown file> [libhpcrun.so.0.0.0]:0	 <op>#
+
+151  CopyToDM  1 count(s)
+Unknown:0	main#
+Unknown:0	cudaMemcpy#
+Unknown:0	libcudart_static_901c335edfe2e89188fa6b8fe3e2a2194ad05bff#
+Unknown:0	libcudart_static_e760a7280bc1af45ef561886abc194823c5edadb#
+<unknown file> [vectorAdd]:0	 <op>#
+
+179  CopyToDM  1 count(s)
+Unknown:0	main#
+Unknown:0	cudaMemcpy#
+Unknown:0	libcudart_static_901c335edfe2e89188fa6b8fe3e2a2194ad05bff#
+Unknown:0	libcudart_static_e760a7280bc1af45ef561886abc194823c5edadb#
+<unknown file> [vectorAdd]:0	 <op>#
+
+231  Kernel  1 count(s)
+Unknown:0	main#
+Unknown:0	vectorAdd(float const*, float const*, float*, int)#
+Unknown:0	__device_stub__Z9vectorAddPKfS0_Pfi(float const*, float const*, float*, int)#
+Unknown:0	cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*)#
+Unknown:0	cudaLaunchKernel#
+Unknown:0	libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68#
+Unknown:0	gpu_op_kernel#
+<unknown file> [libhpcrun.so.0.0.0]:0	 <op>#
+
+239  CopyFromDM  1 count(s)
+Unknown:0	main#
+Unknown:0	cudaMemcpy#
+Unknown:0	libcudart_static_901c335edfe2e89188fa6b8fe3e2a2194ad05bff#
+Unknown:0	libcudart_static_e760a7280bc1af45ef561886abc194823c5edadb#
+<unknown file> [vectorAdd]:0	 <op>#
+
+281  Free  1 count(s)
+Unknown:0	main#
+Unknown:0	cudaFree#
+Unknown:0	libcudart_static_c64d4787e94fe64d8e27ede30dfe20c11b592bde#
+Unknown:0	gpu_op_alloc#
+<unknown file> [libhpcrun.so.0.0.0]:0	 <op>#
+
+303  Free  1 count(s)
+Unknown:0	main#
+Unknown:0	cudaFree#
+Unknown:0	libcudart_static_c64d4787e94fe64d8e27ede30dfe20c11b592bde#
+Unknown:0	gpu_op_alloc#
+<unknown file> [libhpcrun.so.0.0.0]:0	 <op>#
+
+325  Free  1 count(s)
+Unknown:0	main#
+Unknown:0	cudaFree#
+Unknown:0	libcudart_static_c64d4787e94fe64d8e27ede30dfe20c11b592bde#
+Unknown:0	gpu_op_alloc#
+<unknown file> [libhpcrun.so.0.0.0]:0	 <op>#
+
