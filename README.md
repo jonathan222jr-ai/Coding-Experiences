@@ -1,13 +1,17 @@
 # Coding Portfolio — Jonathan Ramirez
 
-Personal projects and university coursework: multi-agent AI systems, full-stack web
-applications, Outlook add-ins, game development, GPU and parallel computing, and
+Personal projects and university coursework: multi-agent AI systems, full-stack web and
+mobile applications, Outlook add-ins, game development, GPU and parallel computing, and
 compilers.
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=flat&logo=cplusplus&logoColor=white)
+![React Native](https://img.shields.io/badge/React_Native-61DAFB?style=flat&logo=react&logoColor=black)
+![Expo](https://img.shields.io/badge/Expo-000020?style=flat&logo=expo&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat&logo=supabase&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-000000?style=flat&logo=flask&logoColor=white)
 ![CUDA](https://img.shields.io/badge/CUDA-76B900?style=flat&logo=nvidia&logoColor=white)
@@ -18,10 +22,11 @@ compilers.
 
 ## Start here
 
-If you only look at three things:
+If you only look at four things:
 
 | Project | Why |
 |---|---|
+| **[Are you down?](mobile-apps/are-you-down)** | A campus hangout app where every privacy rule is a Postgres RLS policy rather than client code — the author of a post cannot see who declined it, and 89 SQL assertions prove it |
 | **[Chronicler](ai-agents/chronicler-dnd-agent)** | Nine cooperating agents maintaining a consistent D&D world, including a contradiction checker that catches conflicts before they're committed to state |
 | **[Multiplayer Blackjack](web-apps/blackjack-multiplayer)** | Full-stack real-time game — FastAPI + Socket.IO backend, vanilla JS front end, synchronized play across clients |
 | **[ML-PGO Research](research/ml-pgo)** | Undergraduate research: an LLM agent reads GPU memory profiles and proposes fixes. Found 29% of peak memory recoverable on a PyTorch workload, with every allocation traced to a source line |
@@ -30,7 +35,7 @@ If you only look at three things:
 
 ## Contents
 
-- [AI Agents](#ai-agents-ai-agents) · [Web Applications](#web-applications-web-apps) ·
+- [AI Agents](#ai-agents-ai-agents) · [Mobile Apps](#mobile-apps-mobile-apps) · [Web Applications](#web-applications-web-apps) ·
   [Outlook Add-ins](#outlook-add-ins-office-addins) · [Security Tools](#security-tools-security-tools)
 - [Games](#games-games) · [D&D Tools](#dd-tools-dnd-tools) · [Research](#research-research)
 - [Coursework](#coursework-coursework)
@@ -51,6 +56,12 @@ persistent SQLite memory.
 | [`eng-agent-qa`](ai-agents/eng-agent-qa) | A later take on the same system, built around automatic quality gates: every code-generation step is followed by a review agent and then a debugger agent that fixes what the review flags. Adds a `ReportPackager` that turns a finished run report into a runnable zip. |
 | [`ai-agent-v2`](ai-agents/ai-agent-v2) | Multi-agent system with a dispatching classifier and specialized agents — `coder`, `debugger`, `fullstack`, `behavioral`, `js_explainer`, `reflector` — plus an `agent_builder` for composing new ones. |
 | [`interview-agent`](ai-agents/interview-agent) | Interview-preparation assistant with a web UI and a voice mode, offering CLI, server, and continuous-listen entry points. |
+
+### Mobile Apps (`mobile-apps/`)
+
+| Project | Stack | Description |
+|---|---|---|
+| [`are-you-down`](mobile-apps/are-you-down) | Expo, React Native, TypeScript, Supabase | Campus-scoped app for spontaneous hangouts — post a time-limited invite, and everyone who's in lands in one group thread. Every rule that matters is enforced in Postgres, not the client: campus scoping, the six-person thread cap, and a "pass" that is unreadable by everyone including the post's author. Two test suites (89 offline SQL assertions, 21 against the live stack), a `pg_cron` expiry sweep, and two Edge Functions — one proxying GIF search to keep the vendor key off the device, one asking Claude to triage abuse reports. The model ranks the moderation queue; it never acts. |
 
 ### Web Applications (`web-apps/`)
 
@@ -117,6 +128,7 @@ reference sheet.
 |---|---|
 | Python | `pip install -r requirements.txt` |
 | Node | `npm install` |
+| Expo / React Native | `npm install`, then `npx expo start` (see the project README — it also needs a local Supabase stack) |
 | C / C++ | `make` in the lab directory |
 | Godot | Open the project's `project.godot` in Godot 4 |
 | Notebooks | Written for Google Colab with a GPU runtime |

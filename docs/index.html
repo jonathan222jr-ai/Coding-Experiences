@@ -200,7 +200,7 @@
 
       <dl class="glance">
         <div><dt>Focus</dt><dd>AI agents · LLM integration</dd></div>
-        <div><dt>Also</dt><dd>Full-stack · GPU &amp; parallel · Compilers</dd></div>
+        <div><dt>Also</dt><dd>Full-stack &amp; mobile · GPU &amp; parallel · Compilers</dd></div>
         <div><dt>Degree</dt><dd>B.S. CSE, UC Merced</dd></div>
         <div><dt>Currently</dt><dd>GPU profiling research, UC Merced CSE</dd></div>
       </dl>
@@ -209,6 +209,26 @@
     <section class="sec">
       <div class="sec__head"><h2>Selected work</h2></div>
       <div class="work">
+
+        <article class="card">
+          <span class="card__kind">Personal · Mobile &amp; backend</span>
+          <h3><a href="https://github.com/jonathan222jr-ai/Coding-Experiences/tree/main/mobile-apps/are-you-down">Are you down?</a></h3>
+          <p>A campus app for spontaneous plans. Post a time-limited invite — <em>"anyone down for
+             Target rn?"</em> — and everyone who's in lands in one group thread.</p>
+          <ul>
+            <li>Every rule that matters is a Postgres rule, not client code: campus scoping,
+                one answer per post, a six-person thread cap. Delete the app and drive the
+                API by hand and the guarantees still hold</li>
+            <li>Declining is invisible to everyone, including the author — a row-level policy
+                with no read path for anyone else, because that privacy is what makes saying
+                no safe</li>
+            <li>Claude triages abuse reports but is never allowed to act on one; it only ranks
+                the queue a human works, so a misclassification can't become silent censorship</li>
+            <li>89 database assertions on a throwaway Postgres, plus 21 checks against the
+                live stack over real auth tokens</li>
+          </ul>
+          <div class="chips"><span class="chip">React Native</span><span class="chip">Expo</span><span class="chip">TypeScript</span><span class="chip">Supabase</span><span class="chip">PostgreSQL</span><span class="chip">Claude API</span></div>
+        </article>
 
         <article class="card">
           <span class="card__kind">Internship · Capstone</span>
@@ -358,6 +378,7 @@
         <div><dt>Languages</dt><dd><span>Python · TypeScript · JavaScript · C++ · C</span> · C# · Java · HTML · CSS</dd></div>
         <div><dt>AI &amp; ML</dt><dd><span>Claude API · LLM integration · Prompt engineering · AI agent architecture</span> · PyTorch · NLP</dd></div>
         <div><dt>Web</dt><dd><span>FastAPI · Flask · Socket.IO · SQLAlchemy</span> · React · Node.js · REST APIs</dd></div>
+        <div><dt>Mobile &amp; data</dt><dd><span>React Native · Expo · Supabase · PostgreSQL</span> · Row-level security · SQL testing</dd></div>
         <div><dt>Systems</dt><dd><span>CUDA · MPI · OpenMP · Pthreads</span> · GPU memory profiling (DrGPUM, HPCToolkit) · Compiler design</dd></div>
         <div><dt>Tools</dt><dd><span>Docker · Git &amp; GitHub · Linux/Ubuntu</span> · Cloudflare · Microsoft 365 / Outlook Add-in SDK · Unity · Godot</dd></div>
       </dl>
